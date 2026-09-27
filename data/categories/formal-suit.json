@@ -1,0 +1,145 @@
+{
+  "slug": "formal-suit",
+  "title": "Formal Suit",
+  "subtitle": "Closeup & seated",
+  "blurb": "Tailored navy three-piece in studio. Direct-to-camera closeups and relaxed seated work — showing poise and stillness under lights.",
+  "setting": "Studio",
+  "year": "2026",
+  "published": true,
+  "order": 1,
+  "photos": [
+    {
+      "id": "ph01",
+      "base": "images/formal-suit/sample-01-e1f1a4",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/webp;base64,UklGRloBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7LkQBSNpq0KcbhYhBCilFIzhDBOlkkpXTZCLtGf0o0SIcbFz1SqLCER43Ky/EzV0iUScbqPyvxcVKsVidwvRX4+q1W/ScR4jnXfpmo7E0PGU0T1fdbULkkk48X262y1nYkh4zmi+jZrapckhtOL7dfF1A1DDtXUJmIYL0R5nabqmSTGU6z7PrVlJBJ57HxUq70QkdvOV1U57Vx3vo8xLrZ/JqszgnM2+ovaIsYoMqdab2EEnXYPEHXw0B//DwBWUDggVgAAAPAEAJ0BKhgAHgA+7WqrT6mmI7+wGAgD8B2JZQC06BDv7zYu0NfuTRF4AqgftWWDpAD+6NYcnubvaMRVN1fhOFXhuZuOfiPeOUPQPAshZsEIOqsqQAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Formal Suit — sample frame 1, placeholder for photography",
+      "caption": "Closeup & seated · 01",
+      "order": 1,
+      "featured": true,
+      "sample": true
+    },
+    {
+      "id": "ph02",
+      "base": "images/formal-suit/sample-02-e7e2a1",
+      "w": 1200,
+      "h": 1600,
+      "lqip": "data:image/webp;base64,UklGRoABAABXRUJQVlA4WAoAAAAQAAAAFwAAHwAAQUxQSPkAAAAFgNxGkiOJ2T2n/bdUq+l89O7dmRARE7BQiL0QLJU/VZyCqN8WZ5KS31S0RYi9oiiL2GOv/UIQRGbPKuqMCGkco+uHqi4hITKHn1NLrURcMG76faLaJSEJd5N+f6nWmUQkbm6VvH/TdiUJQx6jmvNNd5KI+bCxXttyJobIL15a7ZnEEPMxTZs+L22XJBLHYxTnS9taibHNR6LWy6r2J4kh5pOL63lpK5KI4/HKy2r1cGVupS9tmZvEuHdxvV8YCQnzblvpe2kPEWLcbqyvRU0h0nFzqV/dDgTGsZVvxbyWGXt/Coc9GJfW8osSxtYl29yuR109fvfr+W8AVlA4IGAAAADQBACdASoYACAAPu1sr0+ppiSiKAqpMB2JZQAAKc/u35dChNxZKiIX4e2ozQCbYAD+6PDxMOLMVSFncxDUu3qfSUmyVHwVkUjzXHuJUKFdzGWCnwXUQBVwgSAg5TjAAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Formal Suit — sample frame 2, placeholder for photography",
+      "caption": "Closeup & seated · 02",
+      "order": 2,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph03",
+      "base": "images/formal-suit/sample-03-81b04f",
+      "w": 1600,
+      "h": 1200,
+      "lqip": "data:image/webp;base64,UklGRhABAABXRUJQVlA4WAoAAAAQAAAAFwAAEQAAQUxQSJkAAAAFgBxJkiIpcngP9Jd0uafj0UMiRMQErFxdIOdsQhsTN6S1ECB0PbWCgCAlEOLQY9kQwZUQYJooX8QNKSSEZQjU14aI34QwLwbyfe1oIUl+ewJ4r1BRLAnpf7utZ0FR/SZJ958N7gVUtA9Jfjs2HyuI4piELDvvDZSJkEyBgB8bkRkgXU9bVwABpga6DrACyEYaSdAIpHHeuFAAVlA4IFAAAABwBACdASoYABIAPulcp02pJSOiN/VYASAdCWcAxNgQ3Ss32z8b3zv0TCuGAAD+6NtTduzW9WqjFrpp82O7LIzEYWWyti4CE1NjuaHm4IlAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        1600
+      ],
+      "alt": "Formal Suit — sample frame 3, placeholder for photography",
+      "caption": "Closeup & seated · 03",
+      "order": 3,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph04",
+      "base": "images/formal-suit/sample-04-e0439a",
+      "w": 1200,
+      "h": 1200,
+      "lqip": "data:image/webp;base64,UklGRkYBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSMcAAAAFkB3Jttw2fR6gXflHuksP73wAtBVCREzAAfHvhXX6w2Ym/1XoIhcp0huOq5DNUYoyE4Lsw5pFaUtOse3moacyQyJyv5s/VS09IhHjYYuur6VaXSSRh/siP9/Vlimn8TxErY91qiMxZLy48L5qaWcSw3jNRd+Wpe2RGLG9xLnvhy7tiiEZrzfeVmvpLoaM5xsfq5baJWI8uf5cqrXHKQ83vnvSO0FyJ6jfFnWHYBtFOlHsELI5H6Vwr1EkaImKXTTqOq57568BAFZQOCBYAAAA0AQAnQEqGAAYAD7tZqtPqaUjojAYCAEwHYljAAAudcZdBq5E2mIoLM4NhvuR1AAA/ujZUoabxKpL6G60Uf9N3baLVpzLZGSDqRflyW6sVZE7XqGnD3rgAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Formal Suit — sample frame 4, placeholder for photography",
+      "caption": "Closeup & seated · 04",
+      "order": 4,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph05",
+      "base": "images/formal-suit/sample-05-8e29c6",
+      "w": 1200,
+      "h": 1800,
+      "lqip": "data:image/webp;base64,UklGRpIBAABXRUJQVlA4WAoAAAAQAAAAFwAAIwAAQUxQSAkBAAAFgB3bttNmHcDZ/TeaA7zzwZPkEiJiAoZziXOJ85GKWyttQ9BJUJojcWuj2phnUlR0IERDRVEOIcTFKtWTELLaq06DhBBbHEdpGREhYl177FR1yClC7sZf02pVSES2Le3vnkEdSUi4e1B87bQdiUSSp6DZP1WLSGJ9ctKPoezJNTFm7ZEkEttTFOO900vrcyjHx9B2JJaZ6XgfNUkmL6fB29B2yDJ7jqJvw6gRmb2aHm9tNUkkrC+nGh9D23Ui3Z4qqp8zM8tjlParWksiIsv9RL9b7RZC5N78Z6CLkLhQfkptBJG7C7+UFUGynuiuZgSzjMP5miwnRyfbRKUJar6IRkmvW+N/u/lvAFZQOCBiAAAA8AQAnQEqGAAkAD7tXqpOKaSkIjAVXVEwHYllAMPoCzay6OjPTeUIvg5+0tHBwvMAAP7o1gTisCcXs0C/Cotj/ysJFqqPJC2la03cPTz4gDpXjla0eWAsUgjCqdmWA7MzUAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Formal Suit — sample frame 5, placeholder for photography",
+      "caption": "Closeup & seated · 05",
+      "order": 5,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph06",
+      "base": "images/formal-suit/sample-06-804d2d",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/webp;base64,UklGRl4BAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN8AAAAFgNxGkiOJ2bOn7/y3VN9052NWmRARE7Dcex5yQw9L3LHM3NRo2qqQM6ljMYWQqEYptUKwbeaCUjoP4WHoXqVnSojxaJ+pUmWGxHg4Wf+LVktnJLbnQfq702q1Il4eKs36rmrVnkTeRhy/VrXarkTG22hEv6fW0s4kxvtw9utQbVci422I6BlLO5MYH8PZr10tPSNXfE6tpU3E+AihX1Mt1RPJeI3A11JtGYnk5cLPKq32gchzeuZvqSrbmScuucpjnP0vdTghThd2RZ1jG0XWQh3PyUCrLl4g6uorbr4fAFZQOCBYAAAA8AQAnQEqGAAeAD7tYKdNqaWjojAIATAdiWUArAAh34+o+qCFa6620N/voONSFjkAAP7o1h1LEF+Eny075CoqVBY4IZltwI+ejMAp5wlpKW12ODPFYAAAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Formal Suit — sample frame 6, placeholder for photography",
+      "caption": "Closeup & seated · 06",
+      "order": 6,
+      "featured": false,
+      "sample": true
+    }
+  ]
+}

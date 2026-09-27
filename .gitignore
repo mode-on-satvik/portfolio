@@ -1,1 +1,22 @@
+# Node (only used by tools/)
+node_modules/
+npm-debug.log*
 
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local secrets — never commit a token
+*.local.json
+.env
+.env.*
+
+# Local scratch
+/tmp/
+*.log

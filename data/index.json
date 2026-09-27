@@ -1,0 +1,114 @@
+{
+  "updated": "2026-09-27",
+  "categories": [
+    {
+      "slug": "formal-suit",
+      "title": "Formal Suit",
+      "subtitle": "Closeup & seated",
+      "blurb": "Tailored navy three-piece in studio. Direct-to-camera closeups and relaxed seated work — showing poise and stillness under lights.",
+      "count": 6,
+      "order": 1,
+      "published": true,
+      "cover": {
+        "base": "images/formal-suit/sample-01-e1f1a4",
+        "w": 1200,
+        "h": 1500,
+        "lqip": "data:image/webp;base64,UklGRloBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7LkQBSNpq0KcbhYhBCilFIzhDBOlkkpXTZCLtGf0o0SIcbFz1SqLCER43Ky/EzV0iUScbqPyvxcVKsVidwvRX4+q1W/ScR4jnXfpmo7E0PGU0T1fdbULkkk48X262y1nYkh4zmi+jZrapckhtOL7dfF1A1DDtXUJmIYL0R5nabqmSTGU6z7PrVlJBJ57HxUq70QkdvOV1U57Vx3vo8xLrZ/JqszgnM2+ovaIsYoMqdab2EEnXYPEHXw0B//DwBWUDggVgAAAPAEAJ0BKhgAHgA+7WqrT6mmI7+wGAgD8B2JZQC06BDv7zYu0NfuTRF4AqgftWWDpAD+6NYcnubvaMRVN1fhOFXhuZuOfiPeOUPQPAshZsEIOqsqQAAA",
+        "alt": "Formal Suit — sample frame 1, placeholder for photography",
+        "sample": true
+      },
+      "rev": "e1f1a4"
+    },
+    {
+      "slug": "sporty-basketball",
+      "title": "Sporty Basketball",
+      "subtitle": "Summer collection",
+      "blurb": "Outdoor court in natural light. Motion, mid-action expression and genuine energy — suited to athletic and activewear campaigns.",
+      "count": 6,
+      "order": 2,
+      "published": true,
+      "cover": {
+        "base": "images/sporty-basketball/sample-01-d15612",
+        "w": 1200,
+        "h": 1500,
+        "lqip": "data:image/webp;base64,UklGRmYBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN4AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkIw2KRtNWs3K4WIQQopRSM4QwTpZJKV02Qi7Rn9KNEiHGxc9UqiwhEeNysvxM1dIlEnG6j8r8XFSrFYncL0V+PqtVv0nEeI5136ZqOxNDxlNE9X3W1C5JJOPF9utstZ2JIeM5ovo2a2qXJIbTi+3XxdQNQw7V1CZiGC9EeZ2m6pkkxlOs+z61ZSQSeex8VKu9EJHbzldVOe1cd76PMS62fyarM4JzNvqL2iLGKDKnWm9hBJ12DxB18NAf/w9WUDggYgAAADAFAJ0BKhgAHgA+7WywUKmmJKKoCqkwHYliAJ0zIYF/8HxzSW6RN2HdwAVfOMrd9MYAAP7o8PHko1SltQiRs3yObWKi81udVzGzngC0HJE8tvLp+sndhZLZdV2JKswIAAAA",
+        "alt": "Sporty Basketball — sample frame 1, placeholder for photography",
+        "sample": true
+      },
+      "rev": "d15612"
+    },
+    {
+      "slug": "ethnic-jacket-set",
+      "title": "Ethnic Jacket Set",
+      "subtitle": "Heritage tailoring",
+      "blurb": "Structured jacket set with traditional detailing. Editorial three-quarter and full-length frames against a clean backdrop.",
+      "count": 6,
+      "order": 3,
+      "published": true,
+      "cover": {
+        "base": "images/ethnic-jacket-set/sample-01-298c49",
+        "w": 1200,
+        "h": 1500,
+        "lqip": "data:image/webp;base64,UklGRl4BAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkJygaTVsV4nCxCCFEKaVmCGGcLJNSumyEXKI/pRslQoyLn6lUWUIixuVk+ZmqpUsk4nQflfm5qFYrErlfivx8Vqt+k4jxHOu+TdV2JoaMp4jq+6ypXZJIxovt19lqOxNDxnNE9W3W1C5JDKcX26+LqRuGHKqpTcQwXojyOk3VM0mMp1j3fWrLSCTy2PmoVnshIredr6py2rnufB9jXGz/TFZnBOds9Be1RYxRZE613sIIOu0eIOrgoT/+HwBWUDggWgAAADAFAJ0BKhgAHgA+7WKtT6mlJCIwGAgBMB2JYwDM0A9G1u8N42ii4+jIl28ZKkFvSkgAAP7o8PCtSXGYOOvDoMz9nFtnNE+b8HNadnp8zUtiRnmqtTJUUIAAAA==",
+        "alt": "Ethnic Jacket Set — sample frame 1, placeholder for photography",
+        "sample": true
+      },
+      "rev": "298c49"
+    },
+    {
+      "slug": "ethnic-festive",
+      "title": "Ethnic Festive",
+      "subtitle": "Full-length celebration wear",
+      "blurb": "Festive dress photographed full-length with warm directional light. Movement, layered fabric and detail work for seasonal retail.",
+      "count": 6,
+      "order": 4,
+      "published": true,
+      "cover": {
+        "base": "images/ethnic-festive/sample-01-9c9556",
+        "w": 1200,
+        "h": 1500,
+        "lqip": "data:image/webp;base64,UklGRmwBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7LkQBSNpq0KcbhYhBCilFIzhDBOlkkpXTZCLtGf0o0SIcbFz1SqLCER43Ky/EzV0iUScbqPyvxcVKsVidwvRX4+q1W/ScR4jnXfpmo7E0PGU0T1fdbULkkk48X262y1nYkh4zmi+jZrapckhtOL7dfF1A1DDtXUJmIYL0R5nabqmSTGU6z7PrVlJBJ57HxUq70QkdvOV1U57Vx3vo8xLrZ/JqszgnM2+ovaIsYoMqdab2EEnXYPEHXw0B//DwBWUDggaAAAAFAFAJ0BKhgAHgA+7WKsT6mlJCIwGAgBMB2JYgCdMy/BiWvHdPT2LOQ8UXGcw9MQ3eftAAD+4001HOQwm07eQ5KAp2uahJTghMJVsFq8skBJAWy0/yOlVVIWZEf3N9OC3rGqr1WtAAAA",
+        "alt": "Ethnic Festive — sample frame 1, placeholder for photography",
+        "sample": true
+      },
+      "rev": "9c9556"
+    },
+    {
+      "slug": "sporty-scooter",
+      "title": "Sporty Scooter",
+      "subtitle": "Prop-led outdoor session",
+      "blurb": "Scooter as working prop in open daylight. Confident interaction with equipment — useful for lifestyle, toy and outdoor brands.",
+      "count": 6,
+      "order": 5,
+      "published": true,
+      "cover": {
+        "base": "images/sporty-scooter/sample-01-f0d130",
+        "w": 1200,
+        "h": 1500,
+        "lqip": "data:image/webp;base64,UklGRmIBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN4AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkKxpFo2mrQRwuFiGEKKXUDCGMk2VSSpeNkEv0p3SjRIhx8TOVKktIxLicLD9TtXSJRJzuozI/F9VqRSL3S5Gfz2rVbxIxnmPdt6nazsSQ8RRRfZ81tUsSyXix/TpbbWdiyHiOqL7NmtolieH0Yvt1MXXDkEM1tYkYxgtRXqepeiaJ8RTrvk9tGYlEHjsf1WovROS281VVTjvXne9jjIvtn8nqjOCcjf6itogxisyp1lsYQafdA0QdPPTH/wNWUDggXgAAABAFAJ0BKhgAHgA+7WStT6mlJCIwGAgBMB2JQBadAeja3kBtacOCyqG1SUjOUlMvVgAA/uNNOLt75dhBr9nzgEpiHrHrqwYuiMIoyXRQunSgRom1znztNBvyW+C1gAA=",
+        "alt": "Sporty Scooter — sample frame 1, placeholder for photography",
+        "sample": true
+      },
+      "rev": "f0d130"
+    },
+    {
+      "slug": "cultural-striped-shirt",
+      "title": "Cultural Striped Shirt",
+      "subtitle": "Relaxed portraiture",
+      "blurb": "Striped casualwear in soft natural light. Unposed smiles and easy eye contact — the warmest, most approachable set in the book.",
+      "count": 6,
+      "order": 6,
+      "published": true,
+      "cover": {
+        "base": "images/cultural-striped-shirt/sample-01-a2cd45",
+        "w": 1200,
+        "h": 1500,
+        "lqip": "data:image/webp;base64,UklGRl4BAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkJ6vSaNrajMPFIoQQpZSaIYRxskxK6bIRcon+lG6UCDEufqZSZQmJGJeT5Weqli6RiNN9VObnolqtSOR+KfLzWa36TSLGc6z7NlXbmRgyniKq77OmdkkiGS+2X2er7UwMGc8R1bdZU7skMZxebL8upm4YcqimNhHDeCHK6zRVzyQxnmLd96ktI5HIY+ejWu2FiNx2vqrKaee6832McbH9M1mdEZyz0V/UFjFGkTnVegsj6LR7gKiDh/74fwBWUDggWgAAADAFAJ0BKhgAHgA+7WKtUCmlJCKwGAgBMB2JZQDMHA9G11LX6y1mj8LG861BXKhhJQQAAP7jTTsK7NWYDwjonHmuVHMrB7JOJoWNH9YYhWHkma2+heCgHIQAAA==",
+        "alt": "Cultural Striped Shirt — sample frame 1, placeholder for photography",
+        "sample": true
+      },
+      "rev": "a2cd45"
+    }
+  ],
+  "rev": "119de9d9"
+}

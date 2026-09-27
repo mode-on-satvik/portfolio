@@ -1,0 +1,465 @@
+/* ==========================================================================
+   home.css — hero marquee, ticker, category blocks
+   ========================================================================== */
+
+/* --- Hero --------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  display: grid;
+  align-items: center;
+  /* svh, not vh: on iOS Safari `vh` includes the collapsing URL bar, which
+     makes the hero visibly jump as you begin to scroll. Fallback first. */
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #0e0d0c;
+  isolation: isolate; /* contains the blend-mode to the hero */
+}
+
+/* --- Marquee -----------------------------------------------------------
+   Two rows drifting in opposite directions at 60s / 75s. The durations are
+   deliberately not multiples of each other, so the rows never sync up into
+   one visual block.
+
+   Each row's children are duplicated exactly once in markup and the track is
+   translated by -50%, which lands the copy precisely where the original
+   started — a seamless loop with no visible seam or jump.
+   --------------------------------------------------------------------- */
+
+.marquee {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  align-content: center;
+  gap: var(--gap-grid);
+  /* Dimmed and slightly desaturated so oversized type stays readable on top */
+  opacity: 0.55;
+  filter: saturate(0.85);
+  pointer-events: none;
+}
+
+.marquee__row {
+  display: flex;
+  gap: var(--gap-grid);
+  width: max-content;
+  /* translate3d promotes to its own compositor layer: the animation runs on
+     the GPU and costs zero main-thread work per frame */
+  will-change: transform;
+  animation: drift-left var(--marquee-a) linear infinite;
+}
+
+.marquee__row--b {
+  animation-name: drift-right;
+  animation-duration: var(--marquee-b);
+  /* Phone portrait shows ONE row. Two rows of tiles plus the oversized
+     name leaves no vertical room for the scroll cue, and the counter-drift
+     effect is lost at this width anyway — the rows read as noise, not film.
+     Restored at 480px in the breakpoint block below. */
+  display: none;
+}
+
+@keyframes drift-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes drift-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.marquee__cell {
+  flex: 0 0 auto;
+  width: clamp(9rem, 26vw, 17rem);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.marquee__cell img,
+.marquee__cell .ph {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Hero type ---------------------------------------------------------
+   mix-blend-mode: difference keeps the name legible over ANY photograph
+   beneath it without a heavy scrim that would flatten the imagery.
+
+   But difference has one genuine failure case: against a MID-GREY backdrop,
+   white resolves to mid-grey and the text disappears. Measured on the
+   placeholder tiles, the small-caps location line dropped to roughly 1.4:1.
+   So the blend gets help — a soft radial scrim sits between the marquee and
+   the type, pulling the centre of frame dark enough that difference always
+   resolves near-white. Cheaper than it looks: one composited gradient, and
+   the imagery stays visible at the edges where the type is not.
+   --------------------------------------------------------------------- */
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1; /* same layer as .marquee, but paints after it */
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 50%,
+    rgba(8, 7, 7, 0.82) 0%,
+    rgba(8, 7, 7, 0.55) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  width: 100%;
+  max-width: var(--maxw-site);
+  margin-inline: auto;
+  padding-inline: max(var(--gap-gutter), env(safe-area-inset-left));
+  padding-block: var(--s-10) var(--s-8);
+  text-align: center;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+/* Where blend modes are unsupported, plain white on the scrim above is
+   already readable — so just turn the blend off. No extra background here:
+   .hero::after already supplies the scrim, and stacking a second one would
+   crush the imagery to near-black. */
+@supports not (mix-blend-mode: difference) {
+  .hero__inner {
+    mix-blend-mode: normal;
+  }
+}
+
+.hero__name {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-weight: 300;
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-block-end: var(--s-4);
+}
+
+.hero__role {
+  font-size: clamp(0.75rem, 1.6vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  margin-block-end: var(--s-3);
+}
+
+.hero__place {
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  /* This is the smallest text in the hero and sits over the busiest part of
+     the strip, so it gets less opacity reduction than a caption elsewhere
+     would. Dropping it to 0.75 pushed it under 3:1 on the light tiles. */
+  opacity: 0.88;
+}
+
+/* Word-by-word entrance, 40ms stagger, set inline via --i */
+.hero__word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  animation: word-rise var(--dur-slower) var(--ease-out) forwards;
+  animation-delay: calc(120ms + var(--i, 0) * 40ms);
+}
+
+@keyframes word-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Scroll cue --------------------------------------------------------- */
+
+.hero__cue {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: max(var(--s-5), env(safe-area-inset-bottom));
+  display: grid;
+  justify-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero__cue-line {
+  width: 1px;
+  height: 2.5rem;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: cue-pulse 2.4s var(--ease-in-out) infinite;
+  transform-origin: top;
+}
+
+@keyframes cue-pulse {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* --- Ticker ------------------------------------------------------------- */
+
+.ticker {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background: var(--surface);
+  padding-block: var(--s-4);
+}
+
+.ticker__track {
+  display: flex;
+  gap: var(--s-6);
+  width: max-content;
+  will-change: transform;
+  animation: drift-left var(--ticker) linear infinite;
+}
+
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-6);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.ticker__item::after {
+  content: "·";
+  color: var(--accent);
+}
+
+/* --- Category blocks ---------------------------------------------------
+   Stacked on phones, alternating left/right from 1024px up. Each image
+   slides in from its OWN side, so the eye is led across the page.
+   --------------------------------------------------------------------- */
+
+.cats {
+  display: grid;
+  gap: var(--gap-section);
+  padding-block: var(--gap-section);
+}
+
+.cat {
+  display: grid;
+  gap: var(--s-5);
+  align-items: center;
+}
+
+.cat__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+  aspect-ratio: 4 / 5;
+  /* Reveal: slide in from the side this block sits on */
+  opacity: 0;
+  transform: translateX(var(--from, -40px));
+  transition: opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.cat.in .cat__media {
+  opacity: 1;
+  transform: none;
+}
+
+.cat__media img,
+.cat__media .ph {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.cat__body {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--dur-slow) var(--ease-out) 120ms,
+    transform var(--dur-slow) var(--ease-out) 120ms;
+}
+
+.cat.in .cat__body {
+  opacity: 1;
+  transform: none;
+}
+
+.cat__num {
+  display: block;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  color: var(--accent);
+  margin-block-end: var(--s-3);
+}
+
+.cat__title {
+  font-size: var(--fs-d1);
+  margin-block-end: var(--s-2);
+}
+
+.cat__sub {
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-block-end: var(--s-4);
+}
+
+.cat__blurb {
+  color: var(--text-dim);
+  max-width: 40ch;
+  margin-block-end: var(--s-5);
+}
+
+.cat__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+
+@media (hover: hover) {
+  .cat__link:hover ~ .cat__media img,
+  .cat__media:hover img {
+    transform: scale(1.04);
+  }
+}
+
+/* Whole block is one link target; the visible label is inside .cat__body */
+.cat__hit {
+  display: contents;
+}
+
+/* --- Intro strip -------------------------------------------------------- */
+
+.intro {
+  display: grid;
+  gap: var(--s-5);
+  padding-block: var(--gap-section);
+}
+
+.intro__lead {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d2);
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: var(--tr-display);
+  max-width: 34ch;
+}
+
+/* --- Stats row ---------------------------------------------------------- */
+
+.statsrow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s-5);
+  padding-block: var(--s-7);
+  border-block: 1px solid var(--line);
+}
+
+.statsrow__item {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.statsrow__v {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d3);
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   Breakpoints
+   ========================================================================== */
+
+/* Landscape phone: the hero must not eat the whole screen, or the scroll
+   cue and first content row are never seen. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .hero {
+    min-height: 34rem;
+  }
+  .marquee {
+    grid-template-rows: 1fr;
+  }
+  .marquee__row--b {
+    display: none;
+  }
+}
+
+@media (min-width: 480px) {
+  /* Second marquee row returns once there is height to carry it */
+  .marquee__row--b {
+    display: flex;
+  }
+  .statsrow {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Landscape phone is wider than 480px but very short, so the rule above
+   would switch row B back on. Re-suppress it — the constraint there is
+   height, not width. Must follow the min-width block to win on order. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .marquee__row--b {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .intro {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: var(--s-7);
+  }
+  .statsrow {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cat {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-8);
+  }
+
+  /* Odd blocks: image left, text right. Even: reversed — and each image
+     slides in from the side it lives on. */
+  .cat:nth-child(even) .cat__media {
+    order: 2;
+    --from: 40px;
+  }
+
+  .cat__media {
+    aspect-ratio: 4 / 5;
+  }
+}

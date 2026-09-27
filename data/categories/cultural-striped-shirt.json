@@ -1,0 +1,145 @@
+{
+  "slug": "cultural-striped-shirt",
+  "title": "Cultural Striped Shirt",
+  "subtitle": "Relaxed portraiture",
+  "blurb": "Striped casualwear in soft natural light. Unposed smiles and easy eye contact — the warmest, most approachable set in the book.",
+  "setting": "Natural light",
+  "year": "2026",
+  "published": true,
+  "order": 6,
+  "photos": [
+    {
+      "id": "ph01",
+      "base": "images/cultural-striped-shirt/sample-01-a2cd45",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/webp;base64,UklGRl4BAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkJ6vSaNrajMPFIoQQpZSaIYRxskxK6bIRcon+lG6UCDEufqZSZQmJGJeT5Weqli6RiNN9VObnolqtSOR+KfLzWa36TSLGc6z7NlXbmRgyniKq77OmdkkiGS+2X2er7UwMGc8R1bdZU7skMZxebL8upm4YcqimNhHDeCHK6zRVzyQxnmLd96ktI5HIY+ejWu2FiNx2vqrKaee6832McbH9M1mdEZyz0V/UFjFGkTnVegsj6LR7gKiDh/74fwBWUDggWgAAADAFAJ0BKhgAHgA+7WKtUCmlJCKwGAgBMB2JZQDMHA9G11LX6y1mj8LG861BXKhhJQQAAP7jTTsK7NWYDwjonHmuVHMrB7JOJoWNH9YYhWHkma2+heCgHIQAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Cultural Striped Shirt — sample frame 1, placeholder for photography",
+      "caption": "Relaxed portraiture · 01",
+      "order": 1,
+      "featured": true,
+      "sample": true
+    },
+    {
+      "id": "ph02",
+      "base": "images/cultural-striped-shirt/sample-02-676591",
+      "w": 1200,
+      "h": 1600,
+      "lqip": "data:image/webp;base64,UklGRoQBAABXRUJQVlA4WAoAAAAQAAAAFwAAHwAAQUxQSPsAAAABmTJE9D80dFvblt1I6Dn/dOfhkxXDIto+eG1/bFtgAvQjJmAC/gx/wXdcg+FPsiHMw2P+4HtkZMcu5DUaTK65dTXIME1th0VumWMeHovR7AedxPJasyze2cvSOi2mu2VnYu2M5VrvYotOFlt+sd/sR+dXWvYaFn7SK/vZ62voYFn77wv5/0uomNzBWrG9ttaa57F6sXO3THdttTixM8bO1tliZxokt0ym37Fzh5GRBVlYHk/mk8dBzLA3NDoYvV3vrSYLzsZWn1hND+56h73RyANm8JGlPcq2zNvTGqY1fJBdPOyeJ8qcXfLofRlxTLt1+VyeZ56+v+2bAQBWUDggYgAAAPAEAJ0BKhgAIAA+7WqoT6mmI6IoDVEwHYllAMHMD2bYbULvp8XFo9evsBrT+oM/AAD+4007ABJ7EDPNTTMpJjoDtLQKMgFC2thXeJ4msp2tME5Cap/Gk/rg3w1Sng5MAAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Cultural Striped Shirt — sample frame 2, placeholder for photography",
+      "caption": "Relaxed portraiture · 02",
+      "order": 2,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph03",
+      "base": "images/cultural-striped-shirt/sample-03-4a07dc",
+      "w": 1600,
+      "h": 1200,
+      "lqip": "data:image/webp;base64,UklGRhYBAABXRUJQVlA4WAoAAAAQAAAAFwAAEQAAQUxQSJkAAAAFgBxJkiIpcngP9Jd0uafj0UMiRMQErFxdIOdsQhuCG9JaCBC6nlpBQJASCHHosWyI4EoIME2UL+KGFBLCMgTqa0PEb0KYFwP5vna0kCS/PQG8V6goloT0v93Ws6CofpOk+88G9wIq2ockvx2bjxVEcUxClp33BspESKZAwI+NyAyQrqetK4AAUwNdB1gBZCONJGgE0jhvXCgAVlA4IFYAAACwBACdASoYABIAPulcp02pJKOiN/VYASAdCWcAw6wMOdWPijs3pOJwFK8LmOdoAP7jTR2A7CATON00pIWumnzZgL7wtR+At3Tw5lmjy1g+6R4B3EAAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        1600
+      ],
+      "alt": "Cultural Striped Shirt — sample frame 3, placeholder for photography",
+      "caption": "Relaxed portraiture · 03",
+      "order": 3,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph04",
+      "base": "images/cultural-striped-shirt/sample-04-782c8f",
+      "w": 1200,
+      "h": 1200,
+      "lqip": "data:image/webp;base64,UklGRkIBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSMgAAAAFgB3ZtlSl9wVn8490Vrj74/IsQ4iICTgh/l6YC2nQCzRHsqy5KnSSixTpDedVyOYsRTkSguzDPIrSliyx7Y5Tl3KEROR+d/xUtfSMRIyHLTq/pmp1kkQe7ov8fFdbDlnG8xA1P+ZSZ2LIeHHhfdbUHkkM4zUXfZumtmdixPYSa99PndoZQzJeb7zN1tRdDBnPNz5mTbVLxHhy/TlVa48lDze+u+idILkT1G+LukOwjSI9UOwQslnPUrjXKBK0RMUuGnUd173z31ZQOCBUAAAA8AQAnQEqGAAYAD7tYq1PqaUkIjAYCAEwHYljAMHMEO+4h+CVn3PANlzyebauXyiAAP7jDoJ2zz9fSgrXtLoMT/8hI2SFt7xIOg1wTtMR5sEP3IAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Cultural Striped Shirt — sample frame 4, placeholder for photography",
+      "caption": "Relaxed portraiture · 04",
+      "order": 4,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph05",
+      "base": "images/cultural-striped-shirt/sample-05-8a6d0f",
+      "w": 1200,
+      "h": 1800,
+      "lqip": "data:image/webp;base64,UklGRpoBAABXRUJQVlA4WAoAAAAQAAAAFwAAIwAAQUxQSAwBAAAFgNxGkiOJOTOnz39HtdjpfHTv3ZkQERMwzCXmEvOZir9W2gbRVVCaMxNRKTSqjcq0LCo6CFKhoiinEOJqleokhOwuVdMgIcQR51laRkSI2PeeF6o6ZIqQm/HTtFoVEpHjSPt9yaDOJCTc3Ck+LrQdiUSSh6C5vKsWkcT+YNK3oVyS38RYtWeSSBwPUYzXLq/tj6Gcb0PbkdhWluN11CJZPE2Dl6HtkG31GEVfhlEjsnq2PF/aapJI2J+mGm9D230hPR4qqu8rK9t9lPajWlsiItvtQj9b7RFC5Nb6a6CbkLhSvkodBJGbK9+UHUGyT/SiVgSrjNP8m2yTs4tjodIEtd5Eo6S/2+N/e/hvVlA4IGgAAACwBQCdASoYACQAPulgqU2pJaQiMBVdUSAdCWUAxnwKHLev+LT9ZbGNRqr6/7hjjKwVbN9vkAAA/uNNNLbAhn8Xw27gKi94dlENKvQyETC6A/+WbvGnwZAVS5oEypZ7yfPGpvUeqaXoAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Cultural Striped Shirt — sample frame 5, placeholder for photography",
+      "caption": "Relaxed portraiture · 05",
+      "order": 5,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph06",
+      "base": "images/cultural-striped-shirt/sample-06-f4e2d8",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/webp;base64,UklGRlwBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN4AAAAFgBxJkiLJs/cY9JeUb7vzMXArQkRMwHLruck/ulnihmXmIJvSaNrajdPFFEKiGqXUCsHlYi4opXMT7odeq3SnhBgPrjNVqsyQGPd31t+i1dIZicvTIP250mq1Ip7vK836qmrVNYm8jth+rmq1XYmM19GIfk2tpZ1JjLdh93NTbVci43WI6I6lnUmM92H386qW7siJj6m1tIkY7yH0c6qlekcyXiLwuVRbRiJ5PvhepdXeE3lKd36XqnLZeeTIKQ+x+1dqc4e4O7gqao/LKLIWarsnA606PCDq9Il/3w5WUDggWAAAABAFAJ0BKhgAHgA+5WCjTakloyIwDAEgHIllAMcwHo3WAOtHzSzZJ2KankfjhNwaFAAA/ujw8ZBU7IFw4gZXTyATm8mc/zoZgm78RI+Q7MR43NUC8BQOAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Cultural Striped Shirt — sample frame 6, placeholder for photography",
+      "caption": "Relaxed portraiture · 06",
+      "order": 6,
+      "featured": false,
+      "sample": true
+    }
+  ]
+}

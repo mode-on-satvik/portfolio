@@ -1,0 +1,37 @@
+{
+  "_comment": "All personal copy lives here — nothing is hardcoded in markup. Edit via /admin/ or by hand. PRIVACY: deliberately no surname, no date of birth, no school, no suburb, no street address. Do not add those fields.",
+  "firstName": "Satvik",
+  "age": 5,
+  "city": "Chennai",
+  "country": "India",
+  "tagline": "Child Model & Brand Talent",
+  "heroLine": "Natural, directable and camera-confident.",
+  "bio": "Satvik is a five-year-old model based in Chennai, working across editorial, catalogue and campaign photography. He is comfortable under studio lighting and on location, takes direction well for his age, and holds an expression without prompting. His range spans formal tailoring, activewear and traditional festive dress.",
+  "note": "Available for editorial, catalogue, campaign and lookbook work. Always accompanied by a parent or guardian on set.",
+  "availability": "Available for bookings — Chennai and wider Tamil Nadu",
+  "representation": "Freelance · direct enquiries welcome",
+  "languages": ["English", "Hindi", "Tamil", "Odia"],
+  "stats": {
+    "age": "5 years",
+    "height": "112 cm",
+    "clothing": "5–6 years",
+    "shoe": "EU 28",
+    "hair": "Black",
+    "eyes": "Dark brown"
+  },
+  "contactEmail": "bookings@example.com",
+  "instagram": null,
+  "experience": [
+    {
+      "year": "2026",
+      "title": "Childrenswear lookbook",
+      "client": "Studio commission"
+    },
+    {
+      "year": "2026",
+      "title": "Activewear editorial",
+      "client": "Location shoot"
+    },
+    { "year": "2025", "title": "Festive campaign", "client": "Retail brand" }
+  ]
+}

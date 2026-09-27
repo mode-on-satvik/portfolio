@@ -1,0 +1,145 @@
+{
+  "slug": "sporty-scooter",
+  "title": "Sporty Scooter",
+  "subtitle": "Prop-led outdoor session",
+  "blurb": "Scooter as working prop in open daylight. Confident interaction with equipment — useful for lifestyle, toy and outdoor brands.",
+  "setting": "Location · daylight",
+  "year": "2026",
+  "published": true,
+  "order": 5,
+  "photos": [
+    {
+      "id": "ph01",
+      "base": "images/sporty-scooter/sample-01-f0d130",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/webp;base64,UklGRmIBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN4AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkKxpFo2mrQRwuFiGEKKXUDCGMk2VSSpeNkEv0p3SjRIhx8TOVKktIxLicLD9TtXSJRJzuozI/F9VqRSL3S5Gfz2rVbxIxnmPdt6nazsSQ8RRRfZ81tUsSyXix/TpbbWdiyHiOqL7NmtolieH0Yvt1MXXDkEM1tYkYxgtRXqepeiaJ8RTrvk9tGYlEHjsf1WovROS281VVTjvXne9jjIvtn8nqjOCcjf6itogxisyp1lsYQafdA0QdPPTH/wNWUDggXgAAABAFAJ0BKhgAHgA+7WStT6mlJCIwGAgBMB2JQBadAeja3kBtacOCyqG1SUjOUlMvVgAA/uNNOLt75dhBr9nzgEpiHrHrqwYuiMIoyXRQunSgRom1znztNBvyW+C1gAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Sporty Scooter — sample frame 1, placeholder for photography",
+      "caption": "Prop-led outdoor session · 01",
+      "order": 1,
+      "featured": true,
+      "sample": true
+    },
+    {
+      "id": "ph02",
+      "base": "images/sporty-scooter/sample-02-e9d5d2",
+      "w": 1200,
+      "h": 1600,
+      "lqip": "data:image/webp;base64,UklGRoIBAABXRUJQVlA4WAoAAAAQAAAAFwAAHwAAQUxQSPsAAAABmTJE9D80dBxJkiRJmD3//937yKreL0hhaUMsnVC6UR9oPmICJuCP8Cd84xoMf5DNvzzmd75DrC67kNdoPpxbV2PHTaap7bBoiznm4bEYzb7XSSyvNcvinb0srdNiult2JtbOWK71LrboZLHlZ/vVfnB+oWWvYeFHvbKfvD6HDpa1/z6R/z+FiskdrBXba2uteR6rFzt3y3TXVosTO2PsbJ0tdqZBcstk+g07dxgZWZCF5fFkvvI4iBn2hkYHo7frvdVkwdnY6itW04O73mFvNPKAGXzJ0h5lW+btaQ3TGr6QXTzsnifKnF3y6H0ZcUy7dfm6PM88fX/swwBWUDggYAAAAPAEAJ0BKhgAIAA+7WyvUSmlpCKoCqkwHYlAFSTh0C/+EuluWTuXGU21YDoK7zHctgD+4004u1uIpcHljISbCIsqTdCKqS5HTwzo9FE6FdzBuqqIwVNDzbJPcgR94oAAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Sporty Scooter — sample frame 2, placeholder for photography",
+      "caption": "Prop-led outdoor session · 02",
+      "order": 2,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph03",
+      "base": "images/sporty-scooter/sample-03-bac9d3",
+      "w": 1600,
+      "h": 1200,
+      "lqip": "data:image/webp;base64,UklGRhYBAABXRUJQVlA4WAoAAAAQAAAAFwAAEQAAQUxQSJkAAAAFgBxJkiIpcngP9Jd0uafj0UMiRMQErFxdyAU2oQ3BDWktBAhdT60gIEgJhDj0WDZEcCUEmCbKF3FDCglhGQL1tSHiNyHMi4F8XztaSJLfngDeK1QUS0L6327rWVBUv0nS/WeDewEV7UOS347NxwqiOCYhy857A2UiJFMg4MdGZAZI19PWFUCAqYGuA6wAspFGEjQCaZw3LhQAVlA4IFYAAACQBACdASoYABIAPu1gq02ppaQiMBgMATAdiWUAs4AQqIez8i8CMKtjkwCS7IAA/uMVTqhgweEjjw0kHW7fYDwahyK2XX+wm0aBv70+E7U8hR9kj1oAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        1600
+      ],
+      "alt": "Sporty Scooter — sample frame 3, placeholder for photography",
+      "caption": "Prop-led outdoor session · 03",
+      "order": 3,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph04",
+      "base": "images/sporty-scooter/sample-04-8b9c7c",
+      "w": 1200,
+      "h": 1200,
+      "lqip": "data:image/webp;base64,UklGRkgBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSMcAAAAFgB3ZtlSl9wVn8490Vrj74/IsQ4iICTgh/l6YC6K30BzJxV8LnURDivSGcyFkc5aiHAlB9mEeRWlLlth2x6lLOUIicr87fqpaekYixsMWnV9TtTpJIg/3RX6+qy2HLON5iJofc6kzMWS8uPA+a2qPJIbxmou+TVPbMzFie4m176dO7YwhGa833mZr6i6GjOcbH7Om2iViPLn+nKq1x5KHG99d9E6Q3Anqt0XdIdhGkR4odgjZrGcp3GsUCVqiYheNuo7r3vlvAFZQOCBaAAAAsAQAnQEqGAAYAD7tZqtPKaWjojAYCAEwHYlAAAXOuMowYE+mqvlorexF0i7cAAD+4wYYlGVb/+D7EQm57iEXPrqoczPgIt4dfgVO0d818c962YGNfNxiAAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Sporty Scooter — sample frame 4, placeholder for photography",
+      "caption": "Prop-led outdoor session · 04",
+      "order": 4,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph05",
+      "base": "images/sporty-scooter/sample-05-af1c53",
+      "w": 1200,
+      "h": 1800,
+      "lqip": "data:image/webp;base64,UklGRqABAABXRUJQVlA4WAoAAAAQAAAAFwAAIwAAQUxQSAwBAAAFgNxGkiOJOTOnz39HtdjpfHTv3ZkQERMwzCXmEvOZir9W2obolaA0Z2KOTmhUG4irRUUHQipUFOUUQlytUp2EkN2lahokhDjiPEvLiAgR+97zQlWHTBFyM36aVqtCInIcab8vGdSZhISbO8XHhbYjkUjyEDSXd9UiktgfTPo2lEvymxir9kwSieMhivHa5bX9MZTzbWg7EtvKcryOWiSLp2nwMrQdsq0eo+jLMGpEVs+W50tbTRIJ+9NU421ouy+kx0NF9X1lZbuP0n5Ua0tEZLtd6GerPUKI3Fp/DXQTElfKV6mDIHJz5ZuyI0j2iV7UimCVcZp/k21ydnEsVJqg1ptolPR3e/xvD/8NVlA4IG4AAAAwBQCdASoYACQAPu1eqk2ppKQiMBVdUTAdiWMAvnttgOY9Dal+9GxNq3Z2jMspxKXoAAD+401ACSKvTRqt0A5ULUMX3NDOGK9u9jjAMuyebl+Fc8+9gW4Ak7gHBCSc6hFtcQALD3lGfnkHBdgAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Sporty Scooter — sample frame 5, placeholder for photography",
+      "caption": "Prop-led outdoor session · 05",
+      "order": 5,
+      "featured": false,
+      "sample": true
+    },
+    {
+      "id": "ph06",
+      "base": "images/sporty-scooter/sample-06-006680",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/webp;base64,UklGRmIBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSOAAAAAFgB1Jtqum9yJv8o/Ui3v3410QIUTEBCy3nof8o4clblhmdtFdo2mrQRxTx2IKIVGNUmqF4HQyF5TSeQj3Q89VuikhxoPzTJUqMyTG/Z31t2i1dEbi9DRIf860Wq2I5/tKs76qWnVOIq8jjp+rWm1XIuN1NKJfU2tpZxLjbdh+HqrtSmS8DhHdWNqZxHgftp9ntXQjV3xMraVNxHgPoZ9TLdU7kvESgc+l2jISyfOF71Va7T2Rp3Tzu1SV0+aRS67yENu/Uoc7xN2Fs6J2nEaRtVDHnQy06uIFoq6+4t+3A1ZQOCBcAAAAMAUAnQEqGAAeAD7pYKRNqSWjIjAMASAdCWMAtOggf2bfyDjrxKyKE8HNkxZUNzxIy4AA/ujw8O2uORORgeWOlVii75yI2KVyImxwJOGJZksf8A4XHPvtoNegAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200
+      ],
+      "alt": "Sporty Scooter — sample frame 6, placeholder for photography",
+      "caption": "Prop-led outdoor session · 06",
+      "order": 6,
+      "featured": false,
+      "sample": true
+    }
+  ]
+}

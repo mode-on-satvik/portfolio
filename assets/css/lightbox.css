@@ -1,0 +1,157 @@
+/* ==========================================================================
+   lightbox.css — fullscreen photo viewer
+   ========================================================================== */
+
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-lightbox);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: rgba(8, 7, 7, 0.97);
+  /* Not `display: none` — we animate opacity, so the element must stay in
+     the box tree. visibility + pointer-events take it out of the
+     accessibility tree and out of hit-testing while closed. */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    visibility var(--dur-fast);
+  /* Clear the notch and the home indicator on phones */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.lb.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- Bars --------------------------------------------------------------- */
+
+.lb__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--gap-gutter);
+}
+
+.lb__count {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  /* Tabular figures stop the counter jittering as it ticks 9 → 10 */
+  font-variant-numeric: tabular-nums;
+}
+
+.lb__cap {
+  padding: 0 var(--gap-gutter) var(--s-6);
+  text-align: center;
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  min-height: 1.5em; /* reserved, so the image never shifts between slides */
+}
+
+/* --- Stage -------------------------------------------------------------- */
+
+.lb__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 0; /* lets the image shrink inside the grid row */
+  padding-inline: var(--gap-gutter);
+}
+
+.lb__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius);
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.lb__img.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Controls ----------------------------------------------------------- */
+
+.lb__btn {
+  display: grid;
+  place-items: center;
+  /* 44px is the minimum comfortable touch target */
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.lb__btn:hover,
+.lb__btn:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lb__btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lb__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.lb__nav--prev {
+  left: var(--s-2);
+}
+
+.lb__nav--next {
+  right: var(--s-2);
+}
+
+.lb__btn[disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Phone portrait: swipe is the primary gesture, so the arrows are hidden to
+   give the photograph the full width. Keyboard and swipe both still work. */
+@media (max-width: 767px) {
+  .lb__nav {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb,
+  .lb__img {
+    transition: none;
+  }
+  .lb__img {
+    transform: none;
+  }
+}
