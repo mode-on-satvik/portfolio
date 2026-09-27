@@ -21,7 +21,15 @@
       property="og:description"
       content="Five-year-old model based in Chennai, India. Editorial, catalogue and campaign work."
     />
-    <meta property="og:image" content="assets/img/og-default.jpg" />
+    <!-- og:image must be ABSOLUTE. Scrapers do not resolve it against the
+         page URL the way the browser would, so a relative path here is simply
+         dropped and the link previews as a grey box. -->
+    <meta
+      property="og:image"
+      content="https://mode-on-satvik.github.io/portfolio/assets/img/og-default.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="canonical" href="./" />

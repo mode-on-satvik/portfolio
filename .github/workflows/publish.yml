@@ -56,6 +56,18 @@ jobs:
       - name: Regenerate category pages
         run: node tools/build-pages.mjs
 
+      # Generated from the same index.json, so a category added or unpublished
+      # through /admin/ can never leave the sitemap advertising a dead URL.
+      - name: Regenerate sitemap
+        run: node tools/build-sitemap.mjs
+
+      # The share card is built from the current cover photo, so it must be
+      # rebuilt here too — otherwise the first real shoot replaces the
+      # placeholder everywhere on the site EXCEPT the image that people
+      # actually see when the link is shared.
+      - name: Regenerate social share card
+        run: node tools/build-og.mjs
+
       # This push does NOT re-trigger this workflow, even though it changes
       # images/ and data/ on main. GitHub deliberately suppresses workflow
       # triggers for pushes made with GITHUB_TOKEN — which is the whole reason
