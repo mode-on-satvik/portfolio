@@ -68,9 +68,30 @@
   padding-inline: var(--gap-gutter);
 }
 
+/* `<picture>` is a plain block box that wrapped the <img>, so the img was not
+   the grid item — the picture was, and the img's `max-height: 100%` resolved
+   against the picture's own content-driven height, i.e. against nothing. The
+   cap did nothing and a portrait photo rendered at full intrinsic height:
+   1680px inside a 771px row, overflowing the viewport by 856px at 1440x900 and
+   pushing the caption off-screen entirely.
+
+   `display: contents` takes the picture out of the box tree so the <img> itself
+   becomes the stage's grid item. Its <source> siblings are display:none per the
+   UA stylesheet, so they do not become stray grid items. */
+.lb__stage > picture {
+  display: contents;
+}
+
 .lb__img {
   max-width: 100%;
   max-height: 100%;
+  /* A grid item's automatic minimum size is its CONTENT size, and that floor
+     silently beats max-height — which is why `max-height: 100%` still had no
+     effect even once the img became the grid item, and why the row being a
+     definite 771px was not enough on its own. min-height/min-width: 0 removes
+     the floor so the cap can actually apply. Verified: 1680px → 771px. */
+  min-height: 0;
+  min-width: 0;
   width: auto;
   height: auto;
   object-fit: contain;
