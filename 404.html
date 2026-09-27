@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-depth="0" data-theme="dark" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Page not found — Satvik</title>
+    <meta name="description" content="That page could not be found." />
+    <!-- An error page must never be indexed. -->
+    <meta name="robots" content="noindex, follow" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("pf-theme");
+          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+          document.documentElement.dataset.theme =
+            saved || (prefersLight ? "light" : "dark");
+        } catch (e) {}
+      })();
+    </script>
+
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/pages.css" />
+
+    <script type="module" src="assets/js/app.js"></script>
+  </head>
+
+  <!--
+    GitHub Pages serves this file for any unmatched path, at the URL the
+    visitor actually requested. That path may be at ANY depth
+    (/work/typo/, /a/b/c/), so relative asset URLs would resolve wrongly and
+    data-depth cannot be known ahead of time.
+
+    So this page is deliberately self-contained: the asset links above work
+    at the site root (where a plain /typo 404 lands), and the inline script
+    below repairs them if we turn out to be deeper. No fetch, no JSON, no
+    data-bind — nothing here depends on assets resolving at all, so the page
+    still reads as plain HTML in the worst case.
+  -->
+  <body class="is-loading">
+    <script>
+      /* Repair asset paths when the 404 is served from a subdirectory.
+         Runs before the stylesheets matter because it rewrites their href
+         in place, and before app.js does anything that could throw.
+
+         On a project page the first path segment is the repo name and is
+         part of the site root, so it must not be counted as depth. */
+      (function () {
+        try {
+          var path = location.pathname;
+          var segs = path.split("/").filter(Boolean);
+
+          /* A relative URL resolves against the base DIRECTORY — everything up
+             to the final "/". So the last segment counts toward depth only when
+             the path ends in "/".
+
+             Testing for a dot instead was wrong: /portfolio/nope has no dot and
+             is not a directory, so it was counted as one and every asset got a
+             spurious "../", resolving above the site root. Extensionless URLs
+             are exactly what a mistyped link looks like, so this was the most
+             likely 404 of all. */
+          if (segs.length && path.charAt(path.length - 1) !== "/") segs.pop();
+
+          // github.io project pages mount under /<repo>/ — that segment is root.
+          var isProjectPage = /\.github\.io$/i.test(location.hostname);
+          if (isProjectPage && segs.length) segs.shift();
+
+          var depth = segs.length;
+          if (!depth) return;
+
+          document.documentElement.dataset.depth = String(depth);
+          var prefix = new Array(depth + 1).join("../");
+
+          var nodes = document.querySelectorAll(
+            'link[href^="assets/"], script[src^="assets/"]'
+          );
+          for (var i = 0; i < nodes.length; i++) {
+            var n = nodes[i];
+            if (n.href !== undefined && n.getAttribute("href")) {
+              n.setAttribute("href", prefix + n.getAttribute("href"));
+            }
+            if (n.getAttribute("src")) {
+              n.setAttribute("src", prefix + n.getAttribute("src"));
+            }
+          }
+          // Fix the in-page links too, so "All work" is not itself a 404.
+          var links = document.querySelectorAll("[data-root-link]");
+          for (var j = 0; j < links.length; j++) {
+            links[j].setAttribute("href", prefix + links[j].getAttribute("href"));
+          }
+        } catch (e) {
+          /* Worst case the styling is missing — the text still reads. */
+        }
+      })();
+    </script>
+
+    <main id="main" class="wrap page">
+      <div class="notfound">
+        <p class="notfound__code">404</p>
+        <h1 class="phead__title">This page has moved on</h1>
+        <p class="t-lead">
+          The link may be out of date, or the photo set it pointed to has been
+          renamed. The portfolio itself is still here.
+        </p>
+        <div class="cta">
+          <a class="btn btn--solid" href="./" data-root-link>View portfolio</a>
+          <a class="btn" href="about/" data-root-link>About</a>
+          <a class="btn" href="contact/" data-root-link>Contact</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

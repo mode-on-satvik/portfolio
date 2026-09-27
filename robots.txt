@@ -1,0 +1,76 @@
+# robots.txt — crawl policy
+#
+# Two separate goals here, and they need different rules:
+#
+#   1. Search engines SHOULD index the portfolio. That is the entire point of
+#      a public casting site.
+#   2. AI training crawlers should NOT. A five-year-old's photographs do not
+#      belong in a training corpus, and the <meta name="robots"
+#      content="noai, noimageai"> tags say the same thing in-page.
+#
+# Honoured on the honour system: these directives are voluntary and a crawler
+# that ignores robots.txt will ignore this file too. Stated plainly rather
+# than pretended away — this reduces exposure, it does not prevent scraping.
+
+# --- Search engines: welcome, except the admin panel ------------------------
+User-agent: *
+Disallow: /admin/
+Disallow: /_inbox/
+Disallow: /tools/
+
+# --- AI training crawlers: not welcome --------------------------------------
+# OpenAI
+User-agent: GPTBot
+Disallow: /
+
+User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+# Common Crawl — the corpus many other models are trained from
+User-agent: CCBot
+Disallow: /
+
+# Google's AI training opt-out (separate from Googlebot, which stays allowed)
+User-agent: Google-Extended
+Disallow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# ByteDance
+User-agent: Bytespider
+Disallow: /
+
+# Others
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+Sitemap: https://mode-on-satvik.github.io/portfolio/sitemap.xml
