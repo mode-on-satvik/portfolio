@@ -19,6 +19,51 @@ import path from "node:path";
 export const WIDTHS = [400, 800, 1200, 2000];
 export const FORMATS = ["avif", "webp", "jpg"];
 
+/* Raster formats this build can actually DECODE, as reported by libvips
+   itself rather than as a hand-kept list. Checked at runtime because the
+   prebuilt sharp binary differs by platform: notably these wheels carry
+   `heifload` and aom (so AVIF decodes) but no HEVC decoder, so a .heic
+   straight off an iPhone does NOT decode even though the heif loader is
+   present. A hardcoded list would promise support that isn't there.
+
+   SVG is excluded deliberately: it is not a photograph, it can embed scripts
+   and remote references, and rasterising one as a portfolio image is never
+   what an upload meant. */
+const DECODABLE = new Set(
+  Object.keys(sharp.format).filter(
+    (k) => sharp.format[k].input.buffer && k !== "svg" && k !== "raw"
+  )
+);
+
+/**
+ * Can this buffer be decoded as an image, whatever it is named?
+ *
+ * Content sniffing, not the file extension. The extension is attacker- and
+ * accident-controlled: a phone that saves HEIC as "photo.jpg", a download that
+ * appends ".jpg" to a PDF, or a rename from .png to .jpeg all lie about the
+ * bytes. Asking the decoder is the only answer that is true by construction.
+ *
+ * @returns {Promise<{ok: true, format: string, w: number, h: number} |
+ *                   {ok: false, reason: string}>}
+ */
+export async function probeImage(input) {
+  let meta;
+  try {
+    meta = await sharp(input, { failOn: "none" }).metadata();
+  } catch (err) {
+    return { ok: false, reason: err.message.split("\n")[0] };
+  }
+
+  if (!meta.format || !DECODABLE.has(meta.format)) {
+    return { ok: false, reason: `unsupported image format (${meta.format ?? "unrecognised"})` };
+  }
+  if (!meta.width || !meta.height) {
+    return { ok: false, reason: "image has no usable dimensions" };
+  }
+
+  return { ok: true, format: meta.format, w: meta.width, h: meta.height };
+}
+
 /* Quality settings. AVIF tolerates a much lower number than JPEG for the
    same perceived quality, which is where most of the saving comes from. */
 const Q = { avif: 50, webp: 80, jpg: 82 };
@@ -37,9 +82,21 @@ export async function processImage(input, outDir, stem) {
   const src = sharp(input, { failOn: "none" });
   const meta = await src.metadata();
 
-  // EXIF can carry an orientation flag; rotate() bakes it into the pixels so
-  // downstream sizes are the real displayed dimensions.
-  const base = sharp(input, { failOn: "none" }).rotate();
+  /* EXIF can carry an orientation flag; rotate() bakes it into the pixels so
+     downstream sizes are the real displayed dimensions.
+
+     `flatten` composites any transparency onto white. JPEG has no alpha
+     channel, so without this a PNG/WebP with a transparent background
+     composites against BLACK in the JPEG variants only — the AVIF and WebP
+     look right, so it survives a visual check and then appears as a black box
+     for anyone whose browser took the JPEG fallback.
+
+     Animated sources are reduced to their first frame: `pages` is left at its
+     default of 1, so an animated GIF/WebP yields a still rather than a
+     vertically-stacked filmstrip (which is what sharp produces for pages: -1). */
+  const base = sharp(input, { failOn: "none" })
+    .rotate()
+    .flatten({ background: "#ffffff" });
   const upright = await base.toBuffer();
   const { width: w, height: h } = await sharp(upright).metadata();
 

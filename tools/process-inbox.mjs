@@ -31,7 +31,7 @@ import { readdir, readFile, rm, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 
-import { processImage, contentHash } from "./lib/images.mjs";
+import { processImage, contentHash, probeImage } from "./lib/images.mjs";
 import {
   INBOX,
   IMAGES,
@@ -41,10 +41,22 @@ import {
   rebuildIndex,
 } from "./lib/catalog.mjs";
 
-/* Formats sharp can decode that a phone or camera actually produces. Anything
-   else in _inbox/ is skipped loudly rather than silently ignored — a photo
-   that vanished without explanation is a much worse failure than an error. */
-const ACCEPT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".heic", ".heif", ".tif", ".tiff"]);
+/* Files that are definitely not the photo we were handed, excluded by name
+   before any bytes are read. Everything ELSE is offered to the decoder and
+   accepted if it decodes, rather than matched against an extension whitelist.
+
+   The extension is not evidence: an iPhone set to "Most Compatible" still
+   writes HEIC into files named .jpg, a Windows rename changes .png to .jpeg
+   without touching a byte, and a download can append .jpg to a PDF. Gating on
+   the name therefore rejected real photos and admitted real non-photos. The
+   decoder is asked instead — see probeImage. */
+const IGNORE_NAMES = new Set(["job.json", ".gitkeep", ".ds_store", "thumbs.db", "desktop.ini"]);
+const IGNORE_EXT = new Set([".json", ".md", ".txt", ".zip", ".mov", ".mp4", ".pdf"]);
+
+const isCandidate = (name) =>
+  !name.startsWith(".") &&
+  !IGNORE_NAMES.has(name.toLowerCase()) &&
+  !IGNORE_EXT.has(path.extname(name).toLowerCase());
 
 /* A hard ceiling. GitHub Pages has a 1 GB soft repo limit, and a single
    accidental 200 MB RAW file would eat a fifth of it. */
@@ -85,12 +97,12 @@ async function processCategory(slug, job) {
     return 0;
   }
 
-  const files = (await readdir(dir)).filter((f) => ACCEPT.has(path.extname(f).toLowerCase())).sort();
+  const entries = (await readdir(dir)).sort();
+  const files = entries.filter(isCandidate);
 
-  const rejected = (await readdir(dir)).filter(
-    (f) => !ACCEPT.has(path.extname(f).toLowerCase())
-  );
-  for (const f of rejected) console.warn(`warn: skipping unsupported file _inbox/${slug}/${f}`);
+  for (const f of entries.filter((f) => !isCandidate(f))) {
+    console.warn(`warn: skipping non-image file _inbox/${slug}/${f}`);
+  }
 
   if (!files.length) return 0;
 
@@ -123,6 +135,21 @@ async function processCategory(slug, job) {
     }
 
     const buf = await readFile(src);
+
+    /* Ask the decoder what this actually is, before spending any time on it.
+       Reporting the real format is the useful part of the message: "photo.jpg
+       — unsupported image format (heif)" tells a parent exactly what to do
+       (re-save as JPEG), where "skipping photo.jpg" would look like a bug. */
+    const probe = await probeImage(buf);
+    if (!probe.ok) {
+      console.warn(
+        `warn: skipping ${file} — ${probe.reason}.\n` +
+          `      If this came off an iPhone, set Settings → Camera → Formats to\n` +
+          `      "Most Compatible", or re-save it as JPEG or PNG and upload again.`
+      );
+      continue;
+    }
+
     const hash = await contentHash(buf);
     const meta = job.photos[file] ?? job.photos[`${slug}/${file}`] ?? {};
 
