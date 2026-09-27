@@ -1,0 +1,263 @@
+/* ==========================================================================
+   layout.css — site chrome: nav, mobile overlay, footer
+   ========================================================================== */
+
+/* --- Nav ---------------------------------------------------------------- */
+
+.nav {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-height: var(--nav-h);
+  padding-inline: max(var(--gap-gutter), env(safe-area-inset-left));
+  padding-block: var(--s-3);
+  /* Transparent over the hero, frosted once scrolled — the nav should never
+     compete with the hero photograph. */
+  background: transparent;
+  transition: background-color var(--dur-mid) var(--ease-out),
+    backdrop-filter var(--dur-mid) var(--ease-out),
+    border-color var(--dur-mid) var(--ease-out);
+  border-block-end: 1px solid transparent;
+}
+
+.nav.is-stuck {
+  background: var(--scrim);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-block-end-color: var(--line);
+}
+
+.nav__brand {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.nav__links {
+  display: none; /* becomes inline at >=1024px */
+  align-items: center;
+  gap: var(--s-5);
+}
+
+.nav__link {
+  position: relative;
+  padding-block: var(--s-2);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+/* Underline grows from the left rather than fading — reads as deliberate */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-mid) var(--ease-out);
+}
+
+.nav__link[aria-current="page"] {
+  color: var(--text);
+}
+
+.nav__link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  .nav__link:hover {
+    color: var(--text);
+  }
+  .nav__link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Icon buttons: theme toggle + hamburger */
+.nav__icon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem; /* 44px touch target */
+  height: 2.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--text);
+  transition: border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .nav__icon:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+}
+
+.nav__icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Only one of the two theme glyphs shows, depending on active theme */
+:root[data-theme="dark"] .icon-sun,
+:root[data-theme="light"] .icon-moon {
+  display: block;
+}
+:root[data-theme="dark"] .icon-moon,
+:root[data-theme="light"] .icon-sun {
+  display: none;
+}
+
+/* --- Mobile menu overlay ------------------------------------------------- */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  align-content: center;
+  gap: var(--s-2);
+  padding: var(--s-8) var(--gap-gutter)
+    max(var(--s-8), env(safe-area-inset-bottom));
+  background: var(--bg);
+  /* clip-path circle wipe from the top-right (the hamburger's position) */
+  clip-path: circle(0% at calc(100% - 3rem) 2.25rem);
+  transition: clip-path var(--dur-slow) var(--ease-in-out);
+  pointer-events: none;
+}
+
+.menu.is-open {
+  clip-path: circle(150% at calc(100% - 3rem) 2.25rem);
+  pointer-events: auto;
+}
+
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  /* >=56px tall: comfortable one-handed thumb reach */
+  min-height: 3.5rem;
+  padding-block: var(--s-2);
+  border-block-end: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: clamp(1.75rem, 8vw, 3rem);
+  font-weight: 300;
+  letter-spacing: var(--tr-display);
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.menu.is-open .menu__link {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--dur-mid) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out);
+  /* Stagger set inline per link via --i */
+  transition-delay: calc(var(--dur-fast) + var(--i, 0) * 60ms);
+}
+
+.menu__num {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  color: var(--accent);
+}
+
+/* Prevent background scroll while the overlay is open */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* --- Footer ------------------------------------------------------------- */
+
+.footer {
+  border-block-start: 1px solid var(--line);
+  padding-block: var(--s-7) var(--s-6);
+  padding-bottom: max(var(--s-6), env(safe-area-inset-bottom));
+}
+
+.footer__grid {
+  display: grid;
+  gap: var(--s-6);
+  align-items: start;
+}
+
+.footer__brand {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d3);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4) var(--s-5);
+}
+
+.footer__note {
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  max-width: 34rem;
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-5);
+  justify-content: space-between;
+  margin-block-start: var(--s-6);
+  padding-block-start: var(--s-4);
+  border-block-start: 1px solid var(--line);
+}
+
+/* ==========================================================================
+   Breakpoints — structural changes only; everything else is fluid
+   ========================================================================== */
+
+@media (min-width: 768px) {
+  .footer__grid {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav__links {
+    display: flex;
+  }
+
+  /* Hamburger is desktop-hidden; the overlay is unreachable past 1024px */
+  .nav__burger {
+    display: none;
+  }
+}

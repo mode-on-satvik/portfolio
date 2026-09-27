@@ -1,0 +1,189 @@
+/* ==========================================================================
+   tokens.css — design system primitives
+   Every colour, size, duration and easing used anywhere lives here.
+   Nothing below this file should hardcode a hex value or a px timing.
+   ========================================================================== */
+
+/* --- Fonts ---------------------------------------------------------------
+   Self-hosted variable woff2. No Google Fonts request: one less DNS lookup
+   and TLS handshake on the critical path, and no visitor IPs sent offsite.
+
+   The -fb faces are metric-matched fallbacks. The size-adjust / ascent /
+   descent overrides make the fallback occupy nearly identical space to the
+   real face, so the swap when the webfont lands causes no reflow. This is
+   what actually keeps CLS at ~0 — font-display:swap alone does not.
+   ------------------------------------------------------------------------ */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("../fonts/fraunces-var.woff2") format("woff2-variations");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("../fonts/dmsans-var.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fraunces-fb";
+  src: local("Georgia"), local("Times New Roman"), local("Times");
+  size-adjust: 103%;
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "DMSans-fb";
+  src: local("Segoe UI"), local("Helvetica Neue"), local("Arial");
+  size-adjust: 100%;
+  ascent-override: 94%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+:root {
+  --font-display: "Fraunces", "Fraunces-fb", Georgia, "Times New Roman", serif;
+  --font-ui: "DM Sans", "DMSans-fb", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* --- Type scale -------------------------------------------------------
+     Fluid via clamp() so there are no jumps at breakpoints. Tracking
+     tightens as size grows — the standard optical correction; without it
+     large headings look loose and small caps look cramped.
+     -------------------------------------------------------------------- */
+  --fs-hero:  clamp(3.25rem, 11vw, 11rem);
+  --fs-d1:    clamp(2.25rem, 5.5vw, 4.5rem);
+  --fs-d2:    clamp(1.6rem, 3vw, 2.5rem);
+  --fs-d3:    clamp(1.25rem, 2vw, 1.75rem);
+  --fs-lead:  clamp(1.05rem, 1.6vw, 1.3rem);
+  --fs-body:  1rem;
+  --fs-small: 0.875rem;
+  --fs-meta:  0.8125rem;
+  --fs-micro: 0.6875rem;
+
+  --lh-hero: 0.92;
+  --lh-tight: 1.05;
+  --lh-snug: 1.25;
+  --lh-body: 1.65;
+
+  --tr-hero: -0.03em;
+  --tr-display: -0.015em;
+  --tr-body: 0;
+  --tr-meta: 0.14em;
+  --tr-micro: 0.18em;
+
+  /* Fraunces SOFT axis — rounder terminals. The right register for a
+     child's portfolio: warm without tipping into "cute". */
+  --soft: 30;
+
+  /* --- Spacing: 4px base ---------------------------------------------- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --s-10: 8rem;
+  --s-11: 12rem;
+
+  /* Fluid section rhythm */
+  --gap-section: clamp(4rem, 10vw, 9rem);
+  --gap-gutter: clamp(1.25rem, 4vw, 3rem);
+  --gap-grid: clamp(0.5rem, 1.2vw, 1rem);
+
+  --maxw-site: 1680px;
+  --maxw-text: 68ch;
+  --maxw-prose: 46rem;
+
+  /* --- Motion ---------------------------------------------------------
+     A single easing for almost everything. --ease-out is a strong
+     decelerate: fast start, long soft settle. It reads "cinematic"
+     where a linear or default ease reads "web page".
+     ------------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --dur-fast: 200ms;
+  --dur-mid: 400ms;
+  --dur-slow: 700ms;
+  --dur-slower: 900ms;
+
+  --marquee-a: 60s; /* co-prime-ish with -b so the two rows never */
+  --marquee-b: 75s; /* visually sync up into a single block       */
+  --ticker: 40s;
+
+  --radius-sm: 2px;
+  --radius: 4px;
+  --radius-pill: 999px;
+
+  --z-base: 1;
+  --z-sticky: 50;
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-lightbox: 300;
+
+  --nav-h: 4.5rem;
+}
+
+/* --- Theme: dark is the default -----------------------------------------
+   Set on <html> by an inline script in <head> before first paint, so a
+   dark-theme visitor never sees a white flash.
+   ------------------------------------------------------------------------ */
+
+:root,
+:root[data-theme="dark"] {
+  --bg: #0e0d0c;
+  --surface: #1a1816;
+  --surface-2: #232019;
+  --text: #f2ede6;
+  --text-dim: #c9c1b8;
+  --muted: #9a9188;
+  --accent: #d4a373;
+  --accent-soft: rgba(212, 163, 115, 0.14);
+  --line: rgba(242, 237, 230, 0.1);
+  --line-strong: rgba(242, 237, 230, 0.22);
+  --scrim: rgba(14, 13, 12, 0.72);
+  --shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.55);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --surface-2: #f3ede4;
+  --text: #1a1714;
+  --text-dim: #453e37;
+  --muted: #6b625a;
+  --accent: #9c6644;
+  --accent-soft: rgba(156, 102, 68, 0.1);
+  --line: rgba(26, 23, 20, 0.1);
+  --line-strong: rgba(26, 23, 20, 0.2);
+  --scrim: rgba(250, 247, 242, 0.75);
+  --shadow: 0 1.5rem 4rem rgba(26, 23, 20, 0.14);
+  color-scheme: light;
+}
+
+/* Hero and galleries stay dark in BOTH themes — photographs need a dark
+   ground to glow against, and that contrast is the cinematic part. Only
+   About / Contact / Admin follow the theme. */
+.is-cinema {
+  --bg: #0e0d0c;
+  --surface: #1a1816;
+  --text: #f2ede6;
+  --text-dim: #c9c1b8;
+  --muted: #9a9188;
+  --accent: #d4a373;
+  --line: rgba(242, 237, 230, 0.1);
+  --line-strong: rgba(242, 237, 230, 0.22);
+  --scrim: rgba(14, 13, 12, 0.72);
+  color-scheme: dark;
+}

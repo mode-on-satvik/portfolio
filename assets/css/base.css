@@ -1,0 +1,362 @@
+/* ==========================================================================
+   base.css — reset, document defaults, typography, shared primitives
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Offset anchor jumps so the fixed nav never covers a target heading */
+  scroll-padding-top: var(--nav-h);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis-weight: none;
+  /* Tabular figures everywhere: stats tables and the lightbox counter
+     must not jitter as digits change. */
+  font-variant-numeric: tabular-nums;
+  overflow-x: hidden;
+  min-height: 100vh;
+  transition: background-color var(--dur-mid) var(--ease-in-out),
+    color var(--dur-mid) var(--ease-in-out);
+}
+
+/* Hides the residual layout settle on first paint. Removed by app.js as
+   soon as the document is ready; the noscript rule below guarantees the
+   page is never permanently invisible if JS fails. */
+body.is-loading {
+  opacity: 0;
+}
+
+body.is-ready {
+  opacity: 1;
+  transition: opacity var(--dur-mid) var(--ease-out);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+  /* Every <img> carries width/height attributes, so the box is reserved
+     before the bytes arrive → CLS stays at ~0. */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* --- Typography ---------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-weight: 400;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.t-hero {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-weight: 300;
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--tr-hero);
+}
+
+.t-d1 {
+  font-size: var(--fs-d1);
+}
+.t-d2 {
+  font-size: var(--fs-d2);
+}
+.t-d3 {
+  font-size: var(--fs-d3);
+}
+
+.t-lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--text-dim);
+  max-width: var(--maxw-text);
+}
+
+.t-body {
+  max-width: var(--maxw-text);
+  color: var(--text-dim);
+}
+
+.t-meta {
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.t-micro {
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.t-num {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-weight: 400;
+  color: var(--accent);
+}
+
+/* --- Accessibility ------------------------------------------------------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Visible focus ring, but only for keyboard users — :focus-visible keeps it
+   off mouse clicks without removing it for tab navigation. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--s-2);
+  left: var(--s-2);
+  z-index: calc(var(--z-nav) + 10);
+  padding: var(--s-3) var(--s-5);
+  background: var(--accent);
+  color: #0e0d0c;
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transform: translateY(-160%);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* --- Layout primitives --------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw-site);
+  margin-inline: auto;
+  /* safe-area insets so content clears the notch in landscape */
+  padding-inline: max(var(--gap-gutter), env(safe-area-inset-left));
+}
+
+.section {
+  padding-block: var(--gap-section);
+}
+
+.stack > * + * {
+  margin-top: var(--s-4);
+}
+
+.divider {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+}
+
+/* --- Buttons & links ----------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  /* min-height 44px: the accessibility floor for touch targets */
+  min-height: 2.75rem;
+  padding: var(--s-3) var(--s-5);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  color: var(--text);
+  background: transparent;
+  transition: background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.btn--solid {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0e0d0c;
+}
+
+.btn--sm {
+  min-height: 2.25rem;
+  padding: var(--s-2) var(--s-4);
+  font-size: var(--fs-micro);
+}
+
+/* Gate every hover effect behind (hover: hover) — on touch, a tap would
+   otherwise leave the element stuck in its hover state until you tap
+   elsewhere. */
+@media (hover: hover) {
+  .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0e0d0c;
+  }
+
+  .btn--solid:hover {
+    filter: brightness(1.1);
+  }
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.link-arrow::after {
+  content: "→";
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .link-arrow:hover::after {
+    transform: translateX(0.35rem);
+  }
+}
+
+/* --- Scroll reveal ------------------------------------------------------
+   IntersectionObserver adds .in once and never removes it, so scrolling
+   back up does not re-trigger the animation.
+   ---------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* If JS never runs, content must still be visible — never leave the page
+   blank because an observer failed to initialise. */
+.no-js .reveal,
+.no-js body.is-loading {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Reduced motion -----------------------------------------------------
+   An auto-scrolling marquee is precisely the pattern that triggers
+   vestibular symptoms, so this is a real accessibility requirement and
+   not a nicety: all continuous motion stops.
+   ---------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+::selection {
+  background: var(--accent);
+  color: #0e0d0c;
+}
