@@ -7,18 +7,54 @@ import { url } from "./paths.js";
 const CACHE_PREFIX = "pf:";
 const inflight = new Map();
 
-/* --- Fetch with a sessionStorage layer ---------------------------------
-   Back-navigation should be instant. GitHub Pages pins Cache-Control to
-   ~10 minutes and we cannot change response headers, so we keep our own
-   session-lifetime cache rather than relying on the HTTP cache. */
-async function getJSON(path) {
-  const key = CACHE_PREFIX + path;
+/* --- Cache versioning ---------------------------------------------------
+   A session cache with no version key is a correctness bug, not just a
+   stale-data annoyance: after a publish, every already-open tab keeps
+   serving the old JSON for the life of the tab — including broken image
+   paths for photos that were replaced.
 
+   So: the two small always-needed files (index, profile) are fetched from
+   the network every page load — a few KB, and the HTTP cache absorbs
+   repeats. The large per-category files are cached under the `updated`
+   stamp from index.json, so a publish invalidates them automatically. */
+let version = null;
+
+function setVersion(stamp) {
+  if (!stamp || stamp === version) return;
+  version = stamp;
+
+  // Drop every entry from a previous publish, or storage fills with
+  // orphaned generations that are never read again.
   try {
-    const hit = sessionStorage.getItem(key);
-    if (hit) return JSON.parse(hit);
+    const keep = `${CACHE_PREFIX}${version}:`;
+    for (const key of Object.keys(sessionStorage)) {
+      if (key.startsWith(CACHE_PREFIX) && !key.startsWith(keep)) {
+        sessionStorage.removeItem(key);
+      }
+    }
   } catch {
-    /* storage unavailable — fall through to network */
+    /* storage unavailable — nothing to prune */
+  }
+}
+
+/**
+ * Fetch JSON, optionally through a version-keyed sessionStorage layer.
+ *
+ * @param {string} path      site-relative path
+ * @param {boolean} cacheable false = always hit the network
+ */
+async function getJSON(path, cacheable = true) {
+  // Unversioned data must not be cached: without a stamp we have no way to
+  // know whether the entry is current.
+  const key = cacheable && version ? `${CACHE_PREFIX}${version}:${path}` : null;
+
+  if (key) {
+    try {
+      const hit = sessionStorage.getItem(key);
+      if (hit) return JSON.parse(hit);
+    } catch {
+      /* storage unavailable — fall through to network */
+    }
   }
 
   // De-duplicate concurrent requests for the same file (prefetch + click).
@@ -30,10 +66,12 @@ async function getJSON(path) {
       return res.json();
     })
     .then((json) => {
-      try {
-        sessionStorage.setItem(key, JSON.stringify(json));
-      } catch {
-        /* quota exceeded — cache is an optimisation, not a requirement */
+      if (key) {
+        try {
+          sessionStorage.setItem(key, JSON.stringify(json));
+        } catch {
+          /* quota exceeded — cache is an optimisation, not a requirement */
+        }
       }
       inflight.delete(path);
       return json;
@@ -47,9 +85,24 @@ async function getJSON(path) {
   return req;
 }
 
-export const getProfile = () => getJSON("data/profile.json");
-export const getIndex = () => getJSON("data/index.json");
-export const getCategory = (slug) => getJSON(`data/categories/${slug}.json`);
+export const getProfile = () => getJSON("data/profile.json", false);
+
+export async function getIndex() {
+  const index = await getJSON("data/index.json", false);
+  // Establishes the version every other cached file is keyed against.
+  setVersion(index.updated);
+  return index;
+}
+
+/**
+ * A gallery needs the version stamp to cache under, so ensure the index has
+ * been read first. It is nearly always already resolved and in-flight
+ * de-duplicated by this point, so this costs nothing in practice.
+ */
+export async function getCategory(slug) {
+  if (!version) await getIndex().catch(() => {});
+  return getJSON(`data/categories/${slug}.json`);
+}
 
 /** Warm the cache for a gallery before the click lands. */
 export function prefetchCategory(slug) {

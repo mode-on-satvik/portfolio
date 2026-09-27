@@ -9,6 +9,7 @@ import { initNav } from "./nav.js";
 import { initReveal } from "./reveal.js";
 import { getProfile } from "./data.js";
 import { escapeHTML } from "./data.js";
+import { whenReady } from "./ready.js";
 
 /** Fill any [data-bind="key.path"] element from profile.json. */
 function bindProfile(profile) {
@@ -54,6 +55,11 @@ async function main() {
     // contains sensible placeholder text, so we log and carry on.
     console.warn("profile.json unavailable:", err.message);
   }
+
+  /* Wait for page modules (home.js, gallery.js) to finish rendering before
+     revealing. Otherwise the fade runs against an empty grid and the content
+     pops in afterwards. */
+  await whenReady();
 
   document.body.classList.remove("is-loading");
   document.body.classList.add("is-ready");

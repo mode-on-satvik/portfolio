@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" data-depth="2" data-theme="dark" class="no-js"
+      data-title-tpl="{category} — Satvik">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sporty Scooter — Satvik</title>
+    <meta name="description" content="Scooter as working prop in open daylight. Confident interaction with equipment — useful for lifestyle, toy and outdoor brands." />
+
+    <meta name="robots" content="index, follow, noai, noimageai, max-image-preview:standard" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Sporty Scooter — Satvik" />
+    <meta property="og:description" content="Scooter as working prop in open daylight. Confident interaction with equipment — useful for lifestyle, toy and outdoor brands." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="canonical" href="./" />
+    <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml" />
+
+    <!-- Theme before first paint, or a dark-theme visitor sees a white flash -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("pf-theme");
+          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+          document.documentElement.dataset.theme =
+            saved || (prefersLight ? "light" : "dark");
+        } catch (e) {}
+      })();
+    </script>
+
+    <link rel="preload" href="../../assets/fonts/fraunces-var.woff2" as="font"
+          type="font/woff2" crossorigin />
+    <link rel="preload" href="../../data/categories/sporty-scooter.json" as="fetch" crossorigin />
+
+    <link rel="stylesheet" href="../../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="../../assets/css/gallery.css" />
+    <link rel="stylesheet" href="../../assets/css/lightbox.css" />
+
+    <script type="module" src="../../assets/js/app.js"></script>
+    <script type="module" src="../../assets/js/gallery.js"></script>
+  </head>
+
+  <body class="is-loading">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="nav">
+      <a class="nav__brand" href="../../" data-bind="firstName">Satvik</a>
+
+      <div class="nav__right">
+        <nav class="nav__links" aria-label="Primary">
+          <a class="nav__link" href="../../" aria-current="page">Work</a>
+          <a class="nav__link" href="../../about/">About</a>
+          <a class="nav__link" href="../../contact/">Contact</a>
+        </nav>
+
+        <button class="nav__icon" data-theme-toggle type="button"
+                aria-label="Switch to light theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+        </button>
+
+        <button class="nav__icon nav__burger" type="button" aria-label="Open menu"
+                aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="menu" id="menu" aria-hidden="true" aria-label="Menu">
+      <a class="menu__link" href="../../" style="--i: 0"><span class="menu__num">01</span> Work</a>
+      <a class="menu__link" href="../../about/" style="--i: 1"><span class="menu__num">02</span> About</a>
+      <a class="menu__link" href="../../contact/" style="--i: 2"><span class="menu__num">03</span> Contact</a>
+    </nav>
+
+    <main id="main" class="wrap">
+      <header class="ghead">
+        <a class="ghead__back" href="../../">&larr; All work</a>
+
+        <div class="ghead__row">
+          <h1 class="ghead__title" data-g-title>Sporty Scooter</h1>
+          <span class="ghead__count" data-g-count></span>
+        </div>
+
+        <p class="ghead__meta" data-g-meta></p>
+        <p class="ghead__blurb t-body" data-g-blurb>Scooter as working prop in open daylight. Confident interaction with equipment — useful for lifestyle, toy and outdoor brands.</p>
+      </header>
+
+      <div class="masonry">
+        <!-- Rendered by gallery.js -->
+      </div>
+
+      <section class="gnext" data-g-next aria-label="Next category"></section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer__bottom">
+          <span class="t-micro">
+            &copy; <span data-bind="firstName">Satvik</span> &mdash;
+            <span data-bind="city">Chennai</span>,
+            <span data-bind="country">India</span>
+          </span>
+          <a class="t-micro" href="mailto:bookings@example.com" data-bind-email>Enquiries</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+# Normalise line endings to LF in the repo.
+# Without this, a Windows checkout commits CRLF and the Linux workflow runner
+# sees every file as modified on each publish — noisy diffs and pointless churn.
+* text=auto eol=lf
+
+# Binary: never touch these
+*.woff2 binary
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.pdf   binary

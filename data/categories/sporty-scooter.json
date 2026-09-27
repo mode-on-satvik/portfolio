@@ -1,0 +1,150 @@
+{
+  "slug": "sporty-scooter",
+  "title": "Sporty Scooter",
+  "subtitle": "Prop-led outdoor session",
+  "blurb": "Scooter as working prop in open daylight. Confident interaction with equipment — useful for lifestyle, toy and outdoor brands.",
+  "setting": "Location · daylight",
+  "year": "2026",
+  "published": true,
+  "order": 5,
+  "photos": [
+    {
+      "id": "ph01",
+      "base": "images/sporty-scooter/placeholder-01",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Sporty Scooter look 1 — placeholder, awaiting photography",
+      "caption": "Prop-led outdoor session · 01",
+      "order": 1,
+      "featured": true,
+      "placeholder": true
+    },
+    {
+      "id": "ph02",
+      "base": "images/sporty-scooter/placeholder-02",
+      "w": 1200,
+      "h": 1600,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Sporty Scooter look 2 — placeholder, awaiting photography",
+      "caption": "Prop-led outdoor session · 02",
+      "order": 2,
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "id": "ph03",
+      "base": "images/sporty-scooter/placeholder-03",
+      "w": 1600,
+      "h": 1200,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Sporty Scooter look 3 — placeholder, awaiting photography",
+      "caption": "Prop-led outdoor session · 03",
+      "order": 3,
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "id": "ph04",
+      "base": "images/sporty-scooter/placeholder-04",
+      "w": 1200,
+      "h": 1200,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Sporty Scooter look 4 — placeholder, awaiting photography",
+      "caption": "Prop-led outdoor session · 04",
+      "order": 4,
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "id": "ph05",
+      "base": "images/sporty-scooter/placeholder-05",
+      "w": 1200,
+      "h": 1800,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Sporty Scooter look 5 — placeholder, awaiting photography",
+      "caption": "Prop-led outdoor session · 05",
+      "order": 5,
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "id": "ph06",
+      "base": "images/sporty-scooter/placeholder-06",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Sporty Scooter look 6 — placeholder, awaiting photography",
+      "caption": "Prop-led outdoor session · 06",
+      "order": 6,
+      "featured": false,
+      "placeholder": true
+    }
+  ]
+}

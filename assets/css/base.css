@@ -360,3 +360,32 @@ p {
   background: var(--accent);
   color: #0e0d0c;
 }
+
+/* --- Placeholder tiles -------------------------------------------------
+   Rendered for photo records flagged `placeholder: true` in the JSON, so the
+   layout is fully testable before any real photography exists — and we never
+   commit fake binary images to the repo. Replaced automatically once real
+   photos are published through /admin/.
+   --------------------------------------------------------------------- */
+
+.ph {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.ph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Faint diagonal hatch so a placeholder is unmistakably not a photo */
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0 10px,
+    var(--line) 10px 11px
+  );
+  opacity: 0.6;
+}

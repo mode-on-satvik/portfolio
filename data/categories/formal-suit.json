@@ -1,0 +1,150 @@
+{
+  "slug": "formal-suit",
+  "title": "Formal Suit",
+  "subtitle": "Closeup & seated",
+  "blurb": "Tailored navy three-piece in studio. Direct-to-camera closeups and relaxed seated work — showing poise and stillness under lights.",
+  "setting": "Studio",
+  "year": "2026",
+  "published": true,
+  "order": 1,
+  "photos": [
+    {
+      "id": "ph01",
+      "base": "images/formal-suit/placeholder-01",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit look 1 — placeholder, awaiting photography",
+      "caption": "Closeup & seated · 01",
+      "order": 1,
+      "featured": true,
+      "placeholder": true
+    },
+    {
+      "id": "ph02",
+      "base": "images/formal-suit/placeholder-02",
+      "w": 1200,
+      "h": 1600,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit look 2 — placeholder, awaiting photography",
+      "caption": "Closeup & seated · 02",
+      "order": 2,
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "id": "ph03",
+      "base": "images/formal-suit/placeholder-03",
+      "w": 1600,
+      "h": 1200,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit look 3 — placeholder, awaiting photography",
+      "caption": "Closeup & seated · 03",
+      "order": 3,
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "id": "ph04",
+      "base": "images/formal-suit/placeholder-04",
+      "w": 1200,
+      "h": 1200,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit look 4 — placeholder, awaiting photography",
+      "caption": "Closeup & seated · 04",
+      "order": 4,
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "id": "ph05",
+      "base": "images/formal-suit/placeholder-05",
+      "w": 1200,
+      "h": 1800,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit look 5 — placeholder, awaiting photography",
+      "caption": "Closeup & seated · 05",
+      "order": 5,
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "id": "ph06",
+      "base": "images/formal-suit/placeholder-06",
+      "w": 1200,
+      "h": 1500,
+      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit look 6 — placeholder, awaiting photography",
+      "caption": "Closeup & seated · 06",
+      "order": 6,
+      "featured": false,
+      "placeholder": true
+    }
+  ]
+}

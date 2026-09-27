@@ -1,0 +1,250 @@
+/* ==========================================================================
+   gallery.css — editorial masonry grid + category header/footer
+   ========================================================================== */
+
+/* --- Header ------------------------------------------------------------- */
+
+.ghead {
+  padding-block: calc(var(--nav-h) + var(--s-8)) var(--s-7);
+}
+
+.ghead__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-block-end: var(--s-6);
+  /* 44px minimum touch target without disturbing the visual rhythm */
+  padding-block: var(--s-3);
+}
+
+.ghead__back:hover,
+.ghead__back:focus-visible {
+  color: var(--text);
+}
+
+.ghead__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.ghead__title {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-weight: 400;
+  font-size: var(--fs-d1);
+  line-height: var(--lh-d1);
+  letter-spacing: -0.02em;
+}
+
+.ghead__count {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: var(--muted);
+  /* Tabular figures: the count must not shift the baseline as it changes */
+  font-variant-numeric: tabular-nums;
+}
+
+.ghead__meta {
+  margin-block-start: var(--s-3);
+  font-size: var(--fs-meta);
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ghead__blurb {
+  margin-block-start: var(--s-5);
+  max-width: 62ch;
+  color: var(--muted);
+}
+
+/* --- Masonry -----------------------------------------------------------
+   CSS Grid with a fixed small row height; each tile spans however many rows
+   its real aspect ratio needs. The span is computed from the pixel
+   dimensions stored in the JSON and written as an inline custom property,
+   so:
+
+     · layout is known before any image byte arrives  → CLS ≈ 0
+     · no layout JavaScript, and nothing to recalculate on resize
+     · reading order stays left-to-right, which CSS `columns` would break
+       (columns fill top-to-bottom per column, so tab order goes wrong)
+   --------------------------------------------------------------------- */
+
+.masonry {
+  display: grid;
+  /* minmax(0, 1fr), never a bare 1fr. A bare `1fr` means minmax(auto, 1fr),
+     whose floor is the item's min-content width — so a single wide item
+     forces the whole column past the viewport. This is the standard grid
+     blowout guard, and it bit us for real here. */
+  grid-template-columns: minmax(0, 1fr);
+  /* Row unit + gap are the two numbers the span maths depends on; see
+     gallery.js, which must use the same ROW/GAP values. */
+  grid-auto-rows: var(--row, 8px);
+  gap: 0 var(--gap-grid);
+  padding-block-end: var(--s-9);
+}
+
+.tile {
+  grid-row: span var(--span, 40);
+  position: relative;
+  /* The bottom gap is applied as padding inside the span, not as a grid
+     `row-gap` — row-gap would be added between EVERY implicit row, which
+     would multiply out across a 40-row span. */
+  padding-block-end: var(--gap-grid);
+}
+
+.tile__btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: zoom-in;
+  /* Off-screen tiles skip layout and paint entirely; the intrinsic-size hint
+     keeps the scrollbar honest while they are skipped.
+
+     BLOCK axis only (`auto none 400px`). A two-value form also constrains
+     the INLINE axis, which made every skipped tile claim a 400px
+     min-content width and pushed the grid past the viewport. The inline
+     size must come from the grid column, not from this hint. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 400px;
+}
+
+.tile__btn img,
+.tile__btn .ph {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+/* Hover zoom is gated: on touch, a tap would leave the tile stuck zoomed. */
+@media (hover: hover) {
+  .tile__btn:hover img {
+    transform: scale(1.03);
+  }
+}
+
+.tile__cap {
+  position: absolute;
+  inset-inline: 0;
+  bottom: var(--gap-grid);
+  padding: var(--s-5) var(--s-4) var(--s-3);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(to top, rgba(8, 7, 7, 0.75), transparent);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--dur-mid) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .tile__btn:hover + .tile__cap,
+  .tile__btn:focus-visible + .tile__cap {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Touch has no hover, so the caption is simply always shown there. */
+@media (hover: none) {
+  .tile__cap {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Next category ----------------------------------------------------- */
+
+.gnext {
+  border-block-start: 1px solid var(--line);
+  padding-block: var(--s-8);
+}
+
+.gnext__link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.gnext__label {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.gnext__title {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-weight: 400;
+  font-size: var(--fs-d2);
+  line-height: var(--lh-d2);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.gnext__link:hover .gnext__title,
+.gnext__link:focus-visible .gnext__title {
+  color: var(--accent);
+}
+
+/* --- Breakpoints -------------------------------------------------------
+   Column counts only. Tile heights follow from aspect ratio, so there is
+   nothing per-breakpoint to adjust about the spans.
+   --------------------------------------------------------------------- */
+
+@media (min-width: 768px) {
+  .masonry {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .masonry {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1920px) {
+  .masonry {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile__btn img,
+  .tile__cap {
+    transition: none;
+  }
+  .tile__btn:hover img {
+    transform: none;
+  }
+}
