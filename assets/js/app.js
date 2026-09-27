@@ -59,10 +59,19 @@ async function main() {
   /* Wait for page modules (home.js, gallery.js) to finish rendering before
      revealing. Otherwise the fade runs against an empty grid and the content
      pops in afterwards. */
-  await whenReady();
+  const complete = await whenReady();
 
   document.body.classList.remove("is-loading");
   document.body.classList.add("is-ready");
+
+  /* Distinguish "revealed because rendering finished" from "revealed because
+     we gave up waiting". Visually identical, but not equivalent: the second
+     can be an empty page. Without this marker the smoke test reads a timed-out
+     reveal as a clean load and reports a broken page as passing. */
+  if (!complete) {
+    document.body.dataset.readyTimeout = "true";
+    console.warn("Page revealed on timeout — content may be incomplete.");
+  }
 }
 
 // The module is deferred by nature, so the DOM is parsed by the time this

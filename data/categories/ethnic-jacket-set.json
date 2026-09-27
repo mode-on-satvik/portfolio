@@ -10,10 +10,10 @@
   "photos": [
     {
       "id": "ph01",
-      "base": "images/ethnic-jacket-set/placeholder-01",
+      "base": "images/ethnic-jacket-set/sample-01-298c49",
       "w": 1200,
       "h": 1500,
-      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "lqip": "data:image/webp;base64,UklGRl4BAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkJygaTVsV4nCxCCFEKaVmCGGcLJNSumyEXKI/pRslQoyLn6lUWUIixuVk+ZmqpUsk4nQflfm5qFYrErlfivx8Vqt+k4jxHOu+TdV2JoaMp4jq+6ypXZJIxovt19lqOxNDxnNE9W3W1C5JDKcX26+LqRuGHKqpTcQwXojyOk3VM0mMp1j3fWrLSCTy2PmoVnshIredr6py2rnufB9jXGz/TFZnBOds9Be1RYxRZE613sIIOu0eIOrgoT/+HwBWUDggWgAAADAFAJ0BKhgAHgA+7WKtT6mlJCIwGAgBMB2JYwDM0A9G1u8N42ii4+jIl28ZKkFvSkgAAP7o8PCtSXGYOOvDoMz9nFtnNE+b8HNadnp8zUtiRnmqtTJUUIAAAA==",
       "formats": [
         "avif",
         "webp",
@@ -22,21 +22,20 @@
       "widths": [
         400,
         800,
-        1200,
-        2000
+        1200
       ],
-      "alt": "Ethnic Jacket Set look 1 — placeholder, awaiting photography",
+      "alt": "Ethnic Jacket Set — sample frame 1, placeholder for photography",
       "caption": "Heritage tailoring · 01",
       "order": 1,
       "featured": true,
-      "placeholder": true
+      "sample": true
     },
     {
       "id": "ph02",
-      "base": "images/ethnic-jacket-set/placeholder-02",
+      "base": "images/ethnic-jacket-set/sample-02-543c78",
       "w": 1200,
       "h": 1600,
-      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "lqip": "data:image/webp;base64,UklGRn4BAABXRUJQVlA4WAoAAAAQAAAAFwAAHwAAQUxQSPsAAAABmTJE9D80dFvblt1I6Dn/dOfhkxXDIto+eG1/bFtgAvQjJmAC/gx/wXdcg+FPsiHz9Jg/+J4MDnYhr6EHT3PrajuWW6ap7bDQLXPMw2Mxmv2gk1hea5bFO3tZWqfFdLfsTKydsVzrXWzRyWLLL/ab/ej8Sstew8JPemU/e30NHSxr/30h/38JFZM7WCu219Za8zxWL3bulumurRYndsbY2Tpb7EyD5JbJ9Dt27jAysiALy+PJfPI4iBn2hkYHo7frvdVkwdnY6hOr6cFd77A3GnnADD6ytEfZlnl7WsO0hg+yi4fd80SZs0sevS8jjmm3Lp/L88zT97d9MwBWUDggXAAAANAEAJ0BKhgAIAA+7WaqTymlo6IoDVEwHYljAM44D2bYZgOZObGdeA/MbDoqrRgAAP7o8PCtPV1jBY7XiUHk0QHyghxL3V8vEcv6/wM6pR0WBbTFoSSbaMH73kAA",
       "formats": [
         "avif",
         "webp",
@@ -45,21 +44,20 @@
       "widths": [
         400,
         800,
-        1200,
-        2000
+        1200
       ],
-      "alt": "Ethnic Jacket Set look 2 — placeholder, awaiting photography",
+      "alt": "Ethnic Jacket Set — sample frame 2, placeholder for photography",
       "caption": "Heritage tailoring · 02",
       "order": 2,
       "featured": false,
-      "placeholder": true
+      "sample": true
     },
     {
       "id": "ph03",
-      "base": "images/ethnic-jacket-set/placeholder-03",
+      "base": "images/ethnic-jacket-set/sample-03-699e37",
       "w": 1600,
       "h": 1200,
-      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "lqip": "data:image/webp;base64,UklGRhABAABXRUJQVlA4WAoAAAAQAAAAFwAAEQAAQUxQSJkAAAAFgBxJkiIpcngP9Jd0uafj0UMiRMQErFxdIOdsQhuCG9JaCBC6nlpBQJASCHHosWyI4EoIME2UL+KGFBLCMgTqa0PEb0KYFwP5vna0kCS/PQG8V6goloT0v93Ws6CofpOk+88G9wIq2ockvx2bjxVEcUxClp33BspESKZAwI+NyAyQrqetK4AAUwNdB1gBZCONJGgE0jhvXCgAVlA4IFAAAACwAwCdASoYABIAPuliq02pJaQiMBgMASAdCWcAAC2rUU5P/J7DMAD+6NvaPTEej0qI1VH+xccOEmYaTPf9WIJIkFsFFj17k2mleqTZaz/QAA==",
       "formats": [
         "avif",
         "webp",
@@ -69,20 +67,20 @@
         400,
         800,
         1200,
-        2000
+        1600
       ],
-      "alt": "Ethnic Jacket Set look 3 — placeholder, awaiting photography",
+      "alt": "Ethnic Jacket Set — sample frame 3, placeholder for photography",
       "caption": "Heritage tailoring · 03",
       "order": 3,
       "featured": false,
-      "placeholder": true
+      "sample": true
     },
     {
       "id": "ph04",
-      "base": "images/ethnic-jacket-set/placeholder-04",
+      "base": "images/ethnic-jacket-set/sample-04-d8c971",
       "w": 1200,
       "h": 1200,
-      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "lqip": "data:image/webp;base64,UklGRj4BAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSMcAAAAFgB3ZtlSl9wVn8490Vrj74/IsQ4iICTgh/l6YC0JvoDmSi78WOpElRXrDSRCyOUtRjoQg+zCPorQlS2y749SlHCERud8dP1UtPSMR42GLzq+pWp0kkYf7Ij/f1ZZDlvE8RM2PudSZGDJeXHifNbVHEsN4zUXfpqntmRixvcTa91OndsaQjNcbb7M1dRdDxvONj1lT7RIxnlx/TtXaY8nDje8ueidI7gT126LuEGyjSA8UO4Rs1rMU7jWKBC1RsYtGXcd17/w3AFZQOCBQAAAA8AQAnQEqGAAYAD7tZqtPqaUjojAYCAEwHYljAMzQEO+RyZzldCYxIXeyyMmsV8PgAP7o2VKEGv66/wqaTAA7BqMJYrDiPqGe9eFtHHAcQAA=",
       "formats": [
         "avif",
         "webp",
@@ -91,21 +89,20 @@
       "widths": [
         400,
         800,
-        1200,
-        2000
+        1200
       ],
-      "alt": "Ethnic Jacket Set look 4 — placeholder, awaiting photography",
+      "alt": "Ethnic Jacket Set — sample frame 4, placeholder for photography",
       "caption": "Heritage tailoring · 04",
       "order": 4,
       "featured": false,
-      "placeholder": true
+      "sample": true
     },
     {
       "id": "ph05",
-      "base": "images/ethnic-jacket-set/placeholder-05",
+      "base": "images/ethnic-jacket-set/sample-05-c98159",
       "w": 1200,
       "h": 1800,
-      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "lqip": "data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAAFwAAIwAAQUxQSAsBAAAFgNxGkiOJOTOnz39HtdjpfHTv3ZkQERMwzCXmEvOZir9W2obolaA0Z+KvjWpjzpWiogMxh4qinEKIq1WqkxCyu1RNg4QQR5xnaRkRIWLfe16o6pApQm7GT9NqVUhEjiPt9yWDOpOQcHOn+LjQdiQSSR6C5vKuWkQS+4NJ34ZySX4TY9WeSSJxPEQxXru8tj+Gcr4NbUdiW1mO11GLZPE0DV6GtkO21WMUfRlGjcjq2fJ8aatJImF/mmq8DW33hfR4qKi+r6xs91Haj2ptiYhstwv9bLVHCJFb66+BbkLiSvkqdRBEbq58U3YEyT7Ri1oRrDJO82+yTc4ujoVKE9R6E42S/m6P/+3hvwEAVlA4IGIAAACwBACdASoYACQAPu1gqk2ppaQjMBVdUTAdiWUAzcALNq9HsehI0HFz91fU/FyAAP7o1gTiz2cQ52ouvPXo4pHQ64esZ42hX3aDFEyANuPYyV9d9Ra4TqMFwvTdlbwuJcyAAA==",
       "formats": [
         "avif",
         "webp",
@@ -114,21 +111,20 @@
       "widths": [
         400,
         800,
-        1200,
-        2000
+        1200
       ],
-      "alt": "Ethnic Jacket Set look 5 — placeholder, awaiting photography",
+      "alt": "Ethnic Jacket Set — sample frame 5, placeholder for photography",
       "caption": "Heritage tailoring · 05",
       "order": 5,
       "featured": false,
-      "placeholder": true
+      "sample": true
     },
     {
       "id": "ph06",
-      "base": "images/ethnic-jacket-set/placeholder-06",
+      "base": "images/ethnic-jacket-set/sample-06-03aa55",
       "w": 1200,
       "h": 1500,
-      "lqip": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5'%3E%3Crect width='4' height='5' fill='%231a1816'/%3E%3C/svg%3E",
+      "lqip": "data:image/webp;base64,UklGRmABAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSOEAAAAFgNxGkiOJ2Xta+G+pvunOx8zsrQkRMQHLrecu/+huiRuWmZPoQaNpq0LsU/tiCiFRjVJqheByMReU0rkL90O3Kj0oIcaDbaZKlRkS4/7O+lu0WjojcXkapD8brVYr4vm+0qyvqlZtSeR1xP5zVavtSmS8jkb0a2ot7UxivA2Hn7tquxIZr0NEDyztTGK8D4efm1p6IFd8TK2lTcR4D6GfUy3VO5LxEoHPpdoyEsnzyfcqrfaeyFN68LtUlcvBI2eu8hCHf6V2d4i7k01RR1xGkbVQ+yMZaNXpCVFXX/Hv2wEAVlA4IFgAAAAQBQCdASoYAB4APu1kqE2ppaOiMAgBMB2JZQDKAB6NuHJBb7diqcBHfcrlNZMAPb0AAP7o8PCtTycfogk3aTEJvZOJIMy4p3IKMzghnxB7bJXdzlEKyIAA",
       "formats": [
         "avif",
         "webp",
@@ -137,14 +133,13 @@
       "widths": [
         400,
         800,
-        1200,
-        2000
+        1200
       ],
-      "alt": "Ethnic Jacket Set look 6 — placeholder, awaiting photography",
+      "alt": "Ethnic Jacket Set — sample frame 6, placeholder for photography",
       "caption": "Heritage tailoring · 06",
       "order": 6,
       "featured": false,
-      "placeholder": true
+      "sample": true
     }
   ]
 }

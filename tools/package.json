@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-tools",
+  "private": true,
+  "type": "module",
+  "description": "Build-time only. The published site has no dependencies.",
+  "scripts": {
+    "pages": "node build-pages.mjs",
+    "seed": "node seed.mjs",
+    "dummies": "node make-dummies.mjs",
+    "check": "node check.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}

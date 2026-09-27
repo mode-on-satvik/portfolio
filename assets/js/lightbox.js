@@ -115,13 +115,18 @@ function render() {
       style="width:min(70vw,420px);aspect-ratio:${photo.w} / ${photo.h}"></div>`;
   } else {
     const base = url(photo.base);
-    const set = (ext) =>
-      WIDTHS.map((w) => `${base}-${w}.${ext} ${w}w`).join(", ");
+
+    /* Only the widths the processor actually wrote. A source narrower than
+       2000px has no -2000 variant, so a fixed list both 404s and feeds the
+       browser a false width to pick against. */
+    const widths = photo.widths?.length ? photo.widths : WIDTHS;
+    const set = (ext) => widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(", ");
+    const fallback = widths.includes(1200) ? 1200 : widths.at(-1);
 
     els.pic.innerHTML = `
       <source type="image/avif" srcset="${set("avif")}" sizes="${LB_SIZES}">
       <source type="image/webp" srcset="${set("webp")}" sizes="${LB_SIZES}">
-      <img class="lb__img" src="${base}-1200.jpg" srcset="${set("jpg")}"
+      <img class="lb__img" src="${base}-${fallback}.jpg" srcset="${set("jpg")}"
            sizes="${LB_SIZES}" width="${photo.w}" height="${photo.h}"
            alt="${escapeAttr(photo.alt || "")}" decoding="async">`;
 
@@ -142,7 +147,8 @@ function prefetchNeighbours() {
     if (!photo || photo.placeholder) continue;
     const img = new Image();
     img.decoding = "async";
-    img.src = `${url(photo.base)}-1200.jpg`;
+    const widths = photo.widths?.length ? photo.widths : WIDTHS;
+    img.src = `${url(photo.base)}-${widths.includes(1200) ? 1200 : widths.at(-1)}.jpg`;
   }
 }
 

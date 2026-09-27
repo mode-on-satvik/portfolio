@@ -82,16 +82,20 @@ async function checkPage(client, path, assertions) {
   /* Wait for readiness on the RIGHT document. Checking `.is-ready` alone is
      a trap: for a moment after Page.navigate the previous document is still
      live, and it already has .is-ready set — so the poll succeeds instantly
-     and every assertion then runs against the OLD page. Matching the
-     pathname too pins us to the new document. */
-  const expectedPath = new URL(`${BASE}${path}`).pathname;
+     and every assertion then runs against the OLD page.
+
+     Match origin AND path, not path alone: the two mount points we test
+     (localhost:8080/ and localhost:8090/portfolio/) can produce the same
+     pathname, so a path-only check can pin us to the wrong server's page. */
+  const expected = new URL(`${BASE}${path}`);
+  const expectedHref = expected.origin + expected.pathname;
   const deadline = Date.now() + 12000;
   let ready = false;
   while (Date.now() < deadline) {
     await new Promise((r) => setTimeout(r, 250));
     ready = await evaluate(
       send,
-      `location.pathname === ${JSON.stringify(expectedPath)} &&
+      `location.origin + location.pathname === ${JSON.stringify(expectedHref)} &&
        document.body?.classList.contains('is-ready') === true`
     ).catch(() => false);
     if (ready) break;
@@ -99,6 +103,17 @@ async function checkPage(client, path, assertions) {
 
   const problems = [];
   if (!ready) problems.push("page never reached .is-ready state");
+
+  /* `.is-ready` can also be set by the readiness TIMEOUT, which reveals a
+     possibly-empty page. app.js marks that case so it cannot masquerade as a
+     clean load here. */
+  const timedOut = await evaluate(
+    send,
+    `document.body?.dataset.readyTimeout === "true"`
+  ).catch(() => false);
+  if (timedOut) {
+    problems.push("page revealed via readiness TIMEOUT — rendering did not complete");
+  }
 
   for (const ev of events) {
     if (ev.method === "Runtime.exceptionThrown") {
@@ -199,9 +214,10 @@ async function checkOverflow(client, path, widths) {
  * synthetic JS dispatch, so `preventDefault` and focus behaviour are
  * exercised for real.
  */
-async function checkLightbox(client) {
+async function checkLightbox(client, count, mid) {
   const { send } = client;
   const problems = [];
+  const last = count;
 
   const key = async (k, code, keyCode) => {
     for (const type of ["keyDown", "keyUp"]) {
@@ -225,8 +241,8 @@ async function checkLightbox(client) {
   await send("Page.navigate", { url: `${BASE}/work/formal-suit/` });
   await new Promise((r) => setTimeout(r, 2200));
 
-  // Open via a genuine click on the third tile.
-  await evaluate(send, `document.querySelectorAll('.tile__btn')[2].click()`);
+  // Open via a genuine click on a middle tile.
+  await evaluate(send, `document.querySelectorAll('.tile__btn')[${mid - 1}].click()`);
   await new Promise((r) => setTimeout(r, 400));
 
   const opened = await evaluate(
@@ -242,19 +258,26 @@ async function checkLightbox(client) {
   );
   const o = JSON.parse(opened);
   if (!o.open) problems.push("lightbox did not open on tile click");
-  if (o.count !== "3 / 6") problems.push(`counter: got "${o.count}", expected "3 / 6"`);
-  if (o.hash !== "#p=3") problems.push(`deep-link hash: got "${o.hash}", expected "#p=3"`);
+  if (o.count !== `${mid} / ${count}`)
+    problems.push(`counter: got "${o.count}", expected "${mid} / ${count}"`);
+  if (o.hash !== `#p=${mid}`)
+    problems.push(`deep-link hash: got "${o.hash}", expected "#p=${mid}"`);
   if (o.modal !== "true") problems.push("missing aria-modal=true");
   if (!o.focusInside) problems.push("focus was not moved into the dialog");
   if (!o.bodyLocked) problems.push("page scroll was not locked behind the overlay");
 
-  await key("ArrowRight", "ArrowRight", 39);
-  const next = await evaluate(send, `document.querySelector('[data-lb-count]').textContent.trim()`);
-  if (next !== "4 / 6") problems.push(`ArrowRight: got "${next}", expected "4 / 6"`);
+  // Arrow navigation only means anything with a photo on either side of `mid`.
+  if (mid < last) {
+    await key("ArrowRight", "ArrowRight", 39);
+    const next = await evaluate(send, `document.querySelector('[data-lb-count]').textContent.trim()`);
+    if (next !== `${mid + 1} / ${count}`)
+      problems.push(`ArrowRight: got "${next}", expected "${mid + 1} / ${count}"`);
 
-  await key("ArrowLeft", "ArrowLeft", 37);
-  const prev = await evaluate(send, `document.querySelector('[data-lb-count]').textContent.trim()`);
-  if (prev !== "3 / 6") problems.push(`ArrowLeft: got "${prev}", expected "3 / 6"`);
+    await key("ArrowLeft", "ArrowLeft", 37);
+    const prev = await evaluate(send, `document.querySelector('[data-lb-count]').textContent.trim()`);
+    if (prev !== `${mid} / ${count}`)
+      problems.push(`ArrowLeft: got "${prev}", expected "${mid} / ${count}"`);
+  }
 
   await key("End", "End", 35);
   const end = await evaluate(
@@ -265,7 +288,8 @@ async function checkLightbox(client) {
     })`
   );
   const e = JSON.parse(end);
-  if (e.count !== "6 / 6") problems.push(`End key: got "${e.count}", expected "6 / 6"`);
+  if (e.count !== `${last} / ${count}`)
+    problems.push(`End key: got "${e.count}", expected "${last} / ${count}"`);
   if (!e.nextDisabled) problems.push("Next button not disabled on the last photo");
 
   await key("Escape", "Escape", 27);
@@ -285,7 +309,8 @@ async function checkLightbox(client) {
   if (!c.focusRestored) problems.push("focus was not restored to the originating tile");
 
   // A shared #p=N link must open straight onto that photo.
-  await send("Page.navigate", { url: `${BASE}/work/formal-suit/#p=5` });
+  const deepN = last;
+  await send("Page.navigate", { url: `${BASE}/work/formal-suit/#p=${deepN}` });
   await new Promise((r) => setTimeout(r, 2400));
   const deep = await evaluate(
     send,
@@ -295,14 +320,41 @@ async function checkLightbox(client) {
     })`
   );
   const d = JSON.parse(deep);
-  if (!d.open) problems.push("#p=5 did not open the lightbox on load");
-  else if (d.count !== "5 / 6") problems.push(`#p=5 landed on "${d.count}", expected "5 / 6"`);
+  if (!d.open) problems.push(`#p=${deepN} did not open the lightbox on load`);
+  else if (d.count !== `${deepN} / ${count}`)
+    problems.push(`#p=${deepN} landed on "${d.count}", expected "${deepN} / ${count}"`);
+
+  /* An out-of-range deep link must degrade to a plain gallery, not a blank
+     overlay: #p=999 is what a stale shared link looks like after photos are
+     removed, and it should never trap the visitor behind an empty lightbox. */
+  await send("Page.navigate", { url: `${BASE}/work/formal-suit/#p=999` });
+  await new Promise((r) => setTimeout(r, 2200));
+  const oob = await evaluate(
+    send,
+    `document.querySelector('.lb')?.classList.contains('is-open') ?? false`
+  );
+  if (oob) problems.push("#p=999 (out of range) opened an empty lightbox");
 
   await send("Emulation.clearDeviceMetricsOverride");
   return problems;
 }
 
 async function main() {
+  /* Read the expected photo count from the data rather than hardcoding it.
+     A hardcoded 6 turns every legitimate content change into a suite failure,
+     which trains you to ignore red — the opposite of what a harness is for. */
+  const cat = await (await fetch(`${BASE}/data/categories/formal-suit.json`)).json();
+  const COUNT = cat.photos.length;
+  const MID = Math.min(3, COUNT); // the tile the lightbox test clicks
+
+  /* How many distinct spans the masonry CAN produce, given the aspect ratios
+     actually present. Asserting a fixed 3 is wrong: it fails when the data
+     legitimately contains repeated ratios, while still passing if the masonry
+     silently collapses to a uniform grid on varied data — the real bug. */
+  const RATIOS = new Set(
+    cat.photos.map((p) => (p.w / p.h).toFixed(3))
+  ).size;
+
   const client = await connect();
   const { send } = client;
 
@@ -349,7 +401,7 @@ async function main() {
   report(
     "gallery: loads clean",
     await checkPage(client, "/work/formal-suit/", [
-      ["tiles rendered", `document.querySelectorAll('.tile').length`, 6],
+      ["tiles rendered", `document.querySelectorAll('.tile').length`, COUNT],
       ["header title bound", `document.querySelector('[data-g-title]')?.textContent.trim()`, "Formal Suit"],
       ["look count rendered", `document.querySelector('[data-g-count]')?.textContent.trim()`, (s) => /looks?$/.test(s || "")],
       ["meta line rendered", `document.querySelector('[data-g-meta]')?.textContent.trim().length`, (n) => n > 10],
@@ -359,8 +411,8 @@ async function main() {
       ["spans computed from ratio", `[...document.querySelectorAll('.tile')].map(t=>t.style.getPropertyValue('--span')).every(v=>Number(v)>1)`, true],
       /* Varied aspect ratios must produce varied spans — if they are all
          equal, the masonry has silently degraded to a uniform grid. */
-      ["spans vary by aspect ratio", `new Set([...document.querySelectorAll('.tile')].map(t=>t.style.getPropertyValue('--span'))).size`, (n) => n >= 3],
-      ["tiles are real buttons", `document.querySelectorAll('.tile__btn').length`, 6],
+      ["spans vary by aspect ratio", `new Set([...document.querySelectorAll('.tile')].map(t=>t.style.getPropertyValue('--span'))).size`, (n) => n >= RATIOS],
+      ["tiles are real buttons", `document.querySelectorAll('.tile__btn').length`, COUNT],
       ["next-category link present", `document.querySelector('.gnext__link')?.getAttribute('href')`, (s) => /work\/[a-z-]+\/$/.test(s || "")],
       ["no broken images", BROKEN_IMAGES, (list) => list.length === 0],
       ["no-js class removed", `document.documentElement.classList.contains('no-js')`, false],
@@ -372,7 +424,7 @@ async function main() {
     await checkOverflow(client, "/work/formal-suit/", [320, 375, 414, 768, 1024, 1440, 1920])
   );
 
-  report("lightbox: interaction", await checkLightbox(client));
+  report("lightbox: interaction", await checkLightbox(client, COUNT, MID));
 
   client.close();
 

@@ -39,12 +39,20 @@ export function hold() {
  */
 export async function whenReady(timeout = 8000) {
   await new Promise((r) => setTimeout(r, 0));
-  if (!holds.size) return;
+  if (!holds.size) return true;
 
   /* A page that never releases its hold must still become visible — an
-     invisible page is a far worse failure than an unpolished reveal. */
-  await Promise.race([
+     invisible page is a far worse failure than an unpolished reveal.
+
+     But the two outcomes are NOT the same, and collapsing them hides bugs:
+     a page revealed by this timeout may be completely empty, while still
+     looking "ready" to anything watching for the class. So report which
+     happened, and let the caller mark the difference in the DOM. */
+  const TIMED_OUT = Symbol("timeout");
+  const result = await Promise.race([
     Promise.allSettled([...holds]),
-    new Promise((r) => setTimeout(r, timeout)),
+    new Promise((r) => setTimeout(() => r(TIMED_OUT), timeout)),
   ]);
+
+  return result !== TIMED_OUT;
 }

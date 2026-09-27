@@ -89,8 +89,10 @@ export const getProfile = () => getJSON("data/profile.json", false);
 
 export async function getIndex() {
   const index = await getJSON("data/index.json", false);
-  // Establishes the version every other cached file is keyed against.
-  setVersion(index.updated);
+  /* Prefer `rev` (a content fingerprint) over `updated` (a date). A date
+     cannot distinguish two publishes on the same day, which silently serves
+     stale category JSON to any tab that is already open. */
+  setVersion(index.rev || index.updated);
   return index;
 }
 
@@ -125,8 +127,16 @@ export const WIDTHS = [400, 800, 1200, 2000];
  */
 export function pictureHTML(photo, { sizes, eager = false, className = "" }) {
   const base = url(photo.base);
-  const set = (ext) =>
-    WIDTHS.map((w) => `${base}-${w}.${ext} ${w}w`).join(", ");
+
+  /* Use the widths the PROCESSOR actually wrote, never the full wishlist. A
+     1400px source has no -2000 variant, so emitting a `2000w` candidate both
+     404s and lies to the browser's selection maths. */
+  const widths = photo.widths?.length ? photo.widths : WIDTHS;
+  const set = (ext) => widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(", ");
+
+  // Fallback `src` for browsers that ignore srcset: the mid-size variant if it
+  // exists, otherwise the widest one that does.
+  const fallback = widths.includes(800) ? 800 : widths.at(-1);
 
   const alt = escapeAttr(photo.alt || "");
   const lqip = photo.lqip ? `background-image:url('${photo.lqip}')` : "";
@@ -136,7 +146,7 @@ export function pictureHTML(photo, { sizes, eager = false, className = "" }) {
   return `<picture class="${className}">
   <source type="image/avif" srcset="${set("avif")}" sizes="${sizes}">
   <source type="image/webp" srcset="${set("webp")}" sizes="${sizes}">
-  <img src="${base}-800.jpg" srcset="${set("jpg")}" sizes="${sizes}"
+  <img src="${base}-${fallback}.jpg" srcset="${set("jpg")}" sizes="${sizes}"
        width="${photo.w}" height="${photo.h}" alt="${alt}"
        loading="${loading}" decoding="async" ${priority}
        style="${lqip}">
