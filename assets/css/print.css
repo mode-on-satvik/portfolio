@@ -1,0 +1,169 @@
+/* ==========================================================================
+   print.css — comp card
+
+   "Download comp card" calls window.print() against this stylesheet. A
+   standard 5x7 card: headshot, three looks, name, stats, contact. No PDF
+   library, no dependency — the browser's own "Save as PDF" is the export.
+
+   Loaded with media="print" so it costs nothing on screen.
+   ========================================================================== */
+
+@page {
+  /* 5x7in is the industry-standard comp card. Margins are inside that. */
+  size: 5in 7in;
+  margin: 0.3in;
+}
+
+@media print {
+  /* Force light-on-white regardless of the visitor's theme: a dark-theme
+     comp card would empty an ink cartridge and look wrong in a casting
+     director's hand. */
+  :root,
+  :root[data-theme="dark"],
+  :root[data-theme="light"] {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --text: #000000;
+    --text-dim: #222222;
+    --muted: #555555;
+    --accent: #6b4423;
+    --line: rgba(0, 0, 0, 0.18);
+    --line-strong: rgba(0, 0, 0, 0.3);
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    /* The entrance fade must never leave a printed page blank — if print is
+       triggered before app.js runs, is-loading would still be applied. */
+    opacity: 1 !important;
+    font-size: 9pt;
+    line-height: 1.4;
+  }
+
+  /* Site chrome has no place on a comp card. */
+  .nav,
+  .menu,
+  .footer,
+  .skip-link,
+  .ticker,
+  .hero__cue,
+  .marquee,
+  .gnext,
+  .form,
+  .cta,
+  .contact__direct,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reveal animations must not hide content that is being printed: an
+     un-intersected .reveal is opacity:0, which prints as a blank page. */
+  .reveal,
+  .reveal:not(.in) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .page,
+  .psection,
+  .phead {
+    padding-block: 0 !important;
+    border: 0 !important;
+  }
+
+  .wrap {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  /* --- The card itself ---------------------------------------------------
+     .comp is hidden on screen (see pages.css has no rule; it is inline in
+     about.html's <style> guard) and revealed only for print.
+     -------------------------------------------------------------------- */
+
+  .comp {
+    display: grid !important;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.12in;
+    height: 100%;
+  }
+
+  .comp__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1pt solid #000;
+    padding-bottom: 0.06in;
+  }
+
+  .comp__name {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 20pt;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .comp__role {
+    font-size: 7pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .comp__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 0.08in;
+    align-content: start;
+  }
+
+  .comp__shot {
+    position: relative;
+    overflow: hidden;
+    background: #eee;
+  }
+
+  /* The headshot spans both rows of the right-hand pair. */
+  .comp__shot--main {
+    grid-row: span 2;
+  }
+
+  .comp__shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .comp__foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.15in;
+    border-top: 1pt solid #000;
+    padding-top: 0.06in;
+    font-size: 7.5pt;
+  }
+
+  .comp__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.04in 0.14in;
+  }
+
+  .comp__stat b {
+    font-weight: 600;
+  }
+
+  /* Never break the card across pages. */
+  .comp,
+  .comp__grid,
+  .comp__shot {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

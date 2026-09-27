@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en" data-depth="1" data-theme="dark" class="no-js"
+      data-title-tpl="About — {name}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>About — Satvik</title>
+    <meta
+      name="description"
+      content="Profile, statistics and experience for Satvik, a five-year-old model based in Chennai, India. Available for editorial, catalogue and campaign work."
+    />
+
+    <meta name="robots" content="index, follow, noai, noimageai, max-image-preview:standard" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="About — Satvik" />
+    <meta
+      property="og:description"
+      content="Profile, statistics and experience. Five-year-old model based in Chennai, India."
+    />
+    <!-- Absolute, not "../assets/…" — scrapers do not resolve relative
+         og:image paths, so the preview card silently broke. -->
+    <meta
+      property="og:image"
+      content="https://mode-on-satvik.github.io/portfolio/assets/img/og-default.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="canonical" href="./" />
+    <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+
+    <!-- Theme before first paint, or a dark-theme visitor sees a white flash -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("pf-theme");
+          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+          document.documentElement.dataset.theme =
+            saved || (prefersLight ? "light" : "dark");
+        } catch (e) {
+          /* storage blocked — dark default from the markup stands */
+        }
+      })();
+    </script>
+
+    <link rel="preload" href="../assets/fonts/fraunces-var.woff2" as="font"
+          type="font/woff2" crossorigin />
+    <link rel="preload" href="../data/profile.json" as="fetch" crossorigin />
+
+    <link rel="stylesheet" href="../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/layout.css" />
+    <link rel="stylesheet" href="../assets/css/pages.css" />
+    <link rel="stylesheet" href="../assets/css/print.css" media="print" />
+
+    <script type="module" src="../assets/js/app.js"></script>
+    <script type="module" src="../assets/js/about.js"></script>
+  </head>
+
+  <body class="is-loading">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="nav">
+      <a class="nav__brand" href="../" data-bind="firstName">Satvik</a>
+
+      <div class="nav__right">
+        <nav class="nav__links" aria-label="Primary">
+          <a class="nav__link" href="../">Work</a>
+          <a class="nav__link" href="./" aria-current="page">About</a>
+          <a class="nav__link" href="../contact/">Contact</a>
+        </nav>
+
+        <button class="nav__icon" data-theme-toggle type="button"
+                aria-label="Switch to light theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+        </button>
+
+        <button class="nav__icon nav__burger" type="button" aria-label="Open menu"
+                aria-expanded="false" aria-controls="menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="menu" id="menu" aria-hidden="true" aria-label="Menu">
+      <a class="menu__link" href="../" style="--i: 0"><span class="menu__num">01</span> Work</a>
+      <a class="menu__link" href="./" style="--i: 1"><span class="menu__num">02</span> About</a>
+      <a class="menu__link" href="../contact/" style="--i: 2"><span class="menu__num">03</span> Contact</a>
+    </nav>
+
+    <main id="main" class="wrap page">
+      <header class="phead">
+        <p class="phead__eyebrow t-meta">Profile</p>
+        <h1 class="phead__title">
+          <span data-bind="firstName">Satvik</span>
+        </h1>
+        <p class="phead__lead" data-bind="tagline">Child Model &amp; Brand Talent</p>
+      </header>
+
+      <section class="psection reveal" aria-labelledby="bio-h">
+        <div class="psection__head">
+          <h2 class="psection__title" id="bio-h">Biography</h2>
+        </div>
+
+        <div class="bio">
+          <p class="bio__text" data-bind="bio">
+            Satvik is a five-year-old model based in Chennai, working across
+            editorial, catalogue and campaign photography.
+          </p>
+
+          <div class="stack">
+            <p class="t-micro">Representation</p>
+            <p class="t-body" data-bind="representation">
+              Freelance · direct enquiries welcome
+            </p>
+            <p class="t-micro">Availability</p>
+            <p class="t-body" data-bind="availability">
+              Available for bookings — Chennai and wider Tamil Nadu
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="psection reveal" aria-labelledby="stats-h">
+        <div class="psection__head">
+          <h2 class="psection__title" id="stats-h">Statistics</h2>
+          <p class="t-meta">Updated as they change</p>
+        </div>
+
+        <!-- A description list, not a table: these are name/value pairs, and
+             a <dl> both announces correctly and reflows without contortions.
+             Populated by about.js from profile.json. -->
+        <dl class="stats" data-stats>
+          <div class="stats__row">
+            <dt class="stats__k t-meta">Loading</dt>
+            <dd class="stats__v">…</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="psection reveal" aria-labelledby="exp-h">
+        <div class="psection__head">
+          <h2 class="psection__title" id="exp-h">Experience</h2>
+        </div>
+
+        <div class="exp" data-experience>
+          <p class="t-body">Loading…</p>
+        </div>
+      </section>
+
+      <section class="psection reveal" aria-labelledby="cta-h">
+        <div class="psection__head">
+          <h2 class="psection__title" id="cta-h">Enquiries</h2>
+          <p class="t-body" data-bind="note">
+            Available for editorial, catalogue, campaign and lookbook work.
+            Always accompanied by a parent or guardian on set.
+          </p>
+        </div>
+
+        <div class="cta">
+          <a class="btn btn--solid" href="../contact/">Make an enquiry</a>
+          <!-- Prints the comp card below via print.css. No PDF library. -->
+          <button class="btn" type="button" data-print>Download comp card</button>
+          <a class="btn" href="../">View portfolio</a>
+        </div>
+      </section>
+
+      <!-- Print-only comp card. `display:none` on screen via pages.css (not the
+           `hidden` attribute, which would make print.css depend on author
+           !important beating the UA stylesheet). Laid out by print.css as a
+           standard 5x7 card; built by about.js from the category covers. -->
+      <div class="comp" data-comp aria-hidden="true"></div>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer__grid">
+          <div class="stack">
+            <p class="footer__brand" data-bind="firstName">Satvik</p>
+            <p class="footer__note" data-bind="note">
+              Available for editorial, catalogue, campaign and lookbook work.
+              Always accompanied by a parent or guardian on set.
+            </p>
+          </div>
+
+          <nav class="footer__links" aria-label="Footer">
+            <a class="nav__link" href="../">Work</a>
+            <a class="nav__link" href="./">About</a>
+            <a class="nav__link" href="../contact/">Contact</a>
+          </nav>
+        </div>
+
+        <div class="footer__bottom">
+          <span class="t-micro">
+            &copy; <span data-bind="firstName">Satvik</span> —
+            <span data-bind="city">Chennai</span>,
+            <span data-bind="country">India</span>
+          </span>
+          <a class="t-micro" href="mailto:bookings@example.com" data-bind-email>
+            Enquiries
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

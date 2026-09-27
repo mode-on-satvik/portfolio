@@ -1,0 +1,361 @@
+/* ==========================================================================
+   pages.css — About and Contact
+
+   These two pages FOLLOW the theme rather than forcing dark. Per tokens.css:
+   only the hero and galleries stay dark in both themes, because photographs
+   need a dark ground to glow against. Long-form reading does not — it wants
+   whatever the visitor actually chose.
+   ========================================================================== */
+
+/* The fixed nav overlaps the top of the document, so every page that starts
+   with text (rather than a full-bleed hero) needs to clear it. */
+.page {
+  padding-block-start: calc(var(--nav-h) + var(--s-6));
+}
+
+/* --- Page header --------------------------------------------------------- */
+
+.phead {
+  display: grid;
+  gap: var(--s-4);
+  padding-block: var(--gap-section) var(--s-8);
+  border-block-end: 1px solid var(--line);
+}
+
+.phead__eyebrow {
+  color: var(--accent);
+}
+
+.phead__title {
+  font-size: var(--fs-d1);
+  font-weight: 300;
+  letter-spacing: var(--tr-hero);
+  line-height: var(--lh-tight);
+}
+
+.phead__lead {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d3);
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--text-dim);
+  max-width: 44ch;
+}
+
+/* --- Generic section ----------------------------------------------------- */
+
+.psection {
+  padding-block: var(--gap-section);
+  border-block-end: 1px solid var(--line);
+}
+
+.psection:last-of-type {
+  border-block-end: 0;
+}
+
+.psection__head {
+  display: grid;
+  gap: var(--s-2);
+  margin-block-end: var(--s-6);
+}
+
+.psection__title {
+  font-size: var(--fs-d2);
+  font-weight: 300;
+}
+
+/* --- Bio ----------------------------------------------------------------- */
+
+.bio {
+  display: grid;
+  gap: var(--s-6);
+}
+
+.bio__text {
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--text-dim);
+  max-width: var(--maxw-text);
+}
+
+/* --- Stats table --------------------------------------------------------
+   A real <dl>, not a <table>: this is a list of name/value pairs, not
+   tabular data with row AND column meaning. Screen readers announce the
+   relationship correctly, and it reflows to one column without any of the
+   contortions a responsive <table> needs.
+   --------------------------------------------------------------------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-block-start: 1px solid var(--line);
+}
+
+.stats__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-1);
+  padding-block: var(--s-4);
+  border-block-end: 1px solid var(--line);
+}
+
+.stats__k {
+  color: var(--muted);
+}
+
+.stats__v {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d3);
+  font-weight: 400;
+}
+
+/* --- Experience ---------------------------------------------------------- */
+
+.exp {
+  display: grid;
+  border-block-start: 1px solid var(--line);
+}
+
+.exp__row {
+  display: grid;
+  gap: var(--s-1);
+  padding-block: var(--s-5);
+  border-block-end: 1px solid var(--line);
+  align-items: baseline;
+}
+
+.exp__year {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d3);
+  color: var(--accent);
+}
+
+.exp__title {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  font-family: var(--font-ui);
+  letter-spacing: 0;
+}
+
+.exp__client {
+  color: var(--muted);
+  font-size: var(--fs-meta);
+}
+
+/* --- Call to action ------------------------------------------------------ */
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  align-items: center;
+}
+
+/* --- Contact ------------------------------------------------------------- */
+
+.contact {
+  display: grid;
+  gap: var(--gap-section);
+}
+
+.contact__direct {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-6);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.contact__email {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d3);
+  font-weight: 400;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+/* --- Form ---------------------------------------------------------------- */
+
+.form {
+  display: grid;
+  gap: var(--s-5);
+  max-width: 34rem;
+}
+
+.field {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.field__label {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+}
+
+.field__req {
+  color: var(--accent);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+}
+
+.field__input,
+.field__area {
+  width: 100%;
+  /* 44px floor for touch targets */
+  min-height: 2.75rem;
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-size: var(--fs-body);
+  transition: border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.field__area {
+  min-height: 8rem;
+  resize: vertical;
+  line-height: var(--lh-body);
+}
+
+.field__input:focus,
+.field__area:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.field__input::placeholder,
+.field__area::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+/* Only style invalid fields AFTER a submit attempt. `:invalid` alone paints
+   every empty required field red before the visitor has typed anything,
+   which reads as being told off for arriving. */
+.form.was-submitted .field__input:invalid,
+.form.was-submitted .field__area:invalid {
+  border-color: #e0736a;
+}
+
+.field__hint {
+  font-size: var(--fs-meta);
+  color: var(--muted);
+}
+
+.form__note {
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  max-width: 34rem;
+}
+
+/* Status message: `aria-live` is on the element, so updating its text is
+   announced without stealing focus. */
+.form__status {
+  font-size: var(--fs-meta);
+  min-height: 1.5rem;
+}
+
+.form__status:empty {
+  min-height: 0;
+}
+
+.form__status--ok {
+  color: var(--accent);
+}
+
+.form__status--err {
+  color: #e0736a;
+}
+
+/* --- Comp card ----------------------------------------------------------
+   Screen-hidden by default; print.css reveals and lays it out. Done here
+   rather than with the `hidden` attribute so print.css only has to beat a
+   normal author rule, not the UA stylesheet.
+   --------------------------------------------------------------------- */
+
+.comp {
+  display: none;
+}
+
+/* --- 404 ----------------------------------------------------------------- */
+
+.notfound {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--s-5);
+  min-height: 70svh;
+  min-height: 70vh;
+  padding-block: var(--gap-section);
+}
+
+.notfound__code {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-hero);
+  font-weight: 300;
+  line-height: var(--lh-hero);
+  letter-spacing: var(--tr-hero);
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Breakpoints — structural only
+   ========================================================================== */
+
+@media (min-width: 768px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--s-7);
+  }
+
+  /* With two columns, the top border is drawn per row, so the container's
+     own top border would double up on the first row of each column. */
+  .stats__row {
+    grid-template-columns: 1fr 1fr;
+    align-items: baseline;
+  }
+
+  .exp__row {
+    grid-template-columns: 6rem 1fr auto;
+    gap: var(--s-5);
+  }
+
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .phead {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: var(--s-7);
+  }
+
+  .phead__eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .bio {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+    gap: var(--s-8);
+  }
+
+  .contact {
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--s-8);
+    align-items: start;
+  }
+}
