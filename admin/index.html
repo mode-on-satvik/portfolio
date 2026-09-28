@@ -85,7 +85,8 @@
               required
             />
             <p class="field__hint">
-              Needs <strong>Contents: Read and write</strong> on this repository.
+              Needs <strong>Contents: Read and write</strong> and
+              <strong>Actions: Read</strong> on this repository.
             </p>
           </label>
           <button class="btn btn--primary" type="submit" id="signin-btn">
@@ -106,7 +107,12 @@
             </li>
             <li>
               Under <strong>Permissions → Repository</strong> set
-              <strong>Contents</strong> to <strong>Read and write</strong>.
+              <strong>Contents</strong> to <strong>Read and write</strong>, and
+              <strong>Actions</strong> to <strong>Read-only</strong>.
+              <!-- Contents covers the reads, the commits AND the
+                   repository_dispatch that starts the build. Actions is only
+                   read by the Activity tab; without it uploading still works
+                   but Activity shows a GitHub error instead of progress. -->
             </li>
             <li>
               Set an expiry you are comfortable with, generate it, and copy the

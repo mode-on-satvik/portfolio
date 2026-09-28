@@ -271,7 +271,16 @@ Open <https://mode-on-satvik.github.io/portfolio/admin/>, paste a token, drag ph
 1. Go to <https://github.com/settings/personal-access-tokens> → **Generate new token**
 2. **Repository access** → **Only select repositories** → `mode-on-satvik/portfolio`
 3. **Permissions → Repository → Contents** → **Read and write**
-4. Set an expiry you're comfortable with, generate, and copy the value — GitHub shows it once
+4. **Permissions → Repository → Actions** → **Read-only**
+5. Set an expiry you're comfortable with, generate, and copy the value — GitHub shows it once
+
+Two permissions, because they do different jobs. **Contents** covers everything that writes:
+reading the JSON, committing the photos, and firing the `repository_dispatch` that starts the
+build. **Actions** is read by the Activity tab alone — leave it off and uploading still works,
+but Activity reports a GitHub error instead of showing you whether the build succeeded.
+
+**Metadata: Read-only** is required too, but GitHub adds it automatically and won't let you
+remove it, so there's nothing to set.
 
 **Publishing:**
 
