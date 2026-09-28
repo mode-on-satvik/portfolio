@@ -20,3 +20,12 @@ desktop.ini
 # Local scratch
 /tmp/
 *.log
+
+# Camera originals, kept on the photographer's disk and never committed. The
+# repo serves the pipeline's output — AVIF/WebP/JPEG at four widths, metadata
+# stripped — and a full-resolution original is both ~5 MB nobody downloads and
+# an unstripped copy of whatever the camera recorded.
+/_originals/
+# Staging. process-inbox.mjs empties it, so anything still here is either
+# mid-run or was skipped and deliberately left in place.
+/_inbox/

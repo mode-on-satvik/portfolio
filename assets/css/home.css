@@ -277,9 +277,15 @@
 .cat__media {
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   background: var(--surface);
   aspect-ratio: 4 / 5;
+  /* Lifts the card off the page. overflow: hidden clips DESCENDANTS, not this
+     element's own shadow, so the two coexist and the shadow still follows the
+     rounded corner. The reveal below promotes this to its own compositor
+     layer, so the blur is rasterised once rather than every frame of the
+     slide. */
+  box-shadow: var(--shadow);
   /* Reveal: slide in from the side this block sits on */
   opacity: 0;
   transform: translateX(var(--from, -40px));

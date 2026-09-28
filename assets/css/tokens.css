@@ -123,6 +123,10 @@
 
   --radius-sm: 2px;
   --radius: 4px;
+  /* For the large home-page cards only. 4px on a 600px-wide card is
+     indistinguishable from a square corner — the radius has to scale with the
+     element or it reads as unrounded. */
+  --radius-lg: 14px;
   --radius-pill: 999px;
 
   --z-base: 1;

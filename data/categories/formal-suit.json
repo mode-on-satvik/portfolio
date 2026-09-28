@@ -9,55 +9,11 @@
   "order": 2,
   "photos": [
     {
-      "id": "ph01",
-      "base": "images/formal-suit/sample-01-e1f1a4",
-      "w": 1200,
-      "h": 1500,
-      "lqip": "data:image/webp;base64,UklGRloBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7LkQBSNpq0KcbhYhBCilFIzhDBOlkkpXTZCLtGf0o0SIcbFz1SqLCER43Ky/EzV0iUScbqPyvxcVKsVidwvRX4+q1W/ScR4jnXfpmo7E0PGU0T1fdbULkkk48X262y1nYkh4zmi+jZrapckhtOL7dfF1A1DDtXUJmIYL0R5nabqmSTGU6z7PrVlJBJ57HxUq70QkdvOV1U57Vx3vo8xLrZ/JqszgnM2+ovaIsYoMqdab2EEnXYPEHXw0B//DwBWUDggVgAAAPAEAJ0BKhgAHgA+7WqrT6mmI7+wGAgD8B2JZQC06BDv7zYu0NfuTRF4AqgftWWDpAD+6NYcnubvaMRVN1fhOFXhuZuOfiPeOUPQPAshZsEIOqsqQAAA",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Formal Suit — sample frame 1, placeholder for photography",
-      "caption": "Closeup & seated · 01",
-      "order": 1,
-      "featured": true,
-      "sample": true
-    },
-    {
-      "id": "ph02",
-      "base": "images/formal-suit/sample-02-e7e2a1",
-      "w": 1200,
-      "h": 1600,
-      "lqip": "data:image/webp;base64,UklGRoABAABXRUJQVlA4WAoAAAAQAAAAFwAAHwAAQUxQSPkAAAAFgNxGkiOJ2T2n/bdUq+l89O7dmRARE7BQiL0QLJU/VZyCqN8WZ5KS31S0RYi9oiiL2GOv/UIQRGbPKuqMCGkco+uHqi4hITKHn1NLrURcMG76faLaJSEJd5N+f6nWmUQkbm6VvH/TdiUJQx6jmvNNd5KI+bCxXttyJobIL15a7ZnEEPMxTZs+L22XJBLHYxTnS9taibHNR6LWy6r2J4kh5pOL63lpK5KI4/HKy2r1cGVupS9tmZvEuHdxvV8YCQnzblvpe2kPEWLcbqyvRU0h0nFzqV/dDgTGsZVvxbyWGXt/Coc9GJfW8osSxtYl29yuR109fvfr+W8AVlA4IGAAAADQBACdASoYACAAPu1sr0+ppiSiKAqpMB2JZQAAKc/u35dChNxZKiIX4e2ozQCbYAD+6PDxMOLMVSFncxDUu3qfSUmyVHwVkUjzXHuJUKFdzGWCnwXUQBVwgSAg5TjAAAA=",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Formal Suit — sample frame 2, placeholder for photography",
-      "caption": "Closeup & seated · 02",
-      "order": 2,
-      "featured": false,
-      "sample": true
-    },
-    {
-      "id": "ph03",
-      "base": "images/formal-suit/sample-03-81b04f",
-      "w": 1600,
-      "h": 1200,
-      "lqip": "data:image/webp;base64,UklGRhABAABXRUJQVlA4WAoAAAAQAAAAFwAAEQAAQUxQSJkAAAAFgBxJkiIpcngP9Jd0uafj0UMiRMQErFxdIOdsQhsTN6S1ECB0PbWCgCAlEOLQY9kQwZUQYJooX8QNKSSEZQjU14aI34QwLwbyfe1oIUl+ewJ4r1BRLAnpf7utZ0FR/SZJ958N7gVUtA9Jfjs2HyuI4piELDvvDZSJkEyBgB8bkRkgXU9bVwABpga6DrACyEYaSdAIpHHeuFAAVlA4IFAAAABwBACdASoYABIAPulcp02pJSOiN/VYASAdCWcAxNgQ3Ss32z8b3zv0TCuGAAD+6NtTduzW9WqjFrpp82O7LIzEYWWyti4CE1NjuaHm4IlAAA==",
+      "id": "25a8fe",
+      "base": "images/formal-suit/formal-suit-01-25a8fe",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRjABAABXRUJQVlA4ICQBAADQBwCdASoYACQAPu1sr1GppaQipWsxMB2JbACdMvskm/DOASzGByz9DA0h0KUEPyvryWGJU0BUF/R6R6dLku5OuKuQaykmAAD+83U37WcZjiLoIsW+pP75+IHO2RhR542WHy68UrCJ1yckFZxd7vZ5ZVnyKktHo2P/rQbFVd8Laqky6E5K35DkPSMRfcsBPTWAEA+N6hHJ67UtLqU2HKWZPBr3JcDMmHNiUTNhqNP6PBysxvXvVI7yM7yhl7iPwXextj/e9sc1m3zFiGn3MTUiwp/bT7erQqotAUigvF0+aasItiq+Mk/QvFgSz+UBgWku27Z543TMjB7WmFdFisIWhjybcaGxuCWh8TrNZ1sbf5mbVNvtL8XJreAdgngPQeZrg+AA",
       "formats": [
         "avif",
         "webp",
@@ -67,20 +23,63 @@
         400,
         800,
         1200,
-        1600
+        2000
       ],
-      "alt": "Formal Suit — sample frame 3, placeholder for photography",
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 01",
+      "order": 1,
+      "featured": true
+    },
+    {
+      "id": "d8b4f0",
+      "base": "images/formal-suit/formal-suit-02-d8b4f0",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRgIBAABXRUJQVlA4IPYAAACQBgCdASoYACQAPu1oqk4ppiQiKqwBMB2JbAC1G8LCqG6AN4DJ3ccSd98ZG6tx253faCDmjzv3G97fnkgAAP7qe7u/zX9FVjLa713srqkbg5Ahh2oxPj1Bd+1T9ZBcsKoyR83o4v+5sU7V2Kxgwl55bj76Ekc2E2GTnhrB2c4kVqUhuO39K2wHhj0UhA/QX2lgl8SRu22bHmBiUa1+jTeGCDcfeB5l8LekxSuI9j/1STKdNKmW3l4RG5ZdvIewq5LMx3Wsjlg3QO3r0FN3ryuG2iurj9rvbCBMZhU3mbfRuMkQEaFBzUOksxAxT2ZcltrAxAgcAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 02",
+      "order": 2,
+      "featured": false
+    },
+    {
+      "id": "7c616c",
+      "base": "images/formal-suit/formal-suit-03-7c616c",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRjQBAABXRUJQVlA4ICgBAABQBwCdASoYACQAPu1urVIppiQipWsxMB2JbACdMscCqGqgcoBqvEcRDV3xo80UGD/7QnvnOT9ykyPSYmoCqT5VJo8AAP7zdRRSecCTD0utNVqC6peUZY7BLgvAMoy4qUtVoyLnO4FdlVSoX/yler7vkOPjblrlDfWq9eCMTJn1aDbwrDySjUIxzTg/rjURmKiCbB9YI5SeJ9FnKEl/IcO4T1PwishFRh/NfO7G3zjGwcEZHbU+1bLz8/DsbmSz8F681xJZ7zEMUPGS0bgNTJuap8g4C3wMfjAr+aie5B+FMS6AtmmYq502/EdsT6ucNPf7epo9pmTr9v9p3PSsNQlwTli6WeWy7IP0injcTjtkWxqcMsw2fumxC6HPcXtLPYXVnMKxU6gAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
       "caption": "Closeup & seated · 03",
       "order": 3,
-      "featured": false,
-      "sample": true
+      "featured": false
     },
     {
-      "id": "ph04",
-      "base": "images/formal-suit/sample-04-e0439a",
-      "w": 1200,
-      "h": 1200,
-      "lqip": "data:image/webp;base64,UklGRkYBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSMcAAAAFkB3Jttw2fR6gXflHuksP73wAtBVCREzAAfHvhXX6w2Ym/1XoIhcp0huOq5DNUYoyE4Lsw5pFaUtOse3moacyQyJyv5s/VS09IhHjYYuur6VaXSSRh/siP9/Vlimn8TxErY91qiMxZLy48L5qaWcSw3jNRd+Wpe2RGLG9xLnvhy7tiiEZrzfeVmvpLoaM5xsfq5baJWI8uf5cqrXHKQ83vnvSO0FyJ6jfFnWHYBtFOlHsELI5H6Vwr1EkaImKXTTqOq57568BAFZQOCBYAAAA0AQAnQEqGAAYAD7tZqtPqaUjojAYCAEwHYljAAAudcZdBq5E2mIoLM4NhvuR1AAA/ujZUoabxKpL6G60Uf9N3baLVpzLZGSDqRflyW6sVZE7XqGnD3rgAA==",
+      "id": "0193ff",
+      "base": "images/formal-suit/formal-suit-04-0193ff",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRggBAABXRUJQVlA4IPwAAABQBwCdASoYACQAPu1kq02ppaQiMBqqqTAdiWwAnTKEfwe9KQXaqA3AEhuK5er7LO0d5qGAEEPrvDa8uNcTtaNnpbaAAP7qZlVeytM6/OrDXhvxXh6TARWMIgDpdzodpCOV1FdTs5QxE/+AnAwuEeB7lQl5kl3cx+zk/IwyUBSW4kaWl8rXMPT0N80HBlnKbimTlLvcHUHGM3UjqfvOVdwKFXUoRWJrsF2dlPTQ2BRW+u8XRMuCjtT8B7Q12s4N70IMXg+nJzCWFVv+Yaa3THxn9mWIgPgirz1T5ICSLPe7DwowOb0yqlUEMg+Y1hMdHMtCEzSU2UnjOqKAAAA=",
       "formats": [
         "avif",
         "webp",
@@ -89,20 +88,20 @@
       "widths": [
         400,
         800,
-        1200
+        1200,
+        2000
       ],
-      "alt": "Formal Suit — sample frame 4, placeholder for photography",
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
       "caption": "Closeup & seated · 04",
       "order": 4,
-      "featured": false,
-      "sample": true
+      "featured": false
     },
     {
-      "id": "ph05",
-      "base": "images/formal-suit/sample-05-8e29c6",
-      "w": 1200,
-      "h": 1800,
-      "lqip": "data:image/webp;base64,UklGRpIBAABXRUJQVlA4WAoAAAAQAAAAFwAAIwAAQUxQSAkBAAAFgB3bttNmHcDZ/TeaA7zzwZPkEiJiAoZziXOJ85GKWyttQ9BJUJojcWuj2phnUlR0IERDRVEOIcTFKtWTELLaq06DhBBbHEdpGREhYl177FR1yClC7sZf02pVSES2Le3vnkEdSUi4e1B87bQdiUSSp6DZP1WLSGJ9ctKPoezJNTFm7ZEkEttTFOO900vrcyjHx9B2JJaZ6XgfNUkmL6fB29B2yDJ7jqJvw6gRmb2aHm9tNUkkrC+nGh9D23Ui3Z4qqp8zM8tjlParWksiIsv9RL9b7RZC5N78Z6CLkLhQfkptBJG7C7+UFUGynuiuZgSzjMP5miwnRyfbRKUJar6IRkmvW+N/u/lvAFZQOCBiAAAA8AQAnQEqGAAkAD7tXqpOKaSkIjAVXVEwHYllAMPoCzay6OjPTeUIvg5+0tHBwvMAAP7o1gTisCcXs0C/Cotj/ysJFqqPJC2la03cPTz4gDpXjla0eWAsUgjCqdmWA7MzUAA=",
+      "id": "39cc33",
+      "base": "images/formal-suit/formal-suit-05-39cc33",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRg4BAABXRUJQVlA4IAIBAAAQBwCdASoYACQAPu1sqE6ppqOiKrgN+TAdiWwAnTM0OqfnKngOw198q36BYdaNvpYXL4s/KccX5jOJrTeOVLYisAD+7Uhn788mqAo3eeMG6otC5FtjztpvNu9KzsNNWyEZqicxZ1oo7Qi0cvk//CtPPixM5yQisOKzjNSQW65FLXt+YHwaEBboductmY3FXE4fBhazFAhRofl3eEmG8ITZ/hlK04y1G6VVWpF3/sWebHDKZfRLyyCaiCtvAqeGSst0hO2xO2v5TY3SrdHjVM6q3K+y9q6OSAnZ/7G7wiUEkd8QJU8na+9CI99+fwHMwDYhXBKb9KWcTLR3p4v+vtHwAAA=",
       "formats": [
         "avif",
         "webp",
@@ -111,20 +110,20 @@
       "widths": [
         400,
         800,
-        1200
+        1200,
+        2000
       ],
-      "alt": "Formal Suit — sample frame 5, placeholder for photography",
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
       "caption": "Closeup & seated · 05",
       "order": 5,
-      "featured": false,
-      "sample": true
+      "featured": false
     },
     {
-      "id": "ph06",
-      "base": "images/formal-suit/sample-06-804d2d",
-      "w": 1200,
-      "h": 1500,
-      "lqip": "data:image/webp;base64,UklGRl4BAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN8AAAAFgNxGkiOJ2bOn7/y3VN9052NWmRARE7Dcex5yQw9L3LHM3NRo2qqQM6ljMYWQqEYptUKwbeaCUjoP4WHoXqVnSojxaJ+pUmWGxHg4Wf+LVktnJLbnQfq702q1Il4eKs36rmrVnkTeRhy/VrXarkTG22hEv6fW0s4kxvtw9utQbVci422I6BlLO5MYH8PZr10tPSNXfE6tpU3E+AihX1Mt1RPJeI3A11JtGYnk5cLPKq32gchzeuZvqSrbmScuucpjnP0vdTghThd2RZ1jG0XWQh3PyUCrLl4g6uorbr4fAFZQOCBYAAAA8AQAnQEqGAAeAD7tYKdNqaWjojAIATAdiWUArAAh34+o+qCFa6620N/voONSFjkAAP7o1h1LEF+Eny075CoqVBY4IZltwI+ejMAp5wlpKW12ODPFYAAAAA==",
+      "id": "5f9bdd",
+      "base": "images/formal-suit/formal-suit-06-5f9bdd",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRloBAABXRUJQVlA4IE4BAADwBwCdASoYACQAPu1qqVAppiOiqqoBMB2JbACdMscHH+e81ggBeAsmrQ4fsON9Ti/BvlnSr15MOdCzC0SZOpvDv+VHvdY+uQAA/up+L3lxtQePxVd3SiaexGRT6kj8JVxne1yVdQqikvaZIVPqxEf1Jzf8stwaRNsKg9AfbKrEG9XnuAhA4JGckHSIC5bEFnD/OH2eUPvxzbo6pKq7soKsunxX/7CxcNLHrLFd48K1YIIXb6VC7mqmmRcW2dMFFh0YKHxXOb2HB4i4cQmZFVEKEyJE6Np8gSp2GVfkd74M0ceJ3htRwjfLqimjL3Uq3nOSbGhwlIH7q4VyNHpKy6Hs//W6FMUC0GhHATchR4bS4RJKdwK+hZ6/QpKAHVqHADb59BifxjsyTf+MdmYGZb6RUqneDAIvXyy3fvMjAYYQSGKuTyKCf+DuSXH+AAAA",
       "formats": [
         "avif",
         "webp",
@@ -133,13 +132,562 @@
       "widths": [
         400,
         800,
-        1200
+        1200,
+        2000
       ],
-      "alt": "Formal Suit — sample frame 6, placeholder for photography",
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
       "caption": "Closeup & seated · 06",
       "order": 6,
-      "featured": false,
-      "sample": true
+      "featured": false
+    },
+    {
+      "id": "456fbe",
+      "base": "images/formal-suit/formal-suit-07-456fbe",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRlwBAABXRUJQVlA4IFABAADQBwCdASoYACQAPu1mrFGppSQiqrgKATAdiWwAnTKEeg/AONFuAN43HK0Q+1qZ/yzMHTXkqQErqovV/VfmfcCQyXZz9280AAD+78AaP654aDtdnV+/WYhdEaAQcc82m8R2gpcDDzmFJ5GQqtATQucaQim9SMbMr1/+LOBDCk/aKSVjrI30p7LhVgeNzjksdOCIWEmTTtLF0ZpyGLupFOsZ9mNpWJXV51g0cX6ugkSBYDoVKopnBJW920yG9F8bf8Leb/Kr9lZDpbFBB441iwOVkMgImIe2zuX7+gVhiqZK9NdKU4OkYqyuN9QP/jfLSgp5FWKwTEHna0TzLy0NoK2eaKoXXyoAIhW95H3KmKND5FRRMWHvLFgelLabV4+YcX+VIa2A9NZ/SgbgSqdLHvW8YIxFoUfjRGfI7Q/3K/wFNNIT+to7TGy+I3iR4MEAAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 07",
+      "order": 7,
+      "featured": false
+    },
+    {
+      "id": "22b607",
+      "base": "images/formal-suit/formal-suit-08-22b607",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRmgBAABXRUJQVlA4IFwBAAAQCACdASoYACQAPu1srlIppaQipWsxMB2JbACdMsvFJ+C81fgGWAdLkjXppcteQcv0HM88E7JFqdPb9coxVXtqHx/ijiQ4f9ooAP7zdPTZWHun3X2knQVvfjs5fC+h0WWvHBkJUG5TtREjntgFy//IMJI3ikAMexl7u/7l9bXPlk5A3f7tTGTHSHA6SAWMCArch8RxGEWDfUv2gxg1lLIYR8BDHlXan+dSg1eC8Vkhx3UObv7hHJipHPE5pyrchMcym+C97WkMXD/hBw4OE2CVJ37BuKNsISF3gk2zbTsa013+8FRqhZMEzr9jO/k3CqP+PwszW3wSSTx0CVVJr1EpnGgLd2bOO3uP3c3fEJ1mEPYZQ9Tepy9jw1W2rlt4YvV8YBoRpen5tT4kxS7p+5HwDVOjMZAoIn4pHcc/9hgyDJBZ0th2HSdiVBZmP+9m4Mj54j0T8iCgAAAAAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 08",
+      "order": 8,
+      "featured": false
+    },
+    {
+      "id": "d05737",
+      "base": "images/formal-suit/formal-suit-09-d05737",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRj4BAABXRUJQVlA4IDIBAAAwCACdASoYACQAPu1eq02ppKQiMBqqqTAdiWwAsR9tQbejXm1JbmoP2A1oD0K/1mHsxK1kMgPSfuuqZRwH+O6uKaxNCsk30kybfAD+6ncA+o5D1beDhszKlgLpFa9OznfUmBIFky7XlhKrU25YMiqh/+1DmTkRDMw3W3+TRmXU/sq5ZBSB4juo2s/p9j6FHNJG4FAQtrNxbp4CGoASAw1quACxcUpmOEysQ/dzcd29UNVX+OCrWYKdslk/1V0dW4BFNfAD4eVm47dX7zGMeTnFFv71F/QUWVGwmxPPGGRRAeYe8+xdvPQST3069d/TWwY6flH6LVoiFYStnIp0ThY4KfWT4iDGVVmDEAo7AQs/l3ecBLQ0AEkS2n1IeVcr/mYEqPf5C49rsRMKYO1wH4UAAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 09",
+      "order": 9,
+      "featured": false
+    },
+    {
+      "id": "62fc75",
+      "base": "images/formal-suit/formal-suit-10-62fc75",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRhYBAABXRUJQVlA4IAoBAADwBgCdASoYACQAPu1mq06ppaQiMBqoATAdiWwAtRumQZkM7szHLk3lxPoVAif0nWUf5vwvKu5G8Q6/G4VfyDoAAP73v/Dem4kvvsEMvAJ/+x9d/ycf/lId8xb8T6W1aV48C3MOpgmVgrcmAz7wcpk9es26Z2uLdNXHMx+HRi3lw7SyPqLWWmXqqaJhvKDKR7agYeFMpRULSO0pSrBIsDNQzDkrMzjUieX9Edm5EMm16v3TDRq7nTTkoTkFcXQaj/iL2vmyPT5z+Bh/gos3eZc44gmAYSWLWC07hmHz5f3tr1J20MHCzyQEpOW5NkLuDUpbdbRHEAWDWhk/oeICgqrtYjFhXYfN0KwAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 10",
+      "order": 10,
+      "featured": false
+    },
+    {
+      "id": "b47fb3",
+      "base": "images/formal-suit/formal-suit-11-b47fb3",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRi4BAABXRUJQVlA4ICIBAADQBwCdASoYACQAPu1mq1GppSOiqrgKATAdiWQAnTNif5kwErM7wEHbYuVXIp1m/Z47HhtTtJ2xcvjpLnG0ln5pelJr/Eo5AAD+7WAkaXdpGy5rEx5Ti9Mqf0oR2G+n4LkAAnO414YfnYCyy1qBi39USwNlgd3rK202OVg0Zb320eanEA9kbc6FzQMbvW20Vw7+WwelHObjzZY9tBpKxEHaqM41tsvc80P8/UCUGXdwUJ5/JjOviZq27EdFbP7EP7rpj68n20AIDF5TEnjzMmXT95Ol1lLXhxw8GYDVCZiA3QjIuACVPpYx7WelDXti3mLDCsaykMSbQvFJVk1DWUApKMyw3qXBwcckOP6mRhuS+hKq1cBZEsL4soBmd05Vcs0oAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 11",
+      "order": 11,
+      "featured": false
+    },
+    {
+      "id": "58128c",
+      "base": "images/formal-suit/formal-suit-12-58128c",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAADwBQCdASoYACQAPu1qrk6ppiSiKrgMATAdiWUAuzNMQ2vdEXVSKAFyayXywObjAo2EOlBiy00AAAD+6oDXPrrhYkvyz70WIoFMj4hoKn/x32P8D1Xy2hEV3q+O1l4uEQERjvrhKHicTheqeWZVCemWiPmgxJzwesdry9b6bZsHRvN4UtM/TzxrL9+9APpyi63/Rh60HjjTqYIbxtOPOdMRXXBssvou+170VPlwBQnqBOMYwuaSxCRZFWFddBCbAuOX3bbApjAAAAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 12",
+      "order": 12,
+      "featured": false
+    },
+    {
+      "id": "c8204c",
+      "base": "images/formal-suit/formal-suit-13-c8204c",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRrgAAABXRUJQVlA4IKwAAADwBACdASoYACQAPu1ssFEppaSipWsxMB2JZQDBzC5tRC6St6SgpzhyPu4CfuSu+tAA/u0/2XXCETOmENl4OGaXRzV9Zq3gVuioSnhac1o6LYJpokBOp3uMQwOCPeaW/e211Hf3e/BIvh9hOqfgJGPDLcD2L+e5O1JZsLhUXb1ncs8DgLQYpTanSGtOoKGeCBEcHiCOxc8oOeRVBl80JIqDIQIa8kHz7gzVIAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 13",
+      "order": 13,
+      "featured": false
+    },
+    {
+      "id": "911ccd",
+      "base": "images/formal-suit/formal-suit-14-911ccd",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRgABAABXRUJQVlA4IPQAAADwBgCdASoYACQAPu1gqE6ppSOiMBVdUTAdiWMAtOssE6AQS7VH92dESvsD0pPKhpZxJuvI+hrVoSk5jhm0WBBgAP7vw6TWhNvCw10csQTFWJeBt0DrK+PxRiNAAua67AcxWs71ZxsSHQ/7DNTKkueKqdNIFrILkThRIRN9DVAtUKST/lBBAnw0U+vG68x12SU5R1qhF/xhqoy5V6Ki/x+01wfoUbJN6v/s9hhMXwyaddQdNruaBXZZpo4S6Z/QkFPWC7EQTJpl48JuzgaKXMnX+vq9QLFQ8lO/pDzdOLpfbxz1eOGdDI3U8oJDEHEfj6qwwAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 14",
+      "order": 14,
+      "featured": false
+    },
+    {
+      "id": "c298f0",
+      "base": "images/formal-suit/formal-suit-15-c298f0",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAABQBgCdASoYACQAPu1usFCppqSiqrgKATAdiWMAss2MEuYg9/s5my0fWhzcTZ/s+NYobDVv6mftp1VAAAD+6oSC+GvhxIgDqrgFlLojBLgCBcs0Bc5NBFtf7K4/mUJOvpZpPYzxfNXcq/n+15Sawwuydm4winRO6VkAtn22I0pR+YuJXNhxrKX45HIWerOeJ0ukCemzzaTx4b8c/cU6hK0kaulVu26hqnPu2pHLWnrjc9pheonM4O6XNNFlicdkyPZy2/sdL5csaw03mxbvSXufQdVWWDa/zDtMoxqIAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 15",
+      "order": 15,
+      "featured": false
+    },
+    {
+      "id": "8b10bb",
+      "base": "images/formal-suit/formal-suit-16-8b10bb",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRjoBAABXRUJQVlA4IC4BAAAQCACdASoYACQAPu1ur1GppiQipWsxMB2JbACdM2yOgengZ7asqgB9h1zw8QbO8Paj7gz7K0La6HMmgynhVk6Z01ds9TF/cYtAAP7qdi/LaJ8OdMiaB3xzZ/WTeQWMgd7K3AqVUoc2ypbf5ZgQ8FTd3yUowGJ1AEiLOLVqCpFTCAv+PGI/BWk4aCqG5xnQJdMls4W32Zgmn3oPwK1U886g/d1cLvDd6Cldw/dRSNdcsVDFiBVw34jARbY3JRyE+qTSyrGg0mJUsJKC6OQDNjs6niQ1tH7bKEkp3JgHg21FTMk2HJscTM88DxuL1zmAa9/bdd3cSqIJW8n2vjwVUgx/jJajm+6nsqKah6ox00CDuXKsG3xNM8QCqkXcZj4vReDfGIHm+29gSqudqsAAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 16",
+      "order": 16,
+      "featured": false
+    },
+    {
+      "id": "dfcb51",
+      "base": "images/formal-suit/formal-suit-17-dfcb51",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRi4BAABXRUJQVlA4ICIBAABwBwCdASoYACQAPulepU2pJSOiMBqtUSAdCWwAuzM9xTCh5AAyDQo68p7erqSabPhQ1e6XuqYGJoAB4OM3dbqkuGghIAD+1euFhn43X0Z2Ev/b9RJEFOp27ImaAfxyZ8reHA3+/D2RtpGcfVb1TpmggOlHub4Iyjmt9jpirA9U8CUolocSQ55IF5gZ7D5Hd3zldccSnjlKi3XV3QvlsEAU13ePAhyfClX9loc3nVht54baD+f/mU37RHifsUHQXaMothz+JMfGRJrwhGqPzLrgNc/jv0Eu7BPzQ+huZUhaRv7m2+wo1a8yhd5qj4ZIlv2SnE2rcL+ECl8B/Ghs4PbncDtncfcNC435qOHoXGydZnlFSRaH2yCDT3HYH0cIiKEAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 17",
+      "order": 17,
+      "featured": false
+    },
+    {
+      "id": "679a7e",
+      "base": "images/formal-suit/formal-suit-18-679a7e",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRvIAAABXRUJQVlA4IOYAAAAQBwCdASoYACQAPu1mqk6ppaQiKqwBMB2JaACdMxL3oT6vQByyStOyVjU1YqkCm+YjVVZEOoGA+4m67AYsn5d2AAD+3oY7tIy87ddjNCHu8Y8JAVaDM1UYnczRayFSbsLnu4vnuvIU4rPFQ77F9oFDvHMTeZWWPN7l3jKjB8/2j7pvCwTEqL1uNXPA0PvKythu/IzC/ubC1Uab/GO7Ma4LtRsHn+EPprCXOdOwTtWmvUC52twVI4La+O03XRtKZ8UZ4A3te9BcH37cu1K1/YeuBeXmnH9NaEuBKdpgLNKPku+5jAAAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 18",
+      "order": 18,
+      "featured": false
+    },
+    {
+      "id": "e62dae",
+      "base": "images/formal-suit/formal-suit-19-e62dae",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRhYBAABXRUJQVlA4IAoBAADQBgCdASoYACQAPu1wrVMppiOipWmZMB2JZgCxHydUjkR6MddpwUYodW+JtaUXZyVlknyK8SlBV4An18MSnIAA/vHQDxRwpb3hUPPrcJXZE+XGea3g6LmGf22buB78c81DXAiWV+3sQ2+tyZlUTUMBdht+ZJXYJKO3rlKc6IE6LTrVfJWJTJDJNjQlK14smWNewXe68IwUvOzCCD9+40GRmvSJE5+BW1zISegihO6Gy9QG4O5JNKmLQF/5TTJuY+2ByOb3/BRD5qgjM/H18ISPbjiQqkrL55agc7FRM/hwKXH0MwxZuhSzu7hSfAQ9gzZUnefah1LxuH5BGnkJYsFk6U9PLdAAFncAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 19",
+      "order": 19,
+      "featured": false
+    },
+    {
+      "id": "182918",
+      "base": "images/formal-suit/formal-suit-20-182918",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRvoAAABXRUJQVlA4IO4AAABwBgCdASoYACQAPu1wrVIppiQipWsxMB2JbACdMxMIQIAbL1bsd7jfPFr3158ExsPYAbZSZ0J3NKN8RAAA/u/BJxz+nO5aBvlcri2W0B+tP2mwaOl1s2Jb7r8x74BXpyInbd4Mb9NLiHxQDR/auRRobMPo63HrzHw8888r5rf+ucaMyWRkO6Kbae3dqN5w1NItAdLut4X4RoPzQWoxTj0tL/zUOj/CHI/WtAtWyve7IuKLGh4BuGvLOOtF+IlX4b6y8T1mozpQupjvUeNIQafcbysLfYfN/gHM4KhWPpnbEIiD+HnPSuiFDC6QvAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 20",
+      "order": 20,
+      "featured": false
+    },
+    {
+      "id": "3ee91f",
+      "base": "images/formal-suit/formal-suit-21-3ee91f",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRhQBAABXRUJQVlA4IAgBAAAQCACdASoYACQAPulcp02pJSOiOrM4ASAdCWwAnTNyCEe18VZu5JAXaqAbZWlsu7zECuLjMeaJDYgKJBtilNdCHA9dKOe3STdwAP6Lytf0pMhCF/7t2DTt9e5rR632B5U4lsasJzgCaq3rHdEc42ctvTsCipl/+GgTH0H8FtHJevE5ShAQvL1Gkc815V3vZmDOnLTzvRE0zBLLHOMR5IHYxYL/VRWxrRhzyKiCcSs/EQWOvtiRYjafGR1jAQP/xShIrKoiPintX/OtPFdnZ5d7XwJkFntvPuvZqctvaBu2RFZxo6BTmVsdq6n5fIePriSlGaIiHNRLJSeqDRy7gr2PcTlVzQvwAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 21",
+      "order": 21,
+      "featured": false
+    },
+    {
+      "id": "179287",
+      "base": "images/formal-suit/formal-suit-22-179287",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRiwBAABXRUJQVlA4ICABAADwBwCdASoYACQAPu1mq1AppSOiqrgMATAdiWwAnTKEc3kbtAPLF6EF3JAGok2Koh090pCDfBfFwJJApMeTrjsLEoEylEGUPIAA/lKMfYjjbmhEM4A/S4fDGorDp7W02cDAs4KGsRRJ2EcaZcSWdf3h47WTret7rwQaqlZSwhl8o08HJIF+mlkB+CrwpHJ9Ou8Si2+QH53GVJZkhnYAeHmh+Yr9HiIN4jN4Qf+2OzZdvGJNK3sr3h/dmZH/A9ud9DRnBiJ9vlZIzo7d7d26p6e6jP8yGPH2U0sh/zsc3VRYUUPiPnRB48IxUIcfPkP12kOti7tQ9AyurAF/scBdyYC9PJ07syJ0/bc938Gr96p+7KP4NX71XEPfxA6UHbtoAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 22",
+      "order": 22,
+      "featured": false
+    },
+    {
+      "id": "d429c9",
+      "base": "images/formal-suit/formal-suit-23-d429c9",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRhYBAABXRUJQVlA4IAoBAACwBgCdASoYACQAPu1iqU2ppaQiMBVdUTAdiWwArDM9vjDy+BSoA5XtrDY870adxzbV5QlomJqvpBwz32IoEAD+wyGjZtIZxb1jDVZ0nBEbP/nrSh/V0hLdZ3oEQX/zsH6aMNdfU996Erbd6ulkbbWVmIC2+fDtHzkGlEyCRUMeb0xSTkTlXCI/g0bO5gWevu1ncie2VAX6FKXf6m+h648Is7nkVQ+EOztnBuC+T6Kvh5kKG61lYA9Nyb1kAdAUoQARVsp/A8MzG/j65UVg7ILPn/Ssjk6rZ/qjyHhOPZY+HBC4j5F+9+AzZVAhepBHuV13p0RfrR5BciaIqIk6wYdwgOANZzDQ2QAAAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 23",
+      "order": 23,
+      "featured": false
+    },
+    {
+      "id": "90de67",
+      "base": "images/formal-suit/formal-suit-24-90de67",
+      "w": 960,
+      "h": 1190,
+      "lqip": "data:image/webp;base64,UklGRgIBAABXRUJQVlA4IPYAAACwBgCdASoYAB4APu1oqVAppiOiqA1RMB2JbACdMtU9H6bc3UgLtV3mIGWS1fuSkHmos6Y1AX7N7J/WYQS5kAD+w5EsiysRvWV5W79jk0Tvz6C26y6LquKBLmbvdYwuxwDsiIFWXvj++Cg7nNcv8X/+a+R47vdZ2rgZ/ag8P9gvGfTIdXdlka+oIbAbpMrjEn6lKv8NMg7u5Dfi8lXndyGGDK3DSmq4Oads7Fj2l0G2PtgjigSQHpwbyK9Q9+ZS5iCSxtqHTk4wT8WSHjAAXWIY9bqLPyq7VkVx2S5pwUJ+QxIdIB1JyKZ4P5838rzyk/8TvxKqgAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        960
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 24",
+      "order": 24,
+      "featured": false
+    },
+    {
+      "id": "52f4a8",
+      "base": "images/formal-suit/formal-suit-25-52f4a8",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRgIBAABXRUJQVlA4IPYAAAAQBgCdASoYACQAPu1iq0+ppSOiMBVaqTAdiWwAsR80Op2vNsBigAGmpnImX6jnAXwsMVSwiRUZogAA/tMSzeOIhm0j5K/2QbwBQHQQLIKkhEXgnfTXbXmfnK8LMRNEzYrh9ti+kMPlP/lK+vACsb5K6TWmlrOFJEWprUvzGEqcVtjjTwrkxSYrcK69hIF0f368i2uYcvSxih1NdlONViG5WYZNpoppu4snZgs8pDGTNgsZyAKcJiPrEZbl3o5qoLGjrX0ECtlaNjCakdQgLEHg2W+TcliwV5a7KtBz7DjVtcprsCYSJjcleCX4JBdygBZcQ7YAAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 25",
+      "order": 25,
+      "featured": false
+    },
+    {
+      "id": "a61d43",
+      "base": "images/formal-suit/formal-suit-26-a61d43",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRhgBAABXRUJQVlA4IAwBAADwBgCdASoYACQAPtFQoU2oJKMiOrzIAQAaCWwAsR80O1+qxKghgBloa0JBxavVQWZ/d1/SRoM9+KBZtJs91TvgAP6u/DiXifsFYOvPHd/gaHNVNJ87NdGc/vxBEW0MiOH6149HP2NAZVB5n/yCOGKUPkcdlVevM/stEdPjJP2Q/mdGYup6T6CZXLq0OWi3Dk5JKVGrTz+F9W22tfyb8GXYlVI6tMIgdFeQcyinD6ShsetaGmyIh+3rqf1fv2DPxKHCr4ym8tkDwL9P/91vk1mK1OUgqA7xUloAVlc7X3h8NxNeR+leYU+lemVskMbUdwMyvsJXkpONTN4Pz6TEJK2lAlc23i8u4KAAAAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 26",
+      "order": 26,
+      "featured": false
+    },
+    {
+      "id": "afa8be",
+      "base": "images/formal-suit/formal-suit-27-afa8be",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRiABAABXRUJQVlA4IBQBAABQBwCdASoYACQAPu1op0+ppiMiKqwBMB2JbACdMwTAn6rxFFYyQAB8FxUhcNEKPiH/TbpKaussz9rWtn2cR8pLOIgAAP7D+kGQV0RiYEwOsHaP3ri7WSCAeqE9DnVEFtyqpbvPB2eDbf7yrcnPH/PZZaH/ECm368lgTMPq3wSymcYGH6TxmF6TA5dYI1mxS9xN+T/pHY+D9b5HC0t80RZMoWiJTcB6CX2f68mQE0y1XtFXm4fwrRltdBujGN9fw07qf/fHngMdeBHYLdozOXBs+XPKVqAbnSwdpG4LXazxS9gcyF/FzfiHxE2XTPxJX1+1m2/k7lnDt/L+SoAe1sh1pdTH4x9Cb8v6AZj1PCNPARWAAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 27",
+      "order": 27,
+      "featured": false
+    },
+    {
+      "id": "ca980f",
+      "base": "images/formal-suit/formal-suit-28-ca980f",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRjABAABXRUJQVlA4ICQBAABwCACdASoYACQAPu1yqlEppyOiqrgKATAdiWwAnTKEhFeq+YJX2sG3APQAAuc5eWycu3Tw4+ZlN6zCnGVMEJbgIeIyz3K0LTCwvVoAAP6uyYOxXe3Jv8egqJlrLF9K7GHf9xR8b7MZPeL3nFW63R4J4BC/+Ki6+u+r4DJTtYtkgkTFb/M2cFhhJi+M+5MtXqbBUg98z1tYDx7HPIzl8uqouNBvT8cxIPrEdjsHXahio1iFwUvneC6x3YzTTE/ltNwucWDcI/pHhi3qlQnZwzM2x4O3n0WgDsrAhFnTkrkPBOa+4qA/3783bckywtNkCljXkAVCc8YwUfG2Sg3BLy8pr8Dx5X3/yClF3ZX3/yLneSH0unMwg5Tb2s6EJmgaWNy8AAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 28",
+      "order": 28,
+      "featured": false
+    },
+    {
+      "id": "48d25f",
+      "base": "images/formal-suit/formal-suit-29-48d25f",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRiABAABXRUJQVlA4IBQBAADwBwCdASoYACQAPuleqE2pJSOiNVgIASAdCWwAnTMAAs+zXP7br0ebZrnbtN4HK0K4f2H7R5fDLpIQEmCxf2U7dkluBukVhrAA/q4ldIsJYqxHHPexk27IanM+HD2IPhad7wuvGciJn/xZ9iqVhtSt4O+KqMqFKdOrwDq5Uc+Plwtz0LBvTfPzMeRDoS4muj0dXJ1wMOr6m9F3Z49p0PRasAW0OIy1lKpHY4Qco/6BNak4zk0GhtIv/OSViD6AXgrS5npLAlKrg4ZYLZTZ3rm1Z469vIHaZZi/N/+P/yH8Nj+kiYF9flM2BUZTlKcZW/ae+qZF3n9BafHef4N/LWhRuMkWPtw20yGN5/04l3AKwn4UAAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 29",
+      "order": 29,
+      "featured": false
+    },
+    {
+      "id": "5074f1",
+      "base": "images/formal-suit/formal-suit-30-5074f1",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRjgBAABXRUJQVlA4ICwBAADQBwCdASoYACQAPu1yr1MppqQipWmZMB2JbACdMoR2j7BdhnANtuCdInu/WMOfvq87+t165LeMDwbe+HlFcq5BzycLku/z6AD+6mUnuve+AO3ZewCDKyroh7E7WsejByVHX+/x2Kgt3rx/52C/6+ff8SjvCKa9/H1h79ZRRHYkDxHgkvoXMVfgCw3miZxr6xe9JI3YeDDdMIE2dsp0nnoqr7k/zhca/l4I4K+6tt4mNdDpV7XZqui9/SUvX6Bc3T+RryOBEXs6yGdMiFvyYZa1ZnvkLpJxqyFODcit3OaQZFKfbs43rMKbab+iqJNTzrWvAG9+qoUMb9//gY570qnOVGa12UaqvdaHEZ2vlnkSXWp+TgIIGiSlfaH0DpwyHznz05frV1tFAg58AAA=",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 30",
+      "order": 30,
+      "featured": false
+    },
+    {
+      "id": "85fe1e",
+      "base": "images/formal-suit/formal-suit-31-85fe1e",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRvoAAABXRUJQVlA4IO4AAAAQBgCdASoYACQAPu1oqVCppaOiqrgMATAdiWwAnTKEcDe0uMAB2kSgNgX+0JXtBKS/GQl6kYgNE7AA/ucDcF7EZczyMOSQ0Y4kMz8QuQH2sl/5sDbzejTm6IoxvayvbjBW33ZiaSerqBhzhY+qPMYzHdTKFNHg77l4NeVvvFhdnlr04EUdPb3weAbq8oT0Rpt/MotsvuEpnqFrPWjdQtxumvZuAbQiNdN0y/f1b40Je5WH4zOFjVK/Kq7mtrxIpxUtttK/m9VngqsnHecQe8i740ccnPGlq9c66+k3deTGIvnMnhF1+KPOhilEwAAA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Formal Suit — Closeup & seated (alt text needed)",
+      "caption": "Closeup & seated · 31",
+      "order": 31,
+      "featured": false
     }
   ]
 }

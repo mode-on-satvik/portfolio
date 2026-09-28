@@ -9,7 +9,16 @@
    ========================================================================== */
 
 import { signIn, signOut, isAuthed, onAuthChange, REPO_OWNER, REPO_NAME } from "./auth.js";
-import { loadCatalog, loadCategory, saveCategory, stageFiles, recentRuns } from "./github.js";
+import {
+  loadCatalog,
+  loadCategory,
+  saveCategory,
+  loadIndex,
+  saveIndex,
+  deleteCategory,
+  stageFiles,
+  recentRuns,
+} from "./github.js";
 import { scrub } from "./scrub.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -431,18 +440,17 @@ async function publish() {
 function renderCategories() {
   const view = $("#view-cats");
 
-  if (!state.categories.length) {
-    view.innerHTML = `<p class="empty">No categories found.</p>`;
-    return;
-  }
-
   view.innerHTML = `
     <div id="cats-msg" role="alert" aria-live="polite"></div>
     <p class="field__hint" style="margin-bottom:var(--s-4)">
       Hiding a set removes it from the site without deleting anything. The
-      order here is the order on the home page.
+      <strong>↑</strong> and <strong>↓</strong> buttons set the order the sets
+      appear in on the home page.
     </p>
-    <ul class="cats">
+
+    ${
+      state.categories.length
+        ? `<ul class="cats">
       ${state.categories
         .map(
           (c, i) => `
@@ -463,26 +471,602 @@ function renderCategories() {
           </div>
           <div class="cat__actions">
             <button class="btn btn--sm" data-up="${esc(c.slug)}"${i === 0 ? " disabled" : ""}
-                    aria-label="Move ${esc(c.title)} up">↑</button>
+                    aria-label="Move ${esc(c.title)} up">↑ Up</button>
             <button class="btn btn--sm" data-down="${esc(c.slug)}"${
               i === state.categories.length - 1 ? " disabled" : ""
-            } aria-label="Move ${esc(c.title)} down">↓</button>
+            } aria-label="Move ${esc(c.title)} down">↓ Down</button>
             <button class="btn btn--sm" data-toggle="${esc(c.slug)}">
               ${c.published ? "Hide" : "Show"}
             </button>
+            <button class="btn btn--sm" data-edit="${esc(c.slug)}"
+                    aria-expanded="false">Edit</button>
+            <button class="btn btn--sm" data-photos="${esc(c.slug)}"
+                    aria-expanded="false">Photos</button>
+            <!-- Deleting a set with photos in it is refused rather than
+                 cascaded: it would be one tap to destroy fifty photos from a
+                 phone. Empty it first, which forces a confirm per photo. -->
+            <button class="btn btn--sm btn--danger" data-delcat="${esc(c.slug)}"${
+              (c.count ?? 0) > 0 ? " disabled" : ""
+            } title="${
+              (c.count ?? 0) > 0
+                ? "Remove the photos in this set first"
+                : "Delete this set"
+            }">Delete</button>
           </div>
+          <!-- Both filled in on demand. The edit form and photo list need the
+               category FILE, which the catalogue does not carry, so each costs
+               a request and is not worth fetching six of them up front for a
+               panel opened to reorder one set. -->
+          <div class="cat__photos" data-edit-for="${esc(c.slug)}" hidden></div>
+          <div class="cat__photos" data-photos-for="${esc(c.slug)}" hidden></div>
+        </li>`
+        )
+        .join("")}
+    </ul>`
+        : `<p class="empty">No sets yet — create the first one below.</p>`
+    }
+
+    <div class="card" style="margin-top:var(--s-6)">
+      <h2 class="card__title">New set</h2>
+      <form id="newcat-form" novalidate>
+        <label class="field">
+          <span class="field__label">Name — required</span>
+          <input type="text" id="newcat-title" placeholder="Winter Formals" />
+          <p class="field__hint" id="newcat-slug-hint">
+            The web address is made from the name.
+          </p>
+        </label>
+        <label class="field">
+          <span class="field__label">Subtitle — optional</span>
+          <input type="text" id="newcat-subtitle" placeholder="Autumn collection" />
+        </label>
+        <label class="field">
+          <span class="field__label">Description — optional</span>
+          <textarea id="newcat-blurb"
+            placeholder="Studio work in soft light. Direct-to-camera and seated."></textarea>
+        </label>
+        <button class="btn btn--primary" type="submit" id="newcat-btn">
+          Create set
+        </button>
+        <p class="field__hint">
+          A new set starts hidden and empty. Add photos to it, then press Show.
+        </p>
+      </form>
+    </div>
+  `;
+
+  view.onclick = async (e) => {
+    const t = e.target.closest("button");
+    if (!t) return;
+    if (t.dataset.toggle) return toggleCategory(t.dataset.toggle);
+    if (t.dataset.up) return moveCategory(t.dataset.up, -1);
+    if (t.dataset.down) return moveCategory(t.dataset.down, 1);
+    if (t.dataset.photos) return togglePhotos(t);
+    if (t.dataset.del) return deletePhoto(t.dataset.del, t.dataset.photoId);
+    if (t.dataset.edit) return toggleEdit(t);
+    if (t.dataset.delcat) return removeCategory(t.dataset.delcat);
+    if (t.dataset.saveEdit) return saveEdit(t.dataset.saveEdit);
+  };
+
+  /* Live slug preview. The slug is derived, not typed — a hand-typed slug that
+     disagrees with the folder name in _inbox/ is a whole class of confusing
+     "my photos did not appear" failures. */
+  const title = $("#newcat-title");
+  title?.addEventListener("input", () => {
+    const slug = slugify(title.value);
+    $("#newcat-slug-hint").innerHTML = slug
+      ? `Address: <code>work/${esc(slug)}/</code>`
+      : "The web address is made from the name.";
+  });
+
+  $("#newcat-form")?.addEventListener("submit", (e) => {
+    e.preventDefault(); // a real submit navigates and discards the token
+    createCategory();
+  });
+}
+
+/**
+ * Title → slug.
+ *
+ * Must match the shape the rest of the pipeline assumes: a lowercase
+ * hyphen-separated name that is safe in a URL, a filename and a folder name at
+ * once, because the slug is all three (data/categories/<slug>.json,
+ * images/<slug>/, work/<slug>/). Accents are stripped rather than
+ * percent-encoded — a literal é in a repo path works locally and then breaks
+ * differently on Windows, Linux and the Pages CDN.
+ */
+const slugify = (s) =>
+  String(s ?? "")
+    .normalize("NFKD")
+    // The combining-marks block NFKD just split the accents out into.
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    /* Truncate before the final trim, not after: a 60-character cut can land on
+       a hyphen, and `winter-formals-` is a legal path that reads like a typo. */
+    .slice(0, 60)
+    .replace(/^-+|-+$/g, "");
+
+/* --- Create a category --------------------------------------------------- */
+
+/**
+ * Create a set: one new category file, plus an entry in the index.
+ *
+ * Two writes, and the ORDER matters. The category file goes first: index.json
+ * is what the site reads, so an index entry pointing at a category file that
+ * does not exist yet is a visible 404 on the home page, while a category file
+ * with no index entry is simply invisible until the second write lands. Failing
+ * towards invisible rather than broken is the whole reason for the sequence.
+ *
+ * The set is created HIDDEN. build-pages.mjs only generates work/<slug>/ for
+ * published categories, so a set that went live immediately would appear on the
+ * home page linking to a page that does not exist until the build finishes.
+ */
+async function createCategory() {
+  if (state.busy) return;
+
+  const titleEl = $("#newcat-title");
+  const title = titleEl.value.trim();
+  const slug = slugify(title);
+
+  if (!title) {
+    say("#cats-msg", "err", "Give the set a name.");
+    titleEl.focus();
+    return;
+  }
+  /* A title of only punctuation or emoji slugifies to an empty string, which
+     would otherwise write data/categories/.json. */
+  if (!slug) {
+    say(
+      "#cats-msg",
+      "err",
+      "That name has no letters or numbers in it, so it cannot be turned into a web address."
+    );
+    titleEl.focus();
+    return;
+  }
+  if (state.categories.some((c) => c.slug === slug)) {
+    say(
+      "#cats-msg",
+      "err",
+      `A set already uses the address <code>work/${esc(slug)}/</code>. Pick a different name.`
+    );
+    titleEl.focus();
+    return;
+  }
+
+  state.busy = true;
+  $("#newcat-btn").disabled = true;
+  say("#cats-msg", "info", "Creating…");
+
+  try {
+    const { index, sha } = await loadIndex();
+
+    /* Re-check against the file just read, not only the in-memory list. The
+       panel may have been open for a while, and creating a set that silently
+       overwrites one added from a laptop is the bad outcome here. */
+    if ((index.categories ?? []).some((c) => c.slug === slug)) {
+      throw new Error(
+        `A set with the address work/${slug}/ already exists on GitHub. Reload and try again.`
+      );
+    }
+
+    const order =
+      Math.max(0, ...(index.categories ?? []).map((c) => c.order ?? 0)) + 1;
+
+    const cat = {
+      slug,
+      title,
+      subtitle: $("#newcat-subtitle").value.trim(),
+      blurb: $("#newcat-blurb").value.trim(),
+      published: false,
+      order,
+      photos: [],
+    };
+
+    // Category file first — see the note above on ordering.
+    await saveCategory(slug, cat, null, `Add category ${slug}`);
+
+    index.categories = [
+      ...(index.categories ?? []),
+      /* Only the fields a human owns. `count`, `cover` and `rev` are derived by
+         rebuildIndex() on the next build; inventing values for them here would
+         put a second, disagreeing copy of the derivation in the panel. */
+      { slug, title: cat.title, subtitle: cat.subtitle, blurb: cat.blurb, order, published: false },
+    ];
+    await saveIndex(index, sha, `Add category ${slug} to the index`);
+
+    state.categories = index.categories
+      .slice()
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+    renderCategories();
+    say(
+      "#cats-msg",
+      "ok",
+      `Created <strong>${esc(title)}</strong>, hidden for now. Add photos to it from ` +
+        `<strong>Add photos</strong>, then press <strong>Show</strong>.`
+    );
+  } catch (err) {
+    say("#cats-msg", "err", esc(err.message));
+  } finally {
+    state.busy = false;
+    const btn = $("#newcat-btn");
+    if (btn) btn.disabled = false;
+  }
+}
+
+/* --- Edit a category's wording ------------------------------------------ */
+
+function toggleEdit(btn) {
+  const slug = btn.dataset.edit;
+  const box = $(`[data-edit-for="${CSS.escape(slug)}"]`);
+  if (!box) return;
+
+  if (!box.hidden) {
+    box.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+    return;
+  }
+
+  box.hidden = false;
+  btn.setAttribute("aria-expanded", "true");
+  return loadEdit(slug);
+}
+
+async function loadEdit(slug) {
+  const box = $(`[data-edit-for="${CSS.escape(slug)}"]`);
+  if (!box) return;
+
+  box.innerHTML = `<p class="empty">Loading…</p>`;
+
+  try {
+    let entry = catFiles.get(slug);
+    if (!entry) {
+      const { json: cat, sha } = await loadCategory(slug);
+      if (!cat) throw new Error(`data/categories/${slug}.json not found`);
+      entry = { cat, sha };
+      catFiles.set(slug, entry);
+    }
+
+    box.innerHTML = `
+      <label class="field">
+        <span class="field__label">Name</span>
+        <input type="text" data-f="title" value="${esc(entry.cat.title ?? "")}" />
+      </label>
+      <label class="field">
+        <span class="field__label">Subtitle</span>
+        <input type="text" data-f="subtitle" value="${esc(entry.cat.subtitle ?? "")}" />
+      </label>
+      <label class="field">
+        <span class="field__label">Description</span>
+        <textarea data-f="blurb">${esc(entry.cat.blurb ?? "")}</textarea>
+      </label>
+      <button class="btn btn--sm btn--primary" data-save-edit="${esc(slug)}">
+        Save wording
+      </button>
+      <p class="field__hint">
+        The web address stays <code>work/${esc(slug)}/</code> — renaming it would
+        break any link already shared.
+      </p>
+    `;
+  } catch (err) {
+    box.innerHTML = `<div class="msg msg--err">${esc(err.message)}</div>`;
+  }
+}
+
+/**
+ * Save edited wording.
+ *
+ * Only the category file is written. rebuildIndex() mirrors title, subtitle and
+ * blurb from it into index.json on the next build, so writing both here would
+ * be a second commit that the build would immediately rewrite anyway.
+ *
+ * The slug is deliberately not editable. Renaming it means moving the category
+ * file, every file under images/<slug>/ and the generated work/<slug>/ page,
+ * and it breaks any link already shared — a rename is a delete plus a create,
+ * and pretending otherwise in a one-field form invites losing a set.
+ */
+async function saveEdit(slug) {
+  if (state.busy) return;
+
+  const box = $(`[data-edit-for="${CSS.escape(slug)}"]`);
+  const entry = catFiles.get(slug);
+  if (!box || !entry) return;
+
+  const val = (f) => $(`[data-f="${f}"]`, box)?.value.trim() ?? "";
+  const title = val("title");
+  if (!title) {
+    say("#cats-msg", "err", "The name cannot be empty.");
+    return;
+  }
+
+  state.busy = true;
+  say("#cats-msg", "info", "Saving…");
+
+  try {
+    const updated = {
+      ...entry.cat,
+      title,
+      subtitle: val("subtitle"),
+      blurb: val("blurb"),
+    };
+    await saveCategory(slug, updated, entry.sha, `Edit ${slug} wording`);
+
+    // The sha is stale after a write; re-read on the next expand.
+    catFiles.delete(slug);
+
+    const local = state.categories.find((c) => c.slug === slug);
+    if (local) {
+      local.title = title;
+      local.subtitle = updated.subtitle;
+      local.blurb = updated.blurb;
+    }
+
+    renderCategories();
+    say(
+      "#cats-msg",
+      "ok",
+      `Saved. The site rebuilds in a couple of minutes.`
+    );
+  } catch (err) {
+    catFiles.delete(slug);
+    say("#cats-msg", "err", `${esc(err.message)}<br />Nothing was saved.`);
+  } finally {
+    state.busy = false;
+  }
+}
+
+/* --- Delete a category -------------------------------------------------- */
+
+/**
+ * Delete an EMPTY set: remove its index entry, then its category file.
+ *
+ * Refused while the set still has photos. Cascading would make it one tap to
+ * destroy fifty photos from a phone, with nothing but a dialog in between and
+ * no undo — the photos would leave the site while remaining in git history
+ * forever, so "I can put them back" is not true either. Emptying the set first
+ * forces a confirm per photo, which is the friction this decision wants.
+ *
+ * Index entry first, the reverse of create: the index is what the site reads,
+ * so removing the entry makes the set invisible immediately, and a failure
+ * between the two writes leaves an orphaned category file that shows nothing
+ * rather than an index entry pointing at a file that is gone.
+ *
+ * The generated work/<slug>/ page is removed by build-pages.mjs, which deletes
+ * any directory whose slug is no longer published in the index.
+ */
+async function removeCategory(slug) {
+  if (state.busy) return;
+
+  const local = state.categories.find((c) => c.slug === slug);
+  if (!local) return;
+
+  /* Trust the file, not the cached count. `count` comes from index.json, which
+     is only refreshed by a build — a photo added since the last build would not
+     be reflected, and this is the check standing between a tap and losing it. */
+  let cat, sha;
+  try {
+    const file = await loadCategory(slug);
+    cat = file.json;
+    sha = file.sha;
+  } catch (err) {
+    say("#cats-msg", "err", esc(err.message));
+    return;
+  }
+
+  const photos = cat?.photos ?? [];
+  if (photos.length) {
+    say(
+      "#cats-msg",
+      "err",
+      `<strong>${esc(local.title)}</strong> still has ${photos.length} photo${
+        photos.length === 1 ? "" : "s"
+      } in it. Remove them first — press <strong>Photos</strong> on that set.`
+    );
+    return;
+  }
+
+  if (!confirm(`Delete the set "${local.title}"?`)) return;
+
+  state.busy = true;
+  say("#cats-msg", "info", "Deleting…");
+
+  try {
+    const { index, sha: indexSha } = await loadIndex();
+    index.categories = (index.categories ?? []).filter((c) => c.slug !== slug);
+
+    // Index entry first — see the note above on ordering.
+    await saveIndex(index, indexSha, `Remove category ${slug} from the index`);
+    /* No sha means there was no file to read — an index entry left behind by a
+       half-finished delete. Removing the entry above is the whole fix; asking
+       GitHub to delete a path that does not exist would only fail. */
+    if (sha) await deleteCategory(slug, sha, `Remove category ${slug}`);
+
+    catFiles.delete(slug);
+    state.categories = state.categories.filter((c) => c.slug !== slug);
+
+    renderCategories();
+    say(
+      "#cats-msg",
+      "ok",
+      `Deleted <strong>${esc(local.title)}</strong>. The site rebuilds in a couple of minutes.`
+    );
+  } catch (err) {
+    say("#cats-msg", "err", `${esc(err.message)}<br />The set was not deleted.`);
+  } finally {
+    state.busy = false;
+  }
+}
+
+/* --- Photos within a category ------------------------------------------- */
+
+/**
+ * Cached category files, keyed by slug: `{ cat, sha }`.
+ *
+ * The sha is the point. Deleting a photo is a read-modify-write of the whole
+ * category file, and GitHub rejects the write unless the sha matches what is
+ * currently on the branch — which is what stops this panel from silently
+ * discarding a caption someone edited from a laptop in the meantime. Cached so
+ * expanding a category, deleting two photos and collapsing it is one read.
+ */
+const catFiles = new Map();
+
+function togglePhotos(btn) {
+  const slug = btn.dataset.photos;
+  const box = $(`[data-photos-for="${CSS.escape(slug)}"]`);
+  if (!box) return;
+
+  if (!box.hidden) {
+    box.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+    return;
+  }
+
+  box.hidden = false;
+  btn.setAttribute("aria-expanded", "true");
+  return loadPhotos(slug);
+}
+
+async function loadPhotos(slug) {
+  const box = $(`[data-photos-for="${CSS.escape(slug)}"]`);
+  if (!box) return;
+
+  box.innerHTML = `<p class="empty">Loading photos…</p>`;
+
+  try {
+    const { json: cat, sha } = await loadCategory(slug);
+    if (!cat) throw new Error(`data/categories/${slug}.json not found`);
+    catFiles.set(slug, { cat, sha });
+    renderPhotos(slug);
+  } catch (err) {
+    box.innerHTML = `<div class="msg msg--err">${esc(err.message)}</div>`;
+  }
+}
+
+function renderPhotos(slug) {
+  const box = $(`[data-photos-for="${CSS.escape(slug)}"]`);
+  const entry = catFiles.get(slug);
+  if (!box || !entry) return;
+
+  const photos = (entry.cat.photos ?? [])
+    .slice()
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+  if (!photos.length) {
+    box.innerHTML = `<p class="empty">No photos in this set.</p>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <ul class="sort">
+      ${photos
+        .map(
+          (p) => `
+        <li class="sort__row" data-photo="${esc(p.id)}">
+          ${
+            p.lqip
+              ? `<img class="sort__thumb" src="${esc(p.lqip)}" alt="" />`
+              : `<div class="sort__thumb"></div>`
+          }
+          <div>
+            <div class="sort__alt">${esc(p.alt || "(no alt text)")}</div>
+            <div class="cat__meta">
+              ${esc(p.caption || "")}${p.featured ? " · cover" : ""}
+            </div>
+          </div>
+          <button class="btn btn--sm btn--danger"
+                  data-del="${esc(slug)}" data-photo-id="${esc(p.id)}">
+            Remove
+          </button>
         </li>`
         )
         .join("")}
     </ul>
   `;
+}
 
-  view.onclick = async (e) => {
-    const t = e.target;
-    if (t.dataset.toggle) return toggleCategory(t.dataset.toggle);
-    if (t.dataset.up) return moveCategory(t.dataset.up, -1);
-    if (t.dataset.down) return moveCategory(t.dataset.down, 1);
-  };
+/**
+ * Delete one photo: rewrite the category file without it, in one commit.
+ *
+ * The 12 image variants are deliberately NOT deleted here. Doing it from the
+ * browser would be 12 more Contents-API commits per photo, and it would still
+ * leave data/index.json stale — `count`, `cover` and the cache-busting `rev`
+ * are derived from the category files by rebuildIndex(), which the workflow
+ * runs. tools/prune.mjs finishes the job on the next run: it collects image
+ * files no category references and rebuilds the index. So one commit here, and
+ * the workflow reconciles.
+ *
+ * The cover is the case that actually breaks the site. If the deleted photo was
+ * the cover, something else must be promoted — an index entry naming a cover
+ * with no files behind it renders as broken images on the home page, which is
+ * the failure already live on formal-suit.
+ */
+async function deletePhoto(slug, photoId) {
+  if (state.busy) return;
+
+  const entry = catFiles.get(slug);
+  if (!entry) return;
+
+  const photos = entry.cat.photos ?? [];
+  const photo = photos.find((p) => String(p.id) === String(photoId));
+  if (!photo) return;
+
+  const label = photo.alt?.trim() || photo.caption?.trim() || photo.id;
+  if (!confirm(`Remove this photo?\n\n${label}`)) return;
+
+  state.busy = true;
+  say("#cats-msg", "info", "Removing…");
+
+  try {
+    const kept = photos.filter((p) => String(p.id) !== String(photoId));
+
+    /* Promote a new cover when the deleted photo was it. First by order, to
+       match rebuildIndex()'s own `photos.find(featured) ?? photos[0]` fallback
+       — so the panel and the workflow agree on which photo becomes the cover
+       instead of each picking its own. */
+    if (photo.featured && kept.length) {
+      const next = kept
+        .slice()
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))[0];
+      next.featured = true;
+    }
+
+    const updated = { ...entry.cat, photos: kept };
+    await saveCategory(
+      slug,
+      updated,
+      entry.sha,
+      `Remove ${slug}/${photo.id}`
+    );
+
+    /* The sha just changed, so the cached one is stale. Drop it and re-read on
+       the next expand rather than guessing the new value — a wrong sha fails
+       the NEXT delete with a confusing conflict error. */
+    catFiles.delete(slug);
+
+    const local = state.categories.find((c) => c.slug === slug);
+    if (local) local.count = kept.length;
+
+    renderCategories();
+    /* Re-open the set that was just edited: collapsing it on every delete
+       would mean three taps per photo when clearing out a set. */
+    const btn = $(`[data-photos="${CSS.escape(slug)}"]`);
+    if (btn) await togglePhotos(btn);
+
+    say(
+      "#cats-msg",
+      "ok",
+      kept.length
+        ? `Removed. ${kept.length} photo${kept.length === 1 ? "" : "s"} left. The site rebuilds in a couple of minutes.`
+        : "Removed the last photo in this set. The site rebuilds in a couple of minutes."
+    );
+  } catch (err) {
+    catFiles.delete(slug);
+    say("#cats-msg", "err", `${esc(err.message)}<br />Nothing was removed.`);
+  } finally {
+    state.busy = false;
+  }
 }
 
 async function toggleCategory(slug) {

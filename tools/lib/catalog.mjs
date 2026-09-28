@@ -56,6 +56,14 @@ export async function rebuildIndex() {
     entry.published = cat.published !== false;
     entry.count = photos.length;
 
+    /* `order` too, and this one was missing. The admin panel's reorder arrows
+       write `order` into the two affected CATEGORY files and nothing else, but
+       the home page reads the index — so without this line a reorder made from
+       the panel is silently discarded, forever. The live data had already
+       drifted this way: formal-suit and sporty-basketball were swapped in the
+       category files and still in the old order on the site. */
+    entry.order = cat.order ?? entry.order;
+
     const cover = photos.find((p) => p.featured) ?? photos[0];
     if (!cover) {
       entry.cover = null;
