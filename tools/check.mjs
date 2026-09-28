@@ -1932,6 +1932,21 @@ async function main() {
       ["stats bound", `document.querySelector('[data-bind="stats.height"]')?.textContent.trim()`, (s) => /cm/.test(s || "")],
       ["theme applied pre-paint", `document.documentElement.dataset.theme`, (s) => s === "dark" || s === "light"],
       ["no-js class removed", `document.documentElement.classList.contains('no-js')`, false],
+      /* The card lift. Both are one declaration each and easy to lose in a
+         refactor, and neither breaks anything loudly when it goes — the page
+         just quietly turns flat and square again. Asserted as a resolved
+         computed value, so a typo'd or undefined custom property fails here
+         rather than silently computing to none / 0px. */
+      [
+        "category cards keep their shadow",
+        `getComputedStyle(document.querySelector('.cat__media')).boxShadow`,
+        (s) => !!s && s !== "none",
+      ],
+      [
+        "category cards keep a visible corner radius",
+        `parseFloat(getComputedStyle(document.querySelector('.cat__media')).borderTopLeftRadius)`,
+        (n) => n >= 8,
+      ],
       /* Belt and braces alongside the HTTP check: an <img> that resolved but
          decoded to nothing (naturalWidth 0) is broken however it got there. */
       ["no broken images", BROKEN_IMAGES, (list) => list.length === 0],
