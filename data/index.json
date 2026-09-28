@@ -23,18 +23,17 @@
       "title": "Formal Suit",
       "subtitle": "Closeup & seated",
       "blurb": "Tailored navy three-piece in studio. Direct-to-camera closeups and relaxed seated work — showing poise and stillness under lights.",
-      "count": 6,
+      "count": 31,
       "order": 2,
       "published": true,
       "cover": {
-        "base": "images/formal-suit/sample-01-e1f1a4",
-        "w": 1200,
-        "h": 1500,
-        "lqip": "data:image/webp;base64,UklGRloBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7LkQBSNpq0KcbhYhBCilFIzhDBOlkkpXTZCLtGf0o0SIcbFz1SqLCER43Ky/EzV0iUScbqPyvxcVKsVidwvRX4+q1W/ScR4jnXfpmo7E0PGU0T1fdbULkkk48X262y1nYkh4zmi+jZrapckhtOL7dfF1A1DDtXUJmIYL0R5nabqmSTGU6z7PrVlJBJ57HxUq70QkdvOV1U57Vx3vo8xLrZ/JqszgnM2+ovaIsYoMqdab2EEnXYPEHXw0B//DwBWUDggVgAAAPAEAJ0BKhgAHgA+7WqrT6mmI7+wGAgD8B2JZQC06BDv7zYu0NfuTRF4AqgftWWDpAD+6NYcnubvaMRVN1fhOFXhuZuOfiPeOUPQPAshZsEIOqsqQAAA",
-        "alt": "Formal Suit — sample frame 1, placeholder for photography",
-        "sample": true
+        "base": "images/formal-suit/formal-suit-01-25a8fe",
+        "w": 3840,
+        "h": 5760,
+        "lqip": "data:image/webp;base64,UklGRjABAABXRUJQVlA4ICQBAADQBwCdASoYACQAPu1sr1GppaQipWsxMB2JbACdMvskm/DOASzGByz9DA0h0KUEPyvryWGJU0BUF/R6R6dLku5OuKuQaykmAAD+83U37WcZjiLoIsW+pP75+IHO2RhR542WHy68UrCJ1yckFZxd7vZ5ZVnyKktHo2P/rQbFVd8Laqky6E5K35DkPSMRfcsBPTWAEA+N6hHJ67UtLqU2HKWZPBr3JcDMmHNiUTNhqNP6PBysxvXvVI7yM7yhl7iPwXextj/e9sc1m3zFiGn3MTUiwp/bT7erQqotAUigvF0+aasItiq+Mk/QvFgSz+UBgWku27Z543TMjB7WmFdFisIWhjybcaGxuCWh8TrNZ1sbf5mbVNvtL8XJreAdgngPQeZrg+AA",
+        "alt": "Formal Suit — Closeup & seated (alt text needed)"
       },
-      "rev": "e1f1a4"
+      "rev": "25a8fe"
     },
     {
       "slug": "ethnic-jacket-set",
@@ -109,5 +108,5 @@
       "rev": "a2cd45"
     }
   ],
-  "rev": "9179f766"
+  "rev": "6365dac9"
 }
