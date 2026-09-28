@@ -1,0 +1,18 @@
+{
+  "message": "Add 2 photo(s) to sporty-basketball",
+  "photos": {
+    "Satvik Dash 00504.jpg": {
+      "alt": "Testing",
+      "caption": "Game mood",
+      "slug": "sporty-basketball",
+      "featured": true
+    },
+    "Satvik Dash 00491.jpg": {
+      "alt": "Testin 1",
+      "caption": "Hero",
+      "slug": "sporty-basketball",
+      "featured": false
+    }
+  },
+  "categories": {}
+}
