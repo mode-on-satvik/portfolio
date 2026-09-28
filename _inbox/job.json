@@ -1,0 +1,36 @@
+{
+  "message": "Add 5 photo(s) to ethnic-festive",
+  "photos": {
+    "Satvik Dash 00616.JPG": {
+      "alt": "Cute",
+      "caption": "",
+      "slug": "ethnic-festive",
+      "featured": false
+    },
+    "Satvik Dash 00610.JPG": {
+      "alt": "Hero",
+      "caption": "",
+      "slug": "ethnic-festive",
+      "featured": false
+    },
+    "Satvik Dash 00609.JPG": {
+      "alt": "Yes",
+      "caption": "",
+      "slug": "ethnic-festive",
+      "featured": false
+    },
+    "Satvik Dash 00608.JPG": {
+      "alt": "confident",
+      "caption": "",
+      "slug": "ethnic-festive",
+      "featured": false
+    },
+    "Satvik Dash 00597.JPG": {
+      "alt": "simple",
+      "caption": "",
+      "slug": "ethnic-festive",
+      "featured": false
+    }
+  },
+  "categories": {}
+}
