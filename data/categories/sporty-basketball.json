@@ -9,55 +9,11 @@
   "order": 2,
   "photos": [
     {
-      "id": "ph01",
-      "base": "images/sporty-basketball/sample-01-d15612",
-      "w": 1200,
-      "h": 1500,
-      "lqip": "data:image/webp;base64,UklGRmYBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN4AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkIw2KRtNWs3K4WIQQopRSM4QwTpZJKV02Qi7Rn9KNEiHGxc9UqiwhEeNysvxM1dIlEnG6j8r8XFSrFYncL0V+PqtVv0nEeI5136ZqOxNDxlNE9X3W1C5JJOPF9utstZ2JIeM5ovo2a2qXJIbTi+3XxdQNQw7V1CZiGC9EeZ2m6pkkxlOs+z61ZSQSeex8VKu9EJHbzldVOe1cd76PMS62fyarM4JzNvqL2iLGKDKnWm9hBJ12DxB18NAf/w9WUDggYgAAADAFAJ0BKhgAHgA+7WywUKmmJKKoCqkwHYliAJ0zIYF/8HxzSW6RN2HdwAVfOMrd9MYAAP7o8PHko1SltQiRs3yObWKi81udVzGzngC0HJE8tvLp+sndhZLZdV2JKswIAAAA",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Sporty Basketball — sample frame 1, placeholder for photography",
-      "caption": "Summer collection · 01",
-      "order": 1,
-      "featured": true,
-      "sample": true
-    },
-    {
-      "id": "ph02",
-      "base": "images/sporty-basketball/sample-02-920efc",
-      "w": 1200,
-      "h": 1600,
-      "lqip": "data:image/webp;base64,UklGRpABAABXRUJQVlA4WAoAAAAQAAAAFwAAHwAAQUxQSP0AAAABmTJE9D80dFvblt1I6Dn/dOfhkxXDIto+eG1/bFtgAvQjJmAC/gx/wXdcg+FPsqFdHh7zB99DU5ddyGvUDzJ5mFtX25k2maa2wyJ3zDEPj8Vo9u4klteaZfHOXpbWaTHdLTsTa2cs13oXW3Sy2PKL/WY/Or/Sstew8JNe2c9eX0MHy9p/X8j/X0LF5A7Wiu21tdY8j9WLnbtlumurxYmdMXa2zhY70yC5ZTL9jp07jIwsyMLyeDKfPA5ihr2h0cHo7XpvNVlwNrb6xGp6cNc77I1GHjCDjyztUbZl3p7WMK3hg+ziYfc8Uebskkfvy4hj2q3L5/I88/T9bd8MAFZQOCBsAAAA8AQAnQEqGAAgAD7tZqtOKaWkIigNUTAdiUATpltIL/4TAIPlb/ZiML1wvrroxyC+AP7o8PHkmjyeX1GgA6UmC3SGCn+eqzLmhdhl6g8lp9S71ou11AJLCGiSKBSp++CHYG5O/sy1L/y5gAAA",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Sporty Basketball — sample frame 2, placeholder for photography",
-      "caption": "Summer collection · 02",
-      "order": 2,
-      "featured": false,
-      "sample": true
-    },
-    {
-      "id": "ph03",
-      "base": "images/sporty-basketball/sample-03-9becef",
-      "w": 1600,
-      "h": 1200,
-      "lqip": "data:image/webp;base64,UklGRhoBAABXRUJQVlA4WAoAAAAQAAAAFwAAEQAAQUxQSJkAAAAFgBxJkiIpcngP9Jd0uafj0UMiRMQErFxdyAU2oQ3BDWktBAhdT60gIEgJhDj0WDZEcCUEmCbKF3FDCglhGQL1tSHiNyHMi4F8XztaSJLfngDeK1QUS0L6327rWVBUv0nS/WeDewEV7UOS347NxwqiOCYhy857A2UiJFMg4MdGZAZI19PWFUCAqYGuA6wAspFGEjQCaZw3LhQAVlA4IFoAAACwBACdASoYABIAPu1iq02ppaQyMBgMAkAdiWMAvzgQqauzthp85tRYF9/r037AAP7jFU64SMqUIBBaLLqnL+YeEIctB52ztHpvSpBQeIZgWTe5FlIVsFmGgAA=",
+      "id": "ba48c6",
+      "base": "images/sporty-basketball/sporty-basketball-01-ba48c6",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRgIBAABXRUJQVlA4IPYAAACQBgCdASoYACQAPu1oqk4ppiQiKqwBMB2JbAC1G8LCqG6AN4DJ3ccSd98ZG6tx253faCDmjzv3G97fnkgAAP7qe7u/zX9FVjLa713srqkbg5Ahh2oxPj1Bd+1T9ZBcsKoyR83o4v+5sU7V2Kxgwl55bj76Ekc2E2GTnhrB2c4kVqUhuO39K2wHhj0UhA/QX2lgl8SRu22bHmBiUa1+jTeGCDcfeB5l8LekxSuI9j/1STKdNKmW3l4RG5ZdvIewq5LMx3Wsjlg3QO3r0FN3ryuG2iurj9rvbCBMZhU3mbfRuMkQEaFBzUOksxAxT2ZcltrAxAgcAAA=",
       "formats": [
         "avif",
         "webp",
@@ -67,20 +23,19 @@
         400,
         800,
         1200,
-        1600
+        2000
       ],
-      "alt": "Sporty Basketball — sample frame 3, placeholder for photography",
-      "caption": "Summer collection · 03",
-      "order": 3,
-      "featured": false,
-      "sample": true
+      "alt": "Testin 1",
+      "caption": "Hero",
+      "order": 1,
+      "featured": false
     },
     {
-      "id": "ph04",
-      "base": "images/sporty-basketball/sample-04-c50594",
-      "w": 1200,
-      "h": 1200,
-      "lqip": "data:image/webp;base64,UklGRlABAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSMkAAAAFkB3Jttw2fR6gXflHukvAOx8PlB1CREzACfH3wlyk0ltojsS/FjqJhhTpDedCyOYsRTkSguzDPIrSliyx7Y5Tl3KEROR+d/xUtfSMRIyHLTq/pmp1kkQe7ov8fFdbDlnG8xA1P+ZSZ2LIeHHhfdbUHkkM4zUXfZumtmdixPYSa99PndoZQzJeb7zN1tRdDBnPNz5mTbVLxHhy/TlVa48lDze+u+idILkT1G+LukOwjSI9UOwQslnPUrjXKBK0RMUuGnUd173zvwEAVlA4IGAAAAAwBQCdASoYABgAPu1kq0+ppSOiMBgIATAdiWIAnQAPS5c1EVtNbhcyrSxpuu/Mm5sDgAD+6PDc+azBMS5LhqexEnLSJTpTcpAidDUli0HaHffZKhSL0CrqOvG8Q1pjwAA=",
+      "id": "7a1e57",
+      "base": "images/sporty-basketball/sporty-basketball-02-7a1e57",
+      "w": 3840,
+      "h": 5760,
+      "lqip": "data:image/webp;base64,UklGRjQBAABXRUJQVlA4ICgBAABQBwCdASoYACQAPu1urVIppiQipWsxMB2JbACdMscCqGqgcoBqvEcRDV3xo80UGD/7QnvnOT9ykyPSYmoCqT5VJo8AAP7zdRRSecCTD0utNVqC6peUZY7BLgvAMoy4qUtVoyLnO4FdlVSoX/yler7vkOPjblrlDfWq9eCMTJn1aDbwrDySjUIxzTg/rjURmKiCbB9YI5SeJ9FnKEl/IcO4T1PwishFRh/NfO7G3zjGwcEZHbU+1bLz8/DsbmSz8F681xJZ7zEMUPGS0bgNTJuap8g4C3wMfjAr+aie5B+FMS6AtmmYq502/EdsT6ucNPf7epo9pmTr9v9p3PSsNQlwTli6WeWy7IP0injcTjtkWxqcMsw2fumxC6HPcXtLPYXVnMKxU6gAAA==",
       "formats": [
         "avif",
         "webp",
@@ -89,57 +44,13 @@
       "widths": [
         400,
         800,
-        1200
+        1200,
+        2000
       ],
-      "alt": "Sporty Basketball — sample frame 4, placeholder for photography",
-      "caption": "Summer collection · 04",
-      "order": 4,
-      "featured": false,
-      "sample": true
-    },
-    {
-      "id": "ph05",
-      "base": "images/sporty-basketball/sample-05-ec1f16",
-      "w": 1200,
-      "h": 1800,
-      "lqip": "data:image/webp;base64,UklGRqYBAABXRUJQVlA4WAoAAAAQAAAAFwAAIwAAQUxQSAsBAAAFkNxIkiNJFt29fPVXlJPpikfVzJ0IETEBw1xiLjGfqfjXStu4OSjNmdBcQ6PamHOlqOhAzKGiKKcQ4mqV6iSE7C5V0yAhxBHnWVpGRIjY954XqjpkipC78de0WhUSkeNI+3vJoM4kJNw9KL4utB2JRJKnoLl8qhaRxP5k0o+hXJJbYqzaM0kkjqcoxnuX1/bnUM6Poe1IbCvL8T5qkSxepsHb0HbItnqOom/DqBFZvVqeb201SSTsL1ONj6HtvpAeTxXVz5WV7TFK+1WtLRGR7X6h3632CCFyb/0z0E1IXCk/pQ6CyN2VX8qOINknelErglXGab4l2+Ts4lioNEGtN9Eo6W17/N8e/jcAVlA4IHQAAACQBQCdASoYACQAPu1qrFAppiQjKrgMATAdiUAYUAFDl3SyHu26T6ZO01d8epf42lz3oKIFkAD+6PDwrTKx1JtDzgIZA7ePCCNtB7CbcY6M77HiPVzKuG/PrGh4HxFchMXEXqEEfrm1ueipabCmt25OvQAAAA==",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Sporty Basketball — sample frame 5, placeholder for photography",
-      "caption": "Summer collection · 05",
-      "order": 5,
-      "featured": false,
-      "sample": true
-    },
-    {
-      "id": "ph06",
-      "base": "images/sporty-basketball/sample-06-3310c3",
-      "w": 1200,
-      "h": 1500,
-      "lqip": "data:image/webp;base64,UklGRmoBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSOEAAAAFgB1Jtqum9yJv8o/Ui3v3410QIUTEBCy3nof8o4clblhmNml002jaag6OqWMxhZCoRim1QnA6mQtK6TyE+6HnKt2UEOPBeaZKlRkS4/7O+lu0WjojcXoapD9nWq1WxPN9pVlfVa06J5HXEcfPVa22K5HxOhrRr6m1tDOJ8TZsPw/VdiUyXoeIbiztTGK8D9vPs1q6kSs+ptbSJmK8h9DPqZbqHcl4icDnUm0ZieT5wvcqrfaeyFO6+V2qymnzyCVXeYjtX6nDHeLuwllRO06jyFqo404GWnXxAlFXX/Hv2wEAVlA4IGIAAABQBQCdASoYAB4APu1kqE2ppaOiMAgBMB2JQBOl9DO+wVx/yY12uNf4TJDvRvH4/qMX5FQA/ujw8eSo6TDIgQCjaZnA3WBWeJQ/s3csq4janFexQnD0mgXBLJPkGZgf5jmAAA==",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Sporty Basketball — sample frame 6, placeholder for photography",
-      "caption": "Summer collection · 06",
-      "order": 6,
-      "featured": false,
-      "sample": true
+      "alt": "Testing",
+      "caption": "Game mood",
+      "order": 2,
+      "featured": true
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27",
+  "updated": "2026-09-28",
   "categories": [
     {
       "slug": "formal-suit",
@@ -24,18 +24,17 @@
       "title": "Sporty Basketball",
       "subtitle": "Summer collection",
       "blurb": "Outdoor court in natural light. Motion, mid-action expression and genuine energy — suited to athletic and activewear campaigns.",
-      "count": 6,
+      "count": 2,
       "order": 2,
       "published": true,
       "cover": {
-        "base": "images/sporty-basketball/sample-01-d15612",
-        "w": 1200,
-        "h": 1500,
-        "lqip": "data:image/webp;base64,UklGRmYBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN4AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7JkIw2KRtNWs3K4WIQQopRSM4QwTpZJKV02Qi7Rn9KNEiHGxc9UqiwhEeNysvxM1dIlEnG6j8r8XFSrFYncL0V+PqtVv0nEeI5136ZqOxNDxlNE9X3W1C5JJOPF9utstZ2JIeM5ovo2a2qXJIbTi+3XxdQNQw7V1CZiGC9EeZ2m6pkkxlOs+z61ZSQSeex8VKu9EJHbzldVOe1cd76PMS62fyarM4JzNvqL2iLGKDKnWm9hBJ12DxB18NAf/w9WUDggYgAAADAFAJ0BKhgAHgA+7WywUKmmJKKoCqkwHYliAJ0zIYF/8HxzSW6RN2HdwAVfOMrd9MYAAP7o8PHko1SltQiRs3yObWKi81udVzGzngC0HJE8tvLp+sndhZLZdV2JKswIAAAA",
-        "alt": "Sporty Basketball — sample frame 1, placeholder for photography",
-        "sample": true
+        "base": "images/sporty-basketball/sporty-basketball-02-7a1e57",
+        "w": 3840,
+        "h": 5760,
+        "lqip": "data:image/webp;base64,UklGRjQBAABXRUJQVlA4ICgBAABQBwCdASoYACQAPu1urVIppiQipWsxMB2JbACdMscCqGqgcoBqvEcRDV3xo80UGD/7QnvnOT9ykyPSYmoCqT5VJo8AAP7zdRRSecCTD0utNVqC6peUZY7BLgvAMoy4qUtVoyLnO4FdlVSoX/yler7vkOPjblrlDfWq9eCMTJn1aDbwrDySjUIxzTg/rjURmKiCbB9YI5SeJ9FnKEl/IcO4T1PwishFRh/NfO7G3zjGwcEZHbU+1bLz8/DsbmSz8F681xJZ7zEMUPGS0bgNTJuap8g4C3wMfjAr+aie5B+FMS6AtmmYq502/EdsT6ucNPf7epo9pmTr9v9p3PSsNQlwTli6WeWy7IP0injcTjtkWxqcMsw2fumxC6HPcXtLPYXVnMKxU6gAAA==",
+        "alt": "Testing"
       },
-      "rev": "d15612"
+      "rev": "7a1e57"
     },
     {
       "slug": "ethnic-jacket-set",
@@ -110,5 +109,5 @@
       "rev": "a2cd45"
     }
   ],
-  "rev": "119de9d9"
+  "rev": "fea6c5b5"
 }
