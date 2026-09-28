@@ -9,55 +9,11 @@
   "order": 4,
   "photos": [
     {
-      "id": "ph01",
-      "base": "images/ethnic-festive/sample-01-9c9556",
-      "w": 1200,
-      "h": 1500,
-      "lqip": "data:image/webp;base64,UklGRmwBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7LkQBSNpq0KcbhYhBCilFIzhDBOlkkpXTZCLtGf0o0SIcbFz1SqLCER43Ky/EzV0iUScbqPyvxcVKsVidwvRX4+q1W/ScR4jnXfpmo7E0PGU0T1fdbULkkk48X262y1nYkh4zmi+jZrapckhtOL7dfF1A1DDtXUJmIYL0R5nabqmSTGU6z7PrVlJBJ57HxUq70QkdvOV1U57Vx3vo8xLrZ/JqszgnM2+ovaIsYoMqdab2EEnXYPEHXw0B//DwBWUDggaAAAAFAFAJ0BKhgAHgA+7WKsT6mlJCIwGAgBMB2JYgCdMy/BiWvHdPT2LOQ8UXGcw9MQ3eftAAD+4001HOQwm07eQ5KAp2uahJTghMJVsFq8skBJAWy0/yOlVVIWZEf3N9OC3rGqr1WtAAAA",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Ethnic Festive — sample frame 1, placeholder for photography",
-      "caption": "Full-length celebration wear · 01",
-      "order": 1,
-      "featured": true,
-      "sample": true
-    },
-    {
-      "id": "ph02",
-      "base": "images/ethnic-festive/sample-02-b6cb96",
-      "w": 1200,
-      "h": 1600,
-      "lqip": "data:image/webp;base64,UklGRo4BAABXRUJQVlA4WAoAAAAQAAAAFwAAHwAAQUxQSPwAAAAFkNxIkiNJFlW9XH9J+e5dVzyql4gQEROwoIi9ECwVv6k4haAXl8WZ0PGjirYIaVBRlEXsG7VfBEFk9qyizoiQxjG6/lPVJSRE5vD/1FIrERfGTf+dqHZJSMLdpP++VOtMIhI3t0re/9F2JQlDHqOa8013koj5sLFe23ImhsgPXlrtmcQQ8zFNmz4vbZckEsdjFOdL21qJsc1HotbLqvZ/EkPMJ5freWkrkojj8ZuX1erhm7mVvrRlbhLj3uV6vxgJCfNuW+l7aQ8RYtxurK9FTSHScXPVr24HAuPYyj/F/C4z9v4vHPZgXK3lByWMrUu2uX0f9e3xsx/PPwNWUDggbAAAAPAEAJ0BKhgAIAA+7WStTqmlpKIoDVEwHYliAJ0ygAGJa8db2C2SBCQZZQJURaeYEAD+4000333KEtNr6jN5fkbZFzcB+u4CQOzgdJflcD7itqveGo0hqUEzIet7Dz9LMwSeH2oHb06qWEvQAA==",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Ethnic Festive — sample frame 2, placeholder for photography",
-      "caption": "Full-length celebration wear · 02",
-      "order": 2,
-      "featured": false,
-      "sample": true
-    },
-    {
-      "id": "ph03",
-      "base": "images/ethnic-festive/sample-03-f800b3",
-      "w": 1600,
-      "h": 1200,
-      "lqip": "data:image/webp;base64,UklGRhoBAABXRUJQVlA4WAoAAAAQAAAAFwAAEQAAQUxQSJkAAAAFgBxJkiIpcngP9Jd0uafj0UMiRMQErFxdIOdsQhuCG9JaCBC6nlpBQJASCHHosWyI4EoIME2UL+KGFBLCMgTqa0PEb0KYFwP5vna0kCS/PQG8V6goloT0v93Ws6CofpOk+88G9wIq2ockvx2bjxVEcUxClp33BspESKZAwI+NyAyQrqetK4AAUwNdB1gBZCONJGgE0jhvXCgAVlA4IFoAAACQBACdASoYABIAPu1erE2ppSSiMBgMATAdiWMApxQQqoBVKGYuZV3aoxAZfAAA/uMUk2L0K3XOMgCACdE/Ek4JjW8qHr0bii4LVtoC6jQ3PBv/CoxvYjTUMAA=",
+      "id": "5d702b",
+      "base": "images/ethnic-festive/ethnic-festive-01-5d702b",
+      "w": 4128,
+      "h": 6192,
+      "lqip": "data:image/webp;base64,UklGRmwBAABXRUJQVlA4IGABAACQCACdASoYACQAPu1urlIppiQipWsxMB2JbACdMoRwN7BbhU4OZyyR0/AXUDM/k5tVokNKFKoFQHLu4OEFWIWoXTPNU3Ug3Pa2L64KrgD+8dWPpdJom759zkvtHQK8qv5tG9jrqJfKxWVTUGtVmjdk1PXLDjaSH32X/xg0u5oe28Q8JvUmWPvFyuAZzO+huq3ECOtyjgIR7+qodTAsCrxSeqvlbPHlSUNc2nPiBB9rSArHJz4jS6hHBkok/luB7FeF7o48rdRuoIql9B7VV9j7x92sHaRp/PJfiiWYseLF5Nvumzr78axuFN5yKtVbeEbo3K91InzXfYjgx+PcZqEy5mLjFhLlPjDu4trjAO1tIv1ArVJoMBun1R4cFQevc6DR8kaBTxY+gyHjsn0vQqWjn5+nH/Bf2cmuvfvkNOMJEOxs+MF59SrvAmYBFMCwUO8oJD7smrdOoMKn/kyQAAAA",
       "formats": [
         "avif",
         "webp",
@@ -67,20 +23,63 @@
         400,
         800,
         1200,
-        1600
+        2000
       ],
-      "alt": "Ethnic Festive — sample frame 3, placeholder for photography",
+      "alt": "simple",
+      "caption": "Full-length celebration wear · 01",
+      "order": 1,
+      "featured": true
+    },
+    {
+      "id": "a923e1",
+      "base": "images/ethnic-festive/ethnic-festive-02-a923e1",
+      "w": 4128,
+      "h": 6192,
+      "lqip": "data:image/webp;base64,UklGRpoBAABXRUJQVlA4II4BAAAQCgCdASoYACQAPu1krlEppSQiqrgKATAdiWwAnTKEc7e7+YJUl5xzgNsByIGsHegB0sKNfHAOtch9zf28tIhwajAedFhZ2GKsPyalPQdFZkiQW2OxR72YAAD+7U5gvvHRjkGZryqhd/WZEELHOgqqMpe+E70gntE32hRsHeGzP+eN8lHqfRc7MV4iLxEYewmBNb0Oq//FmvsmNuXr+BWL91fzS+K96/tn1yUKb4kDHHSHRL8rHCgNf+zueXDBkh1zzyGXQLVkNj+2bYODVA9oa6orF0qc0E1GZ7rGRrWV28URP2e3wzmIjTIvQliTwJofdAH0/H2tgmV+lURYpG7S7b4zkScnSgiPKICIoxfYi1x9T9RLO3cwArVzaCP9aZb3HFdo3Igbr2XQvwRhmdAup7NumWtHGTunb1/wmtPnvsO5BS8mXY3bokq17/Rj9oqIuxmpZeS4SAAi3bOSc5h2YInTOaWkbTyylSh9xxXvAU1876A63NhGrPynpsqW4dIVVd9Ioepg8MbizRRgAA==",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "confident",
+      "caption": "Full-length celebration wear · 02",
+      "order": 2,
+      "featured": false
+    },
+    {
+      "id": "977fa9",
+      "base": "images/ethnic-festive/ethnic-festive-03-977fa9",
+      "w": 4128,
+      "h": 6192,
+      "lqip": "data:image/webp;base64,UklGRooBAABXRUJQVlA4IH4BAACwBwCdASoYACQAPu1op0+ppiMiKqwBMB2JbACxHsvBb6upAbrMqgSFlJl3/IWeod/kBrHAK9skQNPEiMtXY3W/fbbiY/wAAP7nK6Fd+Kikvc92DwVWNnodGQURflJ/0q7uPd6P23668YsZCQBprjZ3T1DtLgBBgL///UuEy/f+RPw4fEeKjt/7VX+KdD3b5BMCh3ApgATzW+e490bUtAOOKtijAm2WW5xs3Vp/cpcfVfpR38CE1nX3tUuOH/zOiA7J0Zb+V54XCyuUhpsZcqArw/lMdczuZI+2hT8r7q+p5e4EUiuoBZ15s91tovNhbvvck2NEfC3PXCZ4IlVuPxf0HDGXCqxu+T1NunasYBJMtynC8w5F80VwcEaI4pKQ545fvP5Rzb+gzO3WYsLbP16HVTgve+RykFCNyD/6arCWtFbyxn0LVarbGmhY0h1tapK5QLiJ6r/PdqIEeocSL34M+V8rv+S4PKohq4h9hPw4pGviPzpviG/u7YJnk4AA",
+      "formats": [
+        "avif",
+        "webp",
+        "jpg"
+      ],
+      "widths": [
+        400,
+        800,
+        1200,
+        2000
+      ],
+      "alt": "Yes",
       "caption": "Full-length celebration wear · 03",
       "order": 3,
-      "featured": false,
-      "sample": true
+      "featured": false
     },
     {
-      "id": "ph04",
-      "base": "images/ethnic-festive/sample-04-c2009c",
-      "w": 1200,
-      "h": 1200,
-      "lqip": "data:image/webp;base64,UklGRlgBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSMkAAAAFkB3Jttw2fR6gXflHukvAOx8PlB1CREzAaY0/F+YSTf+A5kj8a6ETWVKkN5wEIZuzFOVICLIP8yhKW7LEtjtOXcoREpH73fFT1dIzEjEetuj8mqrVSRJ5uC/y811tOWQZz0PU/JhLnYkh48WF91lTeyQxjNdc9G2a2p6JEdtLrH0/dWpnDMl4vfE2W1N3MWQ83/iYNdUuEePJ9edUrT2WPNz47qJ3guROUL8t6g7BNor0QLFDyGY9S+Feo0jQEhW7aNR1XPfO/wYAVlA4IGgAAABwBACdASoYABgAPu1grFAppKQisBgIATAdiWIAnQAQ72u4lhPNFCpS88FxIAD+4w6WMzd1kNwnzLSIlssjpX8XlVv8dncN2GBxuTuclkvTE89UkejqcrRtdf4F7LZDUuqo36zFj0AAAA==",
+      "id": "5273ec",
+      "base": "images/ethnic-festive/ethnic-festive-04-5273ec",
+      "w": 4128,
+      "h": 6192,
+      "lqip": "data:image/webp;base64,UklGRoYBAABXRUJQVlA4IHoBAACQCQCdASoYACQAPu1mrVEppSQiqrgKATAdiWwAnTLLxTSBK+/Xd1qNtCA27V2V+gAfgOIFw5OXRJ4ntZq8KddpBuZrEQz8iRQxYJOS0fabWH+RR4iQAP7qhPPLyRRP4erB7B4WVjgZHn1Do93FdcsNCLQbMAucixPP+qcEiSHUUuQj//i+Hbq3eNOh5yMnJ0wMPh+/AsOWbgYwiRnYkssFMzC58ZS6yusYrK1N4dV0JYn7T3NptICbYYHth5fTNyES6YMocmpUqPvKZmbDyTx0rSqP8/C31ZSxYKXucZeKhROoLk8gmbmwi9eGfOmYkWew07DzVVrgWN477GwLyfbnb1wgJgWsICWjx4VtO9hQryhHcp2Ox/PYk2wNZ/u3KxewQmGxjLlJwotJeLf9CiV/SQeCXNeN9QySSfx/0Czvf8f9gzHaCsFGxQmW8GM6Dx17TDbHQaHcveUXQsXlOPWzxBZ38nIUeKCnL4q/y6wH67Y6GYhgj1KFAAA=",
       "formats": [
         "avif",
         "webp",
@@ -89,20 +88,20 @@
       "widths": [
         400,
         800,
-        1200
+        1200,
+        2000
       ],
-      "alt": "Ethnic Festive — sample frame 4, placeholder for photography",
+      "alt": "Hero",
       "caption": "Full-length celebration wear · 04",
       "order": 4,
-      "featured": false,
-      "sample": true
+      "featured": false
     },
     {
-      "id": "ph05",
-      "base": "images/ethnic-festive/sample-05-f7bdbc",
-      "w": 1200,
-      "h": 1800,
-      "lqip": "data:image/webp;base64,UklGRqQBAABXRUJQVlA4WAoAAAAQAAAAFwAAIwAAQUxQSAkBAAAFgB3bttNmHUDO/TeaA7zzwZPsEiJiAoZziXOJ85GKv1bahtBZUJoj8ddGtYFcKyo6EFKhoiiHEOJqlepJCFntVadBQogtjqO0jIgQsa49dqo65BQhl/HbtFoVEpFtS/uzZ1BHEhIu94rPnbYjkUjyGDT7h2oRSayPTvo+lD25JcasPZJEYnuMYrx1em19CuV4H9qOxDIzHW+jJsnk+TR4HdoOWWZPUfR1GDUisxfT47WtJomE9flU431ou06k22NF9WNmZnmI0n5Wa0lEZLmb6Fer3UKI3Jl/D3QRElfKd6mNIHK58kNZESTrie5qRjDLOJxvyXJydLJNVJqg5otolPS2Nf63m/8GAFZQOCB0AAAA0AUAnQEqGAAkAD7tZKpNqaWkIiq4DfkwHYlAGOTkyCOfMrIUCXl26KLB6vQCwNR/JPtUsO0tgAD+4xgdBeQHkF9+n2/UH2YJoeiU2MBWkQOZYtuNB1S/YsUx10u+IrhO/OT1maR4FlLhVwOoKJfw1XsAAAA=",
+      "id": "931879",
+      "base": "images/ethnic-festive/ethnic-festive-05-931879",
+      "w": 4128,
+      "h": 6192,
+      "lqip": "data:image/webp;base64,UklGRooBAABXRUJQVlA4IH4BAADQCACdASoYACQAPu1krFGppKQiqrgKATAdiWwAnTKEgXyBKXf0Aqr5YGliaFGL/LVNXR/s7SpJM0o8mxKdIRt81/pqoqsGxJCd/ILowTCYAP7tUKDi5yNVIvTyMmECNh1dYuju1bt6q9qLUSgM33LHX9Au3t//k7jVDEzaNnqKcnIob5tx0z7T/8YQEXZ8bq76lWoBT3NsaESZ0bGkQepdIrizUn/pRTzrJXdikQVgr5KEnOVg3LV+xjsSjwARvz+V/o5MpBv+F5EqjXjur9nmk46Q67k8MtfWIpKY9s733tEDAjSrFXxfQ1NX/ofanoG3/OkOMEbVWDuZGYXMNF9Bb/PILpJZoXPXwqunhlNnDEI/I1AR88o6g6DBDLkd17+/llXIgV9Z8gpMq6UN2MYgzz/BCUTffD2FITw1eGd5F9LUktS2s4EribftrBhj8KJ+TYpsXgrMeIvlcsh7xAtDvQXhPa2zT9318RTwkBD0aFBouycE2BCQNRCBbAAA",
       "formats": [
         "avif",
         "webp",
@@ -111,35 +110,13 @@
       "widths": [
         400,
         800,
-        1200
+        1200,
+        2000
       ],
-      "alt": "Ethnic Festive — sample frame 5, placeholder for photography",
+      "alt": "Cute",
       "caption": "Full-length celebration wear · 05",
       "order": 5,
-      "featured": false,
-      "sample": true
-    },
-    {
-      "id": "ph06",
-      "base": "images/ethnic-festive/sample-06-81d205",
-      "w": 1200,
-      "h": 1500,
-      "lqip": "data:image/webp;base64,UklGRmoBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN8AAAAFgNxGkiOJ2bOn7/y3VN9052NWmRARE7Dcex5yQw9L3LHM3NRo2qqQM6ljMYWQqEYptUKwbeaCUjoP4WHoXqVnSojxaJ+pUmWGxHg4Wf+LVktnJLbnQfq702q1Il4eKs36rmrVnkTeRhy/VrXarkTG22hEv6fW0s4kxvtw9utQbVci422I6BlLO5MYH8PZr10tPSNXfE6tpU3E+AihX1Mt1RPJeI3A11JtGYnk5cLPKq32gchzeuZvqSrbmScuucpjnP0vdTghThd2RZ1jG0XWQh3PyUCrLl4g6uorbr4fAFZQOCBkAAAA8AQAnQEqGAAeAD7tYqhNqaWjojAIATAdiUATpmvoYdr37V5A3fPz67grzssUV/UAAP7jTTUhKXah7LQgFeW19hw6ive9AqhI89V9mfByk/yMnztxyONIePaRIn+9Z/w/+bsAAA==",
-      "formats": [
-        "avif",
-        "webp",
-        "jpg"
-      ],
-      "widths": [
-        400,
-        800,
-        1200
-      ],
-      "alt": "Ethnic Festive — sample frame 6, placeholder for photography",
-      "caption": "Full-length celebration wear · 06",
-      "order": 6,
-      "featured": false,
-      "sample": true
+      "featured": false
     }
   ]
 }

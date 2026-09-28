@@ -58,18 +58,17 @@
       "title": "Ethnic Festive",
       "subtitle": "Full-length celebration wear",
       "blurb": "Festive dress photographed full-length with warm directional light. Movement, layered fabric and detail work for seasonal retail.",
-      "count": 6,
+      "count": 5,
       "order": 4,
       "published": true,
       "cover": {
-        "base": "images/ethnic-festive/sample-01-9c9556",
-        "w": 1200,
-        "h": 1500,
-        "lqip": "data:image/webp;base64,UklGRmwBAABXRUJQVlA4WAoAAAAQAAAAFwAAHQAAQUxQSN0AAAAFgB1JkmMle58G/LdUi9v+OAEmRMQETP+9rPKHrqb4x7LkQBSNpq0KcbhYhBCilFIzhDBOlkkpXTZCLtGf0o0SIcbFz1SqLCER43Ky/EzV0iUScbqPyvxcVKsVidwvRX4+q1W/ScR4jnXfpmo7E0PGU0T1fdbULkkk48X262y1nYkh4zmi+jZrapckhtOL7dfF1A1DDtXUJmIYL0R5nabqmSTGU6z7PrVlJBJ57HxUq70QkdvOV1U57Vx3vo8xLrZ/JqszgnM2+ovaIsYoMqdab2EEnXYPEHXw0B//DwBWUDggaAAAAFAFAJ0BKhgAHgA+7WKsT6mlJCIwGAgBMB2JYgCdMy/BiWvHdPT2LOQ8UXGcw9MQ3eftAAD+4001HOQwm07eQ5KAp2uahJTghMJVsFq8skBJAWy0/yOlVVIWZEf3N9OC3rGqr1WtAAAA",
-        "alt": "Ethnic Festive — sample frame 1, placeholder for photography",
-        "sample": true
+        "base": "images/ethnic-festive/ethnic-festive-01-5d702b",
+        "w": 4128,
+        "h": 6192,
+        "lqip": "data:image/webp;base64,UklGRmwBAABXRUJQVlA4IGABAACQCACdASoYACQAPu1urlIppiQipWsxMB2JbACdMoRwN7BbhU4OZyyR0/AXUDM/k5tVokNKFKoFQHLu4OEFWIWoXTPNU3Ug3Pa2L64KrgD+8dWPpdJom759zkvtHQK8qv5tG9jrqJfKxWVTUGtVmjdk1PXLDjaSH32X/xg0u5oe28Q8JvUmWPvFyuAZzO+huq3ECOtyjgIR7+qodTAsCrxSeqvlbPHlSUNc2nPiBB9rSArHJz4jS6hHBkok/luB7FeF7o48rdRuoIql9B7VV9j7x92sHaRp/PJfiiWYseLF5Nvumzr78axuFN5yKtVbeEbo3K91InzXfYjgx+PcZqEy5mLjFhLlPjDu4trjAO1tIv1ArVJoMBun1R4cFQevc6DR8kaBTxY+gyHjsn0vQqWjn5+nH/Bf2cmuvfvkNOMJEOxs+MF59SrvAmYBFMCwUO8oJD7smrdOoMKn/kyQAAAA",
+        "alt": "simple"
       },
-      "rev": "9c9556"
+      "rev": "5d702b"
     },
     {
       "slug": "sporty-scooter",
@@ -108,5 +107,5 @@
       "rev": "a2cd45"
     }
   ],
-  "rev": "6365dac9"
+  "rev": "9d1f9df0"
 }
