@@ -95,6 +95,14 @@ body {
 
 /* --- Buttons ------------------------------------------------------------ */
 
+/* Any author `display` beats the UA sheet's `[hidden] { display: none }`, so
+   a class carrying one silently re-shows the element. This panel toggles every
+   screen with [hidden] and nothing else, so the attribute has to win — the
+   signed-out gate was rendering a live "Sign out" button without it. */
+[hidden] {
+  display: none !important;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;

@@ -1020,6 +1020,15 @@ async function checkAdminGate(client) {
         gateVisible: !document.querySelector('#gate')?.hidden,
         panelHidden: document.querySelector('#panel')?.hidden === true,
         signoutHidden: document.querySelector('#signout')?.hidden === true,
+        /* The ATTRIBUTE is not the thing that hides an element. Any author
+           display declaration outranks the UA sheet's [hidden] rule, so
+           .btn's inline-flex re-showed a live "Sign out" on the signed-out
+           gate while el.hidden still read true. Assert on what actually
+           renders, for every [hidden] node — this panel has no other
+           mechanism for concealing a screen. */
+        hiddenButRendered: [...document.querySelectorAll('[hidden]')]
+          .filter(el => getComputedStyle(el).display !== 'none')
+          .map(el => el.tagName.toLowerCase() + (el.id ? '#' + el.id : '')),
         tokenType: document.querySelector('#token')?.type,
         tokenAutocomplete: document.querySelector('#token')?.getAttribute('autocomplete'),
         theme: document.documentElement.dataset.theme,
@@ -1042,6 +1051,10 @@ async function checkAdminGate(client) {
   if (m.publishControls !== 0)
     problems.push(`${m.publishControls} publish control(s) rendered before sign-in`);
   if (!m.signoutHidden) problems.push("Sign out button shown while signed out");
+  if (m.hiddenButRendered.length)
+    problems.push(
+      `[hidden] set but still rendered (a CSS display rule is overriding it): ${m.hiddenButRendered.join(", ")}`
+    );
   if (m.tokenType !== "password") problems.push(`token field is type=${m.tokenType}, not password`);
   if (m.tokenAutocomplete !== "off")
     problems.push("token field allows autocomplete — the browser would save the token");
