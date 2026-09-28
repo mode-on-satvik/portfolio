@@ -50,6 +50,15 @@ jobs:
       - name: Process staged uploads
         run: node tools/process-inbox.mjs
 
+      # Finishes the other half of a deletion. Removing a photo from the panel
+      # rewrites one category file and nothing else, so the 12 image variants
+      # are still on disk and data/index.json still advertises the old cover
+      # and count — index.json is derived, and process-inbox.mjs returns early
+      # when _inbox/ is empty, so a delete-only change never reaches its
+      # rebuild. This collects the orphans and rebuilds regardless.
+      - name: Prune deleted photos and rebuild the index
+        run: node tools/prune.mjs
+
       # Category pages are real directories because Pages cannot rewrite URLs,
       # so they must be regenerated whenever a category is added, renamed,
       # reordered or unpublished.
