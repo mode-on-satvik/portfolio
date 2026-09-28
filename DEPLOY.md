@@ -150,7 +150,7 @@ The whole cycle. Three of these five steps are one command each.
 | To change… | Edit this file |
 |---|---|
 | Name, age, city, bio, height, languages, contact email | `data/profile.json` |
-| Category titles, subtitles, blurbs, order, published on/off | `data/index.json` |
+| Category titles, subtitles, blurbs, order, published on/off | `data/categories/<slug>.json` |
 | Individual photo captions and alt text | `data/categories/<slug>.json` |
 | Colours, fonts, spacing | `assets/css/tokens.css` |
 | Homepage structure | `index.html` |
@@ -292,7 +292,43 @@ remove it, so there's nothing to set.
 4. Optionally tick one photo as the set cover
 5. **Publish**, then watch the **Activity** tab until it says Published (about two minutes)
 
-The **Categories** tab hides, shows and reorders sets without touching photos.
+**The Categories tab** manages the sets themselves — create, rename, reorder, hide, delete —
+without touching any photo.
+
+| Button | What it does |
+|---|---|
+| **↑ Up** / **↓ Down** | Moves the set earlier or later **on the home page**. That's the only thing the order affects; it doesn't reorder photos. |
+| **Hide** / **Show** | Takes the set off the site, or puts it back. Nothing is deleted, and the photos stay exactly where they are. |
+| **Edit** | Changes the name, subtitle and description. |
+| **Photos** | Lists the photos in the set, each with a **Remove** button. |
+| **Delete** | Deletes the whole set. Greyed out until the set is empty. |
+
+**Creating a set:** Categories tab → scroll to **New set** → type a name → **Create set**.
+
+The web address is made from the name, and shown underneath as you type: *Winter Formals*
+becomes `work/winter-formals/`. Accents and punctuation are stripped, because that one string
+is used as a folder name, a filename and a URL all at once.
+
+A new set is created **hidden and empty**, which is deliberate — a set that went live
+immediately would put a link on the home page to a page the build hasn't generated yet. So:
+create it, add photos to it from **Add photos**, then press **Show**.
+
+**Renaming a set:** Categories tab → **Edit** → change the name → **Save wording**.
+
+The web address does not change, and there's no option to change it. Renaming
+`work/winter-formals/` would move the category file, orphan its images folder and the generated
+page, and break any link already sent to a casting director. If you genuinely need a different
+address, create a new set and re-upload into it.
+
+**Deleting a set:** Categories tab → **Delete**. Only available once the set is empty — remove
+its photos first, via **Photos**.
+
+That restriction is on purpose. Deleting a set full of photos would be one tap, from a phone,
+with nothing but a dialog in between and no way back — the photos would leave the site while
+staying in git history forever, so "I'll put them back" wouldn't be true either. Emptying the
+set first means each photo is confirmed individually. The panel checks the set's actual contents
+rather than the count shown on screen, so a photo added since the last build still blocks the
+delete.
 
 **Removing a photo:** Categories tab → **Photos** on the set → **Remove** on the photo.
 It asks once, then commits. The gallery updates on the next build, a couple of minutes later.
@@ -349,6 +385,36 @@ Three things about this panel are worth knowing, because they look like bugs and
 nothing references any more and regenerates `data/index.json`. Don't delete the image files
 by hand and leave the JSON alone — the page would then reference files that aren't there,
 which is what broken images on the home page look like.
+
+**To add a category this way,** two files have to agree:
+
+1. Write `data/categories/<slug>.json`, using an existing one as the shape:
+
+   ```json
+   {
+     "slug": "winter-formals",
+     "title": "Winter Formals",
+     "subtitle": "",
+     "blurb": "",
+     "published": false,
+     "order": 7,
+     "photos": []
+   }
+   ```
+
+2. Add a matching entry to the `categories` array in `data/index.json` — just `slug`, `title`,
+   `subtitle`, `blurb`, `order` and `published`. Leave out `count`, `cover` and `rev`: those are
+   generated, and `node tools/prune.mjs` (or any workflow run) fills them in from the category
+   file.
+
+3. Run `node tools/build-pages.mjs` to generate `work/<slug>/index.html` — but only once
+   `"published": true`, since unpublished categories deliberately have no page.
+
+**To delete a category,** remove its entry from `data/index.json` and delete
+`data/categories/<slug>.json`, then run `node tools/prune.mjs` (deletes the now-unreferenced
+images) and `node tools/build-pages.mjs` (deletes `work/<slug>/`). Both directions matter:
+an index entry with no category file behind it is what broken images on the home page look
+like.
 
 **Alt text is not optional.** A gallery with no alt text is meaningless to a screen reader and
 invisible to image search. Write what's actually in the frame: *"Child model in a navy

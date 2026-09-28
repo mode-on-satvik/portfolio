@@ -2,12 +2,29 @@
   "updated": "2026-09-28",
   "categories": [
     {
+      "slug": "sporty-basketball",
+      "title": "Sporty Basketball",
+      "subtitle": "Summer collection",
+      "blurb": "Outdoor court in natural light. Motion, mid-action expression and genuine energy — suited to athletic and activewear campaigns.",
+      "count": 2,
+      "order": 1,
+      "published": true,
+      "cover": {
+        "base": "images/sporty-basketball/sporty-basketball-02-7a1e57",
+        "w": 3840,
+        "h": 5760,
+        "lqip": "data:image/webp;base64,UklGRjQBAABXRUJQVlA4ICgBAABQBwCdASoYACQAPu1urVIppiQipWsxMB2JbACdMscCqGqgcoBqvEcRDV3xo80UGD/7QnvnOT9ykyPSYmoCqT5VJo8AAP7zdRRSecCTD0utNVqC6peUZY7BLgvAMoy4qUtVoyLnO4FdlVSoX/yler7vkOPjblrlDfWq9eCMTJn1aDbwrDySjUIxzTg/rjURmKiCbB9YI5SeJ9FnKEl/IcO4T1PwishFRh/NfO7G3zjGwcEZHbU+1bLz8/DsbmSz8F681xJZ7zEMUPGS0bgNTJuap8g4C3wMfjAr+aie5B+FMS6AtmmYq502/EdsT6ucNPf7epo9pmTr9v9p3PSsNQlwTli6WeWy7IP0injcTjtkWxqcMsw2fumxC6HPcXtLPYXVnMKxU6gAAA==",
+        "alt": "Testing"
+      },
+      "rev": "7a1e57"
+    },
+    {
       "slug": "formal-suit",
       "title": "Formal Suit",
       "subtitle": "Closeup & seated",
       "blurb": "Tailored navy three-piece in studio. Direct-to-camera closeups and relaxed seated work — showing poise and stillness under lights.",
       "count": 6,
-      "order": 1,
+      "order": 2,
       "published": true,
       "cover": {
         "base": "images/formal-suit/sample-01-e1f1a4",
@@ -18,23 +35,6 @@
         "sample": true
       },
       "rev": "e1f1a4"
-    },
-    {
-      "slug": "sporty-basketball",
-      "title": "Sporty Basketball",
-      "subtitle": "Summer collection",
-      "blurb": "Outdoor court in natural light. Motion, mid-action expression and genuine energy — suited to athletic and activewear campaigns.",
-      "count": 2,
-      "order": 2,
-      "published": true,
-      "cover": {
-        "base": "images/sporty-basketball/sporty-basketball-02-7a1e57",
-        "w": 3840,
-        "h": 5760,
-        "lqip": "data:image/webp;base64,UklGRjQBAABXRUJQVlA4ICgBAABQBwCdASoYACQAPu1urVIppiQipWsxMB2JbACdMscCqGqgcoBqvEcRDV3xo80UGD/7QnvnOT9ykyPSYmoCqT5VJo8AAP7zdRRSecCTD0utNVqC6peUZY7BLgvAMoy4qUtVoyLnO4FdlVSoX/yler7vkOPjblrlDfWq9eCMTJn1aDbwrDySjUIxzTg/rjURmKiCbB9YI5SeJ9FnKEl/IcO4T1PwishFRh/NfO7G3zjGwcEZHbU+1bLz8/DsbmSz8F681xJZ7zEMUPGS0bgNTJuap8g4C3wMfjAr+aie5B+FMS6AtmmYq502/EdsT6ucNPf7epo9pmTr9v9p3PSsNQlwTli6WeWy7IP0injcTjtkWxqcMsw2fumxC6HPcXtLPYXVnMKxU6gAAA==",
-        "alt": "Testing"
-      },
-      "rev": "7a1e57"
     },
     {
       "slug": "ethnic-jacket-set",
@@ -109,5 +109,5 @@
       "rev": "a2cd45"
     }
   ],
-  "rev": "fea6c5b5"
+  "rev": "9179f766"
 }

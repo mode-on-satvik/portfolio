@@ -518,11 +518,11 @@ textarea[aria-invalid="true"] {
   flex-wrap: wrap;
 }
 
-/* Four buttons do not fit beside the title on a phone: the row squeezes the
-   text column until "Sporty Basketball" and "0 photos" wrap mid-phrase. Below
-   560px the actions drop to their own full-width row instead, which keeps the
-   title on one line and the 44px touch targets intact. */
-@media (max-width: 560px) {
+/* Six buttons do not fit beside the title on anything narrow: the row squeezes
+   the text column until "Sporty Basketball" and "0 photos" wrap mid-phrase.
+   Below 760px the actions drop to their own full-width row instead, which keeps
+   the title on one line and the 44px touch targets intact. */
+@media (max-width: 760px) {
   .cat {
     grid-template-columns: 54px minmax(0, 1fr);
     row-gap: var(--s-3);
@@ -532,13 +532,20 @@ textarea[aria-invalid="true"] {
   }
 }
 
-/* The expandable photo list. .cat is a three-column grid, so this fourth child
-   would otherwise be squeezed into the first column of a new row. */
+/* The expandable edit form and photo list. .cat is a three-column grid, so
+   these trailing children would otherwise be squeezed into the first column of
+   a new row. */
 .cat__photos {
   grid-column: 1 / -1;
   margin-top: var(--s-3);
   padding-top: var(--s-3);
   border-top: 1px solid var(--line);
+}
+
+/* The last field in the expanded edit form sits directly above the Save button;
+   its own bottom margin plus the button's is more air than the row needs. */
+.cat__photos .field:last-of-type {
+  margin-bottom: var(--s-3);
 }
 
 .pill {

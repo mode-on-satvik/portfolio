@@ -2032,6 +2032,525 @@ async function checkAdminPhotoDelete(client) {
   return problems;
 }
 
+/**
+ * Creating, editing and deleting a category from the panel.
+ *
+ * Three properties carry the weight here, and each one has a specific way of
+ * going wrong on the public site rather than merely in the panel:
+ *
+ *   · WRITE ORDER. A category lives in two files — data/categories/<slug>.json
+ *     and an entry in data/index.json — and the site reads the index. Create
+ *     must write the category file FIRST (an index entry pointing at a missing
+ *     file is a visible 404 on the home page; a category file with no index
+ *     entry is merely invisible). Delete must do the reverse.
+ *
+ *   · DERIVED FIELDS. `count`, `cover` and `rev` in the index come from
+ *     rebuildIndex(). A panel that invented them would be a second, disagreeing
+ *     copy of that derivation, and the copy that is wrong is the one the home
+ *     page renders.
+ *
+ *   · THE DELETE GUARD READS THE FILE, NOT THE CACHED COUNT. index.json is only
+ *     refreshed by a build, so a photo added since the last build is invisible
+ *     to `count`. The fixture below has exactly that shape: a category the index
+ *     calls empty which actually holds a photo.
+ */
+async function checkAdminCategoryCrud(client) {
+  const { send, events } = client;
+  const problems = [];
+  const from = events.length;
+
+  /* `stale-set` is the interesting one: the index says 0 photos, the file holds
+     one. Anything that trusts `count` will happily delete it. */
+  const catalog = {
+    updated: "2026-01-01",
+    rev: "abc12345",
+    categories: [
+      { slug: "formal-suit", title: "Formal Suit", subtitle: "Studio", blurb: "Tailoring.", count: 2, order: 1, published: true },
+      { slug: "empty-set", title: "Empty Set", subtitle: "", blurb: "", count: 0, order: 4, published: false },
+      { slug: "stale-set", title: "Stale Set", subtitle: "", blurb: "", count: 0, order: 7, published: false },
+    ],
+  };
+
+  const files = {
+    "formal-suit": {
+      slug: "formal-suit",
+      title: "Formal Suit",
+      subtitle: "Studio",
+      blurb: "Tailoring.",
+      order: 1,
+      published: true,
+      photos: [
+        { id: "aaa", base: "images/formal-suit/formal-suit-01-aaa", order: 1, alt: "One", featured: true },
+        { id: "bbb", base: "images/formal-suit/formal-suit-02-bbb", order: 2, alt: "Two", featured: false },
+      ],
+    },
+    "empty-set": { slug: "empty-set", title: "Empty Set", order: 4, published: false, photos: [] },
+    "stale-set": {
+      slug: "stale-set",
+      title: "Stale Set",
+      order: 7,
+      published: false,
+      photos: [{ id: "zzz", base: "images/stale-set/stale-set-01-zzz", order: 1, alt: "Added since the last build" }],
+    },
+  };
+
+  /* data/index.json is served STATEFULLY: every PUT to it becomes what the next
+     GET returns. The panel does a read-modify-write per operation, so a fixed
+     reply would replay the original catalogue and hide exactly the bug worth
+     catching — a create that silently reinstates a category deleted a moment
+     earlier, because it merged into a stale copy of the file. The sha rolls with
+     each write for the same reason. */
+  let indexState = catalog;
+  let indexSha = "sha-index";
+  let indexWrites = 0;
+
+  const mock = await mockGitHub(client, {
+    "GET /repos/mode-on-satvik/portfolio": REPO_OK,
+    "GET /repos/mode-on-satvik/portfolio/contents/data/index.json": () =>
+      contentsJSON(indexState, indexSha),
+    "PUT /repos/mode-on-satvik/portfolio/contents/data/index.json": (_url, body) => {
+      const sent = JSON.parse(body || "{}");
+      indexState = JSON.parse(Buffer.from(sent.content, "base64").toString("utf8"));
+      indexSha = `sha-index-${++indexWrites}`;
+      return PUT_OK;
+    },
+    "GET /repos/mode-on-satvik/portfolio/contents/data/categories/formal-suit.json":
+      contentsJSON(files["formal-suit"], "sha-formal"),
+    "GET /repos/mode-on-satvik/portfolio/contents/data/categories/empty-set.json":
+      contentsJSON(files["empty-set"], "sha-empty"),
+    "GET /repos/mode-on-satvik/portfolio/contents/data/categories/stale-set.json":
+      contentsJSON(files["stale-set"], "sha-stale"),
+    "PUT /repos/mode-on-satvik/portfolio/contents/*": PUT_OK,
+    "DELETE /repos/mode-on-satvik/portfolio/contents/*": PUT_OK,
+  });
+
+  await send("Page.navigate", { url: `${BASE}/admin/` });
+  await new Promise((r) => setTimeout(r, 1200));
+  await signInPanel(send);
+
+  await evaluate(send, `document.querySelector('#tab-cats').click()`);
+  await new Promise((r) => setTimeout(r, 600));
+
+  await evaluate(
+    send,
+    `(() => {
+      window.__confirms = [];
+      window.__answer = true;
+      window.confirm = (m) => { window.__confirms.push(m); return window.__answer; };
+      return true;
+    })()`
+  );
+
+  /* --- The arrows say what they do (they were bare glyphs) ---------------- */
+  const chrome = JSON.parse(
+    await evaluate(
+      send,
+      `JSON.stringify({
+        up: document.querySelector('#view-cats [data-up]')?.textContent.trim() || '',
+        down: document.querySelector('#view-cats [data-down]')?.textContent.trim() || '',
+        hint: document.querySelector('#view-cats .field__hint')?.textContent || '',
+        form: !!document.querySelector('#newcat-form'),
+        rows: document.querySelectorAll('#view-cats .cat').length
+      })`
+    )
+  );
+  /* An unlabelled ↑ is the actual question that prompted this work — nobody
+     could tell what the arrows reordered. A glyph alone is not an answer. */
+  if (!/up/i.test(chrome.up)) problems.push(`the move-up button has no visible label: ${JSON.stringify(chrome.up)}`);
+  if (!/down/i.test(chrome.down)) problems.push(`the move-down button has no visible label: ${JSON.stringify(chrome.down)}`);
+  if (!/order/i.test(chrome.hint)) problems.push("the category list does not explain what the arrows do");
+  if (!chrome.form) problems.push("the New set form is missing");
+  if (chrome.rows !== 3) problems.push(`category list rendered ${chrome.rows} rows, expected 3`);
+
+  /* --- Delete is offered only where it is allowed ------------------------- */
+  const buttons = JSON.parse(
+    await evaluate(
+      send,
+      `JSON.stringify([...document.querySelectorAll('#view-cats [data-delcat]')]
+        .map(b => ({ slug: b.dataset.delcat, disabled: b.disabled, title: b.title })))`
+    )
+  );
+  const del = (slug) => buttons.find((b) => b.slug === slug);
+  if (buttons.length !== 3) problems.push(`${buttons.length} Delete buttons, expected 3`);
+  if (del("formal-suit")?.disabled !== true)
+    problems.push("Delete is enabled on a category that still has photos");
+  if (!/photos/i.test(del("formal-suit")?.title || ""))
+    problems.push("the disabled Delete button does not say why it is disabled");
+  if (del("empty-set")?.disabled !== false)
+    problems.push("Delete is disabled on an empty category — it can never be removed");
+
+  /* --- A stale count must not be enough to delete ------------------------- */
+  const beforeStale = mock.log.length;
+  await evaluate(send, `document.querySelector('[data-delcat="stale-set"]').click()`);
+  await new Promise((r) => setTimeout(r, 1500));
+
+  const stale = JSON.parse(
+    await evaluate(
+      send,
+      `JSON.stringify({
+        asked: window.__confirms.length,
+        msg: document.querySelector('#cats-msg')?.textContent.trim() || '',
+        rows: document.querySelectorAll('#view-cats .cat').length
+      })`
+    )
+  );
+  const staleWrites = mock.log
+    .slice(beforeStale)
+    .filter((c) => c.method === "PUT" || c.method === "DELETE");
+  if (staleWrites.length)
+    problems.push(
+      `deleting a category whose file still holds a photo wrote ${staleWrites.length} ` +
+        `time(s) — the guard trusted index.json's count instead of the file`
+    );
+  /* Refused BEFORE the dialog. Asking first and then refusing teaches that the
+     dialog is meaningless. */
+  if (stale.asked !== 0)
+    problems.push("a refused category delete still opened a confirmation dialog");
+  if (!/still has 1 photo/i.test(stale.msg))
+    problems.push(`the refusal did not say what was in the way: ${JSON.stringify(stale.msg)}`);
+  if (stale.rows !== 3) problems.push("a refused delete still removed the row");
+
+  /* --- Deleting an empty category: index entry out first ------------------ */
+  const beforeDelete = mock.log.length;
+  await evaluate(send, `document.querySelector('[data-delcat="empty-set"]').click()`);
+  await new Promise((r) => setTimeout(r, 2500));
+
+  const delCalls = mock.log
+    .slice(beforeDelete)
+    .filter((c) => c.method === "PUT" || c.method === "DELETE");
+  const asked = JSON.parse(await evaluate(send, `JSON.stringify(window.__confirms)`));
+  if (!asked.length) problems.push("a category was deleted without asking for confirmation");
+  if (delCalls.length !== 2) {
+    problems.push(
+      `deleting an empty category made ${delCalls.length} write(s), expected 2 ` +
+        `(index entry out, then the file): ${JSON.stringify(delCalls.map((c) => `${c.method} ${c.url}`))}`
+    );
+  } else {
+    const [first, second] = delCalls;
+    if (first.method !== "PUT" || !first.url.endsWith("data/index.json"))
+      problems.push(
+        `delete wrote ${first.method} ${first.url} first, expected the index — an index ` +
+          `entry pointing at a deleted file renders as broken images on the home page`
+      );
+    if (second.method !== "DELETE" || !second.url.endsWith("data/categories/empty-set.json"))
+      problems.push(`delete's second call was ${second.method} ${second.url}`);
+
+    const sentIndex = JSON.parse(first.body || "{}");
+    if (sentIndex.sha !== "sha-index")
+      problems.push(`the index write sent sha ${JSON.stringify(sentIndex.sha)}, expected the one it read`);
+    const idx = JSON.parse(Buffer.from(sentIndex.content, "base64").toString("utf8"));
+    const slugs = (idx.categories ?? []).map((c) => c.slug);
+    if (slugs.includes("empty-set")) problems.push("delete left the category in data/index.json");
+    if (slugs.length !== 2) problems.push(`delete left ${slugs.length} index entries, expected 2`);
+    /* Siblings must come through untouched — this is a whole-file rewrite, so a
+       bug here silently unpublishes or reorders everything else. */
+    const survivor = (idx.categories ?? []).find((c) => c.slug === "formal-suit");
+    if (survivor?.count !== 2 || survivor?.published !== true || survivor?.order !== 1)
+      problems.push("delete altered a sibling category's index entry");
+    if (idx.rev !== "abc12345")
+      problems.push("delete rewrote the index's derived rev — that is rebuildIndex()'s job");
+
+    if (JSON.parse(second.body || "{}").sha !== "sha-empty")
+      problems.push("the category file was deleted without the sha it read");
+  }
+
+  const afterDelete = JSON.parse(
+    await evaluate(send, `JSON.stringify({ rows: document.querySelectorAll('#view-cats .cat').length })`)
+  );
+  if (afterDelete.rows !== 2) problems.push(`after deleting, ${afterDelete.rows} rows remain, expected 2`);
+
+  /* --- Editing wording: one file, and not the index ----------------------- */
+  await evaluate(send, `document.querySelector('[data-edit="formal-suit"]').click()`);
+  await new Promise((r) => setTimeout(r, 1500));
+
+  const editForm = JSON.parse(
+    await evaluate(
+      send,
+      `(() => {
+        const box = document.querySelector('[data-edit-for="formal-suit"]');
+        return JSON.stringify({
+          visible: box && !box.hidden,
+          title: box?.querySelector('[data-f="title"]')?.value ?? null,
+          blurb: box?.querySelector('[data-f="blurb"]')?.value ?? null,
+          expanded: document.querySelector('[data-edit="formal-suit"]')?.getAttribute('aria-expanded'),
+          hasSlugField: !!box?.querySelector('[data-f="slug"]')
+        });
+      })()`
+    )
+  );
+  if (!editForm.visible) problems.push("the Edit button did not reveal the form");
+  if (editForm.expanded !== "true") problems.push("the Edit button did not report aria-expanded=true");
+  if (editForm.title !== "Formal Suit")
+    problems.push(`the edit form did not prefill the current name: ${JSON.stringify(editForm.title)}`);
+  if (editForm.blurb !== "Tailoring.")
+    problems.push(`the edit form did not prefill the description: ${JSON.stringify(editForm.blurb)}`);
+  /* An editable slug looks harmless and is not: it renames the category file,
+     orphans images/<slug>/ and work/<slug>/, and breaks every shared link. */
+  if (editForm.hasSlugField)
+    problems.push("the edit form offers to change the slug, which would orphan the images and break shared links");
+
+  const beforeEdit = mock.log.length;
+  await evaluate(
+    send,
+    `(() => {
+      const box = document.querySelector('[data-edit-for="formal-suit"]');
+      box.querySelector('[data-f="title"]').value = 'Formal Suits';
+      box.querySelector('[data-f="blurb"]').value = 'Sharp tailoring in daylight.';
+      box.querySelector('[data-save-edit]').click();
+      return true;
+    })()`
+  );
+  await new Promise((r) => setTimeout(r, 2500));
+
+  const editWrites = mock.log
+    .slice(beforeEdit)
+    .filter((c) => c.method === "PUT" || c.method === "DELETE");
+  if (editWrites.length !== 1) {
+    problems.push(
+      `editing wording made ${editWrites.length} write(s), expected 1 — rebuildIndex() ` +
+        `mirrors the copy into the index on the next build`
+    );
+  } else {
+    const w = editWrites[0];
+    if (!w.url.endsWith("data/categories/formal-suit.json"))
+      problems.push(`the wording edit wrote the wrong file: ${w.url}`);
+    const sent = JSON.parse(w.body || "{}");
+    if (sent.sha !== "sha-formal")
+      problems.push(`the wording edit sent sha ${JSON.stringify(sent.sha)}, expected the one it read`);
+    const cat = JSON.parse(Buffer.from(sent.content, "base64").toString("utf8"));
+    if (cat.title !== "Formal Suits") problems.push(`the wording edit saved title ${JSON.stringify(cat.title)}`);
+    if (cat.blurb !== "Sharp tailoring in daylight.")
+      problems.push("the wording edit did not save the description");
+    if (cat.slug !== "formal-suit") problems.push("the wording edit changed the slug");
+    if ((cat.photos ?? []).length !== 2)
+      problems.push(`the wording edit left ${(cat.photos ?? []).length} photos, expected 2 — it dropped the set's contents`);
+    if (cat.published !== true || cat.order !== 1)
+      problems.push("the wording edit altered fields it does not own (published / order)");
+  }
+
+  /* --- Creating: bad names are refused without touching GitHub ----------- */
+  /* Clears #cats-msg first. Without that, the "was it rejected out loud?"
+     assertion below would be satisfied by the PREVIOUS case's message still
+     sitting on screen, and a silently-ignored submit would pass. */
+  const fill = (title) =>
+    evaluate(
+      send,
+      `(() => {
+        document.querySelector('#cats-msg').innerHTML = '';
+        document.querySelector('#newcat-title').value = ${JSON.stringify(title)};
+        document.querySelector('#newcat-form')
+          .dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        return true;
+      })()`
+    );
+
+  for (const [title, why] of [
+    ["", "an empty name"],
+    ["   ", "a whitespace-only name"],
+    /* Slugifies to "", which would otherwise write data/categories/.json. */
+    ["!!! ???", "a name with no letters or digits"],
+    /* Slugifies to `formal-suit`, which exists. Deliberately in different case
+       and spacing from the real title: the collision test has to compare SLUGS,
+       not titles, or `FORMAL   suit` sails past and then overwrites the file. */
+    ["  FORMAL   suit  ", "a name that collides with an existing slug"],
+  ]) {
+    const before = mock.log.length;
+    await fill(title);
+    await new Promise((r) => setTimeout(r, 900));
+    const wrote = mock.log.slice(before).filter((c) => c.method === "PUT" || c.method === "DELETE");
+    if (wrote.length) problems.push(`${why} was accepted and wrote ${wrote.length} file(s)`);
+    const msg = await evaluate(send, `document.querySelector('#cats-msg')?.textContent.trim() || ''`);
+    if (!msg) problems.push(`${why} was rejected silently`);
+  }
+
+  /* --- Creating: the slug is derived, and the file comes first ------------ */
+  const beforeCreate = mock.log.length;
+  await evaluate(
+    send,
+    `(() => {
+      document.querySelector('#newcat-title').value = '  Café  Séance / Winter!  ';
+      document.querySelector('#newcat-subtitle').value = 'Autumn collection';
+      document.querySelector('#newcat-blurb').value = 'Soft light, seated.';
+      document.querySelector('#newcat-form')
+        .dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      return true;
+    })()`
+  );
+  await new Promise((r) => setTimeout(r, 2500));
+
+  const createWrites = mock.log.slice(beforeCreate).filter((c) => c.method === "PUT");
+  if (createWrites.length !== 2) {
+    problems.push(
+      `creating a category made ${createWrites.length} write(s), expected 2 ` +
+        `(the category file, then the index): ${JSON.stringify(createWrites.map((c) => c.url))}`
+    );
+  } else {
+    const [fileWrite, indexWrite] = createWrites;
+
+    /* Accents stripped, punctuation collapsed, ends trimmed: the slug is a
+       filename, a folder name and a URL segment at once. */
+    if (!fileWrite.url.endsWith("data/categories/cafe-seance-winter.json"))
+      problems.push(`create wrote ${fileWrite.url}, expected data/categories/cafe-seance-winter.json`);
+    if (!indexWrite.url.endsWith("data/index.json"))
+      problems.push(`create's second write went to ${indexWrite.url}, expected data/index.json`);
+
+    const sentFile = JSON.parse(fileWrite.body || "{}");
+    /* A sha on a create means the panel believes it is replacing something. */
+    if (sentFile.sha !== undefined)
+      problems.push(`create sent a sha (${JSON.stringify(sentFile.sha)}) for a file that does not exist yet`);
+
+    const cat = JSON.parse(Buffer.from(sentFile.content, "base64").toString("utf8"));
+    if (cat.slug !== "cafe-seance-winter") problems.push(`the new category file has slug ${JSON.stringify(cat.slug)}`);
+    if (cat.title !== "Café  Séance / Winter!")
+      problems.push(`the new category kept slug-mangled text as its title: ${JSON.stringify(cat.title)}`);
+    if (cat.subtitle !== "Autumn collection" || cat.blurb !== "Soft light, seated.")
+      problems.push("the new category dropped its subtitle or description");
+    /* Hidden on creation: build-pages.mjs only generates work/<slug>/ for
+       published categories, so going live immediately puts a link on the home
+       page to a page that does not exist until the run finishes. */
+    if (cat.published !== false)
+      problems.push("a new category was created live, linking the home page at a page the build has not made yet");
+    if (!Array.isArray(cat.photos) || cat.photos.length)
+      problems.push("a new category was not created with an empty photos array");
+    /* Existing orders are 1 and 7, so an off-by-one or a length-based guess
+       would collide with formal-suit and make the home-page order arbitrary. */
+    if (cat.order !== 8) problems.push(`the new category took order ${cat.order}, expected 8 (one past the highest)`);
+
+    const sentIndex = JSON.parse(indexWrite.body || "{}");
+    /* The sha the DELETE above left behind, not the original. Sending a stale
+       sha is how a concurrent edit gets silently clobbered — GitHub would reject
+       it, so the panel has to be re-reading the file, not caching it. */
+    if (sentIndex.sha !== "sha-index-1")
+      problems.push(
+        `create's index write sent sha ${JSON.stringify(sentIndex.sha)}, expected ` +
+          `sha-index-1 — it reused a stale copy of the index instead of re-reading it`
+      );
+    const idx = JSON.parse(Buffer.from(sentIndex.content, "base64").toString("utf8"));
+    if ((idx.categories ?? []).some((c) => c.slug === "empty-set"))
+      problems.push(
+        "create reinstated the category deleted a moment earlier — it merged into a " +
+          "stale copy of the index rather than re-reading it"
+      );
+    const added = (idx.categories ?? []).find((c) => c.slug === "cafe-seance-winter");
+    if (!added) problems.push("create did not add the category to data/index.json");
+    else {
+      if (added.order !== 8 || added.published !== false)
+        problems.push(`the new index entry disagrees with the category file: ${JSON.stringify(added)}`);
+      /* `count`, `cover` and `rev` are rebuildIndex()'s output. Inventing them
+         here is a second copy of the derivation, and it is the copy the home
+         page renders — a fabricated cover is broken <picture> markup. */
+      for (const derived of ["count", "cover", "rev"]) {
+        if (derived in added)
+          problems.push(`create invented the derived field \`${derived}\` in the index entry`);
+      }
+    }
+    if ((idx.categories ?? []).length !== 3)
+      problems.push(`create left ${(idx.categories ?? []).length} index entries, expected 3`);
+  }
+
+  const created = JSON.parse(
+    await evaluate(
+      send,
+      `JSON.stringify({
+        rows: document.querySelectorAll('#view-cats .cat').length,
+        msg: document.querySelector('#cats-msg')?.textContent.trim() || ''
+      })`
+    )
+  );
+  if (created.rows !== 3) problems.push(`after creating, ${created.rows} rows shown, expected 3`);
+  /* A set created hidden and empty looks broken unless the panel says what to
+     do next — otherwise the reasonable conclusion is that it failed. */
+  if (!/hidden/i.test(created.msg))
+    problems.push(`create did not explain that the new set is hidden: ${JSON.stringify(created.msg)}`);
+
+  await evaluate(send, `document.querySelector('#tab-upload').click()`);
+  await new Promise((r) => setTimeout(r, 600));
+  const options = JSON.parse(
+    await evaluate(send, `JSON.stringify([...document.querySelectorAll('#slug option')].map(o => o.value))`)
+  );
+  /* A set you cannot upload into is a set you cannot fill, and it must be
+     filled before it can be shown. */
+  if (!options.includes("cafe-seance-winter"))
+    problems.push(`the new set is not selectable in the upload picker: ${JSON.stringify(options)}`);
+
+  await mock.stop();
+  problems.push(...panelErrors(events, from));
+  return problems;
+}
+
+/**
+ * The catalogue agrees with itself.
+ *
+ * Not a browser check — this reads the files, because the drift it looks for is
+ * invisible in a browser. `data/index.json` is DERIVED from the category files
+ * by rebuildIndex(), so any field present in both must match. When they disagree
+ * the site renders the index's copy and the panel edits the category file's, and
+ * the edit simply appears not to have worked.
+ *
+ * `order` is why this exists. rebuildIndex() mirrored title, subtitle, blurb and
+ * published but not order, so the admin panel's reorder arrows — which write
+ * order into the category files and nothing else — were silently discarded. The
+ * shipped data had already drifted exactly that way.
+ */
+async function checkCatalogConsistency() {
+  const problems = [];
+
+  const index = await (await fetch(`${BASE}/data/index.json`)).json();
+
+  for (const entry of index.categories ?? []) {
+    const res = await fetch(`${BASE}/data/categories/${entry.slug}.json`);
+    if (!res.ok) {
+      /* An index entry with no file behind it is the shape that renders as
+         broken images on the home page. */
+      problems.push(`data/index.json lists ${entry.slug}, but its category file is missing (HTTP ${res.status})`);
+      continue;
+    }
+    const cat = await res.json();
+
+    for (const field of ["title", "subtitle", "blurb", "order"]) {
+      if (cat[field] === undefined) continue;
+      if (cat[field] !== entry[field]) {
+        problems.push(
+          `${entry.slug}: ${field} is ${JSON.stringify(cat[field])} in the category file ` +
+            `but ${JSON.stringify(entry[field])} in data/index.json — run node tools/prune.mjs`
+        );
+      }
+    }
+
+    if ((cat.published !== false) !== (entry.published !== false))
+      problems.push(`${entry.slug}: published disagrees between the category file and the index`);
+
+    const photos = cat.photos ?? [];
+    if (photos.length !== (entry.count ?? 0))
+      problems.push(`${entry.slug}: index says ${entry.count} photos, the file has ${photos.length}`);
+
+    /* Exactly one cover, and it must be the one rebuildIndex() would pick. Zero
+       covers means no home-page tile; two means the panel and the build can
+       disagree about which. */
+    const featured = photos.filter((p) => p.featured);
+    if (featured.length > 1)
+      problems.push(`${entry.slug}: ${featured.length} photos are marked as cover, expected at most 1`);
+
+    const expected = photos.slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    const cover = expected.find((p) => p.featured) ?? expected[0];
+    if (cover && entry.cover?.base !== cover.base)
+      problems.push(
+        `${entry.slug}: the index's cover is ${JSON.stringify(entry.cover?.base)}, ` +
+          `but the category file's cover photo is ${JSON.stringify(cover.base)}`
+      );
+    if (!cover && entry.cover)
+      problems.push(`${entry.slug}: the index names a cover, but the category has no photos`);
+  }
+
+  /* Duplicate orders make the home-page sequence arbitrary — Array.sort is not
+     required to be stable across values it considers equal. */
+  const orders = (index.categories ?? []).map((c) => c.order);
+  const dupes = orders.filter((o, i) => orders.indexOf(o) !== i);
+  if (dupes.length) problems.push(`two or more categories share an order value: ${JSON.stringify(dupes)}`);
+
+  return problems;
+}
+
 async function main() {
   /* Read the expected photo count from the data rather than hardcoding it.
      A hardcoded 6 turns every legitimate content change into a suite failure,
@@ -2211,6 +2730,10 @@ async function main() {
   report("admin: escaping, category edits, failure path", await checkAdminSafety(client));
 
   report("admin: photo delete", await checkAdminPhotoDelete(client));
+
+  report("admin: category create, edit, delete", await checkAdminCategoryCrud(client));
+
+  report("data: index.json agrees with the category files", await checkCatalogConsistency());
 
   /* The panel is used one-handed on a phone, so 320px matters more here than
      anywhere else on the site. Only the gate can be checked this way — the

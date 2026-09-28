@@ -184,6 +184,34 @@ export async function loadCatalog() {
   return json.categories.slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 }
 
+/**
+ * The whole index file plus its sha, for adding or removing a category entry.
+ *
+ * loadCatalog() above returns only the sorted array, which is all the panel
+ * needed while it could not create or delete a category. Writing the file back
+ * needs the sha and the sibling keys (`updated`, `rev`) preserved.
+ */
+export async function loadIndex() {
+  const { json, sha } = await getFile("data/index.json");
+  if (!json?.categories) throw new Error("data/index.json is missing or malformed");
+  return { index: json, sha };
+}
+
+/** Write data/index.json back. */
+export function saveIndex(index, sha, message) {
+  return putFile(
+    "data/index.json",
+    textToBase64(JSON.stringify(index, null, 2) + "\n"),
+    message,
+    sha
+  );
+}
+
+/** Remove a category's JSON file. */
+export function deleteCategory(slug, sha, message) {
+  return deleteFile(`data/categories/${slug}.json`, sha, message);
+}
+
 /** One category file plus its sha, ready to edit and write back. */
 export const loadCategory = (slug) => getFile(`data/categories/${slug}.json`);
 
