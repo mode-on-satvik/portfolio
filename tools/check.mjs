@@ -1874,6 +1874,164 @@ async function checkAdminSafety(client) {
   return problems;
 }
 
+/**
+ * Deleting a photo: the confirm gate, the single commit, and the cover.
+ *
+ * The cover is the part that can break the public site rather than merely the
+ * panel. data/index.json names a cover `base`; if the deleted photo was the
+ * cover and nothing is promoted, the home page emits <picture> markup for files
+ * that no longer exist and renders broken images — the failure already live on
+ * formal-suit. So this asserts the promotion, not just the removal.
+ */
+async function checkAdminPhotoDelete(client) {
+  const { send, events } = client;
+  const problems = [];
+  const from = events.length;
+
+  /* Three photos, and the COVER is deliberately not first in the array while
+     being first by `order`. A delete that promotes photos[0] instead of the
+     lowest `order` would pass on tidy data and disagree with rebuildIndex() on
+     real data, where order and array position drift apart after a reorder. */
+  const catFile = {
+    slug: "formal-suit",
+    title: "Formal Suit",
+    order: 1,
+    published: true,
+    photos: [
+      { id: "bbb", base: "images/formal-suit/formal-suit-02-bbb", order: 2, alt: "Second frame", featured: true },
+      { id: "aaa", base: "images/formal-suit/formal-suit-01-aaa", order: 1, alt: "First frame", featured: false },
+      { id: "ccc", base: "images/formal-suit/formal-suit-03-ccc", order: 3, alt: "Third frame", featured: false },
+    ],
+  };
+
+  const mock = await mockGitHub(client, {
+    "GET /repos/mode-on-satvik/portfolio": REPO_OK,
+    "GET /repos/mode-on-satvik/portfolio/contents/data/index.json": contentsJSON(MOCK_CATALOG),
+    "GET /repos/mode-on-satvik/portfolio/contents/data/categories/formal-suit.json":
+      contentsJSON(catFile, "sha-formal"),
+    "PUT /repos/mode-on-satvik/portfolio/contents/*": PUT_OK,
+  });
+
+  await send("Page.navigate", { url: `${BASE}/admin/` });
+  await new Promise((r) => setTimeout(r, 1200));
+  await signInPanel(send);
+
+  await evaluate(send, `document.querySelector('#tab-cats').click()`);
+  await new Promise((r) => setTimeout(r, 600));
+
+  /* window.confirm suspends the renderer, so CDP evaluate never returns while
+     one is open. Stub it, and record that it was asked — the fact that a
+     destructive action IS gated is itself the assertion. */
+  await evaluate(
+    send,
+    `(() => {
+      window.__confirms = [];
+      window.__answer = false;
+      window.confirm = (m) => { window.__confirms.push(m); return window.__answer; };
+      return true;
+    })()`
+  );
+
+  /* --- The photo list is not fetched until asked ------------------------- */
+  const beforeOpen = mock.log.length;
+  await evaluate(
+    send,
+    `document.querySelector('#view-cats [data-photos]').click()`
+  );
+  await new Promise((r) => setTimeout(r, 1200));
+
+  const opened = JSON.parse(
+    await evaluate(
+      send,
+      `JSON.stringify({
+        rows: document.querySelectorAll('#view-cats .sort__row').length,
+        removeBtns: document.querySelectorAll('#view-cats [data-del]').length,
+        expanded: document.querySelector('#view-cats [data-photos]')?.getAttribute('aria-expanded'),
+        firstAlt: document.querySelector('#view-cats .sort__alt')?.textContent.trim() || ''
+      })`
+    )
+  );
+  if (opened.rows !== 3) problems.push(`the photo list rendered ${opened.rows} rows, expected 3`);
+  if (opened.removeBtns !== 3) problems.push(`${opened.removeBtns} Remove buttons, expected 3`);
+  if (opened.expanded !== "true") problems.push("the Photos button did not report aria-expanded=true");
+  /* Sorted by `order`, so the first row is the photo with order 1 — not the
+     first element of the array, which is order 2 in this fixture. */
+  if (opened.firstAlt !== "First frame")
+    problems.push(`the photo list is not sorted by order: first row is ${JSON.stringify(opened.firstAlt)}`);
+
+  const reads = mock.log.slice(beforeOpen).filter((c) => c.method === "GET");
+  if (!reads.some((c) => c.url.endsWith("data/categories/formal-suit.json")))
+    problems.push("expanding a category did not read its category file");
+
+  /* --- Cancelling the confirm must write nothing ------------------------- */
+  const beforeCancel = mock.log.length;
+  await evaluate(send, `document.querySelector('#view-cats [data-del]').click()`);
+  await new Promise((r) => setTimeout(r, 1200));
+
+  const cancelled = JSON.parse(
+    await evaluate(
+      send,
+      `JSON.stringify({
+        asked: window.__confirms.length,
+        writes: 0,
+        rows: document.querySelectorAll('#view-cats .sort__row').length
+      })`
+    )
+  );
+  const cancelWrites = mock.log.slice(beforeCancel).filter((c) => c.method === "PUT");
+  if (!cancelled.asked) problems.push("Remove deleted without asking for confirmation");
+  if (cancelWrites.length)
+    problems.push(`cancelling the confirm still wrote ${cancelWrites.length} file(s)`);
+  if (cancelled.rows !== 3) problems.push("cancelling the confirm still removed the row");
+
+  /* --- Accepting deletes the cover and promotes the next by order -------- */
+  await evaluate(send, `window.__answer = true; true`);
+  const beforeDelete = mock.log.length;
+
+  /* Target the COVER (id bbb, order 2) specifically. */
+  await evaluate(
+    send,
+    `document.querySelector('#view-cats [data-photo-id="bbb"]').click()`
+  );
+  await new Promise((r) => setTimeout(r, 2500));
+
+  const writes = mock.log.slice(beforeDelete).filter((c) => c.method === "PUT");
+  if (writes.length !== 1) {
+    problems.push(
+      `deleting one photo made ${writes.length} write(s), expected exactly 1 — ` +
+        `the image files are pruned by the workflow, not from the browser`
+    );
+  } else {
+    const sent = JSON.parse(writes[0].body || "{}");
+    if (!writes[0].url.endsWith("data/categories/formal-suit.json"))
+      problems.push(`delete wrote the wrong file: ${writes[0].url}`);
+    if (sent.sha !== "sha-formal")
+      problems.push(`delete sent sha ${JSON.stringify(sent.sha)}, expected the one it read`);
+
+    const cat = JSON.parse(Buffer.from(sent.content, "base64").toString("utf8"));
+    const ids = (cat.photos ?? []).map((p) => p.id);
+    if (ids.length !== 2 || ids.includes("bbb"))
+      problems.push(`delete left photos ${JSON.stringify(ids)}, expected aaa and ccc`);
+
+    /* The cover must move to the lowest remaining `order` (aaa), matching
+       rebuildIndex()'s own `photos.find(featured) ?? photos[0]` fallback. A
+       category with no cover renders as broken images on the home page. */
+    const covers = (cat.photos ?? []).filter((p) => p.featured).map((p) => p.id);
+    if (covers.length !== 1)
+      problems.push(`after deleting the cover, ${covers.length} photos are marked cover, expected 1`);
+    else if (covers[0] !== "aaa")
+      problems.push(`the cover was promoted to ${covers[0]}, expected aaa (lowest order)`);
+
+    /* Copy fields the panel never edits must survive a delete untouched. */
+    if (cat.title !== "Formal Suit" || cat.published !== true || cat.order !== 1)
+      problems.push("delete altered fields it does not own (title / published / order)");
+  }
+
+  await mock.stop();
+  problems.push(...panelErrors(events, from));
+  return problems;
+}
+
 async function main() {
   /* Read the expected photo count from the data rather than hardcoding it.
      A hardcoded 6 turns every legitimate content change into a suite failure,
@@ -2051,6 +2209,8 @@ async function main() {
   report("admin: publish path", await checkAdminPublish(client));
 
   report("admin: escaping, category edits, failure path", await checkAdminSafety(client));
+
+  report("admin: photo delete", await checkAdminPhotoDelete(client));
 
   /* The panel is used one-handed on a phone, so 320px matters more here than
      anywhere else on the site. Only the gate can be checked this way — the

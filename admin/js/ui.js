@@ -470,7 +470,14 @@ function renderCategories() {
             <button class="btn btn--sm" data-toggle="${esc(c.slug)}">
               ${c.published ? "Hide" : "Show"}
             </button>
+            <button class="btn btn--sm" data-photos="${esc(c.slug)}"
+                    aria-expanded="false">Photos</button>
           </div>
+          <!-- Filled in on demand by loadPhotos(). The photo list needs the
+               category FILE, which the catalogue does not carry, so it costs a
+               request per category and is not worth fetching six of them up
+               front for a panel opened to reorder one set. -->
+          <div class="cat__photos" data-photos-for="${esc(c.slug)}" hidden></div>
         </li>`
         )
         .join("")}
@@ -478,11 +485,184 @@ function renderCategories() {
   `;
 
   view.onclick = async (e) => {
-    const t = e.target;
+    const t = e.target.closest("button");
+    if (!t) return;
     if (t.dataset.toggle) return toggleCategory(t.dataset.toggle);
     if (t.dataset.up) return moveCategory(t.dataset.up, -1);
     if (t.dataset.down) return moveCategory(t.dataset.down, 1);
+    if (t.dataset.photos) return togglePhotos(t);
+    if (t.dataset.del) return deletePhoto(t.dataset.del, t.dataset.photoId);
   };
+}
+
+/* --- Photos within a category ------------------------------------------- */
+
+/**
+ * Cached category files, keyed by slug: `{ cat, sha }`.
+ *
+ * The sha is the point. Deleting a photo is a read-modify-write of the whole
+ * category file, and GitHub rejects the write unless the sha matches what is
+ * currently on the branch — which is what stops this panel from silently
+ * discarding a caption someone edited from a laptop in the meantime. Cached so
+ * expanding a category, deleting two photos and collapsing it is one read.
+ */
+const catFiles = new Map();
+
+function togglePhotos(btn) {
+  const slug = btn.dataset.photos;
+  const box = $(`[data-photos-for="${CSS.escape(slug)}"]`);
+  if (!box) return;
+
+  if (!box.hidden) {
+    box.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+    return;
+  }
+
+  box.hidden = false;
+  btn.setAttribute("aria-expanded", "true");
+  return loadPhotos(slug);
+}
+
+async function loadPhotos(slug) {
+  const box = $(`[data-photos-for="${CSS.escape(slug)}"]`);
+  if (!box) return;
+
+  box.innerHTML = `<p class="empty">Loading photos…</p>`;
+
+  try {
+    const { json: cat, sha } = await loadCategory(slug);
+    if (!cat) throw new Error(`data/categories/${slug}.json not found`);
+    catFiles.set(slug, { cat, sha });
+    renderPhotos(slug);
+  } catch (err) {
+    box.innerHTML = `<div class="msg msg--err">${esc(err.message)}</div>`;
+  }
+}
+
+function renderPhotos(slug) {
+  const box = $(`[data-photos-for="${CSS.escape(slug)}"]`);
+  const entry = catFiles.get(slug);
+  if (!box || !entry) return;
+
+  const photos = (entry.cat.photos ?? [])
+    .slice()
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+  if (!photos.length) {
+    box.innerHTML = `<p class="empty">No photos in this set.</p>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <ul class="sort">
+      ${photos
+        .map(
+          (p) => `
+        <li class="sort__row" data-photo="${esc(p.id)}">
+          ${
+            p.lqip
+              ? `<img class="sort__thumb" src="${esc(p.lqip)}" alt="" />`
+              : `<div class="sort__thumb"></div>`
+          }
+          <div>
+            <div class="sort__alt">${esc(p.alt || "(no alt text)")}</div>
+            <div class="cat__meta">
+              ${esc(p.caption || "")}${p.featured ? " · cover" : ""}
+            </div>
+          </div>
+          <button class="btn btn--sm btn--danger"
+                  data-del="${esc(slug)}" data-photo-id="${esc(p.id)}">
+            Remove
+          </button>
+        </li>`
+        )
+        .join("")}
+    </ul>
+  `;
+}
+
+/**
+ * Delete one photo: rewrite the category file without it, in one commit.
+ *
+ * The 12 image variants are deliberately NOT deleted here. Doing it from the
+ * browser would be 12 more Contents-API commits per photo, and it would still
+ * leave data/index.json stale — `count`, `cover` and the cache-busting `rev`
+ * are derived from the category files by rebuildIndex(), which the workflow
+ * runs. tools/prune.mjs finishes the job on the next run: it collects image
+ * files no category references and rebuilds the index. So one commit here, and
+ * the workflow reconciles.
+ *
+ * The cover is the case that actually breaks the site. If the deleted photo was
+ * the cover, something else must be promoted — an index entry naming a cover
+ * with no files behind it renders as broken images on the home page, which is
+ * the failure already live on formal-suit.
+ */
+async function deletePhoto(slug, photoId) {
+  if (state.busy) return;
+
+  const entry = catFiles.get(slug);
+  if (!entry) return;
+
+  const photos = entry.cat.photos ?? [];
+  const photo = photos.find((p) => String(p.id) === String(photoId));
+  if (!photo) return;
+
+  const label = photo.alt?.trim() || photo.caption?.trim() || photo.id;
+  if (!confirm(`Remove this photo?\n\n${label}`)) return;
+
+  state.busy = true;
+  say("#cats-msg", "info", "Removing…");
+
+  try {
+    const kept = photos.filter((p) => String(p.id) !== String(photoId));
+
+    /* Promote a new cover when the deleted photo was it. First by order, to
+       match rebuildIndex()'s own `photos.find(featured) ?? photos[0]` fallback
+       — so the panel and the workflow agree on which photo becomes the cover
+       instead of each picking its own. */
+    if (photo.featured && kept.length) {
+      const next = kept
+        .slice()
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))[0];
+      next.featured = true;
+    }
+
+    const updated = { ...entry.cat, photos: kept };
+    await saveCategory(
+      slug,
+      updated,
+      entry.sha,
+      `Remove ${slug}/${photo.id}`
+    );
+
+    /* The sha just changed, so the cached one is stale. Drop it and re-read on
+       the next expand rather than guessing the new value — a wrong sha fails
+       the NEXT delete with a confusing conflict error. */
+    catFiles.delete(slug);
+
+    const local = state.categories.find((c) => c.slug === slug);
+    if (local) local.count = kept.length;
+
+    renderCategories();
+    /* Re-open the set that was just edited: collapsing it on every delete
+       would mean three taps per photo when clearing out a set. */
+    const btn = $(`[data-photos="${CSS.escape(slug)}"]`);
+    if (btn) await togglePhotos(btn);
+
+    say(
+      "#cats-msg",
+      "ok",
+      kept.length
+        ? `Removed. ${kept.length} photo${kept.length === 1 ? "" : "s"} left. The site rebuilds in a couple of minutes.`
+        : "Removed the last photo in this set. The site rebuilds in a couple of minutes."
+    );
+  } catch (err) {
+    catFiles.delete(slug);
+    say("#cats-msg", "err", `${esc(err.message)}<br />Nothing was removed.`);
+  } finally {
+    state.busy = false;
+  }
 }
 
 async function toggleCategory(slug) {

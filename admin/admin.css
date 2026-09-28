@@ -518,6 +518,29 @@ textarea[aria-invalid="true"] {
   flex-wrap: wrap;
 }
 
+/* Four buttons do not fit beside the title on a phone: the row squeezes the
+   text column until "Sporty Basketball" and "0 photos" wrap mid-phrase. Below
+   560px the actions drop to their own full-width row instead, which keeps the
+   title on one line and the 44px touch targets intact. */
+@media (max-width: 560px) {
+  .cat {
+    grid-template-columns: 54px minmax(0, 1fr);
+    row-gap: var(--s-3);
+  }
+  .cat__actions {
+    grid-column: 1 / -1;
+  }
+}
+
+/* The expandable photo list. .cat is a three-column grid, so this fourth child
+   would otherwise be squeezed into the first column of a new row. */
+.cat__photos {
+  grid-column: 1 / -1;
+  margin-top: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+
 .pill {
   display: inline-block;
   padding: 0.15em 0.6em;
@@ -627,15 +650,22 @@ textarea[aria-invalid="true"] {
   gap: var(--s-2);
 }
 
+/* Thumb, text, action. The text column is minmax(0,1fr) rather than 1fr so a
+   long alt string ellipsizes instead of forcing the row wider than the card. */
 .sort__row {
   display: grid;
-  grid-template-columns: 44px 54px minmax(0, 1fr) auto;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--s-3);
   padding: var(--s-2);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
+}
+
+/* Rows that carry a drag handle get a fourth column for it. */
+.sort__row:has(.sort__grip) {
+  grid-template-columns: 44px 54px minmax(0, 1fr) auto;
 }
 
 .sort__grip {

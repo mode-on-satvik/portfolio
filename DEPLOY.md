@@ -252,6 +252,8 @@ a minute. When it shows a green tick, the change is live at
 | `node tools/make-dummies.mjs --clean` | Deletes all sample images | Once real photos replace them |
 | `node tools/check.mjs` | Headless-browser smoke test | Before pushing anything visual |
 | `node tools/shot.mjs / 1440 900 home` | Screenshots a page at a given size | Comparing before/after |
+| `node tools/prune.mjs` | Deletes image files no category references, then rebuilds `index.json` | After removing a photo by hand; the workflow runs it every build |
+| `node tools/prune.mjs --dry-run` | Lists what it *would* delete, changes nothing | To check before letting it run |
 
 `make-dummies.mjs` **never overwrites real photography** — it skips any category that already
 contains a non-sample photo. So it's safe to run at any point.
@@ -292,6 +294,23 @@ remove it, so there's nothing to set.
 
 The **Categories** tab hides, shows and reorders sets without touching photos.
 
+**Removing a photo:** Categories tab → **Photos** on the set → **Remove** on the photo.
+It asks once, then commits. The gallery updates on the next build, a couple of minutes later.
+
+Two things about removal are worth knowing:
+
+- **If you remove the set's cover photo, the next one is promoted automatically.** A set
+  whose cover no longer exists renders as broken images on the home page, so this is not
+  left to chance.
+- **The image files are deleted by the build, not by the panel.** Removing a photo commits
+  one change — the photo's entry leaves `data/categories/<slug>.json` — and the workflow's
+  prune step then deletes its 12 image files and rebuilds `data/index.json`. Doing it that
+  way is one commit instead of thirteen, and it keeps `index.json` (which is generated)
+  honest. Between the commit and the build finishing, the files are still in the repo.
+
+As [the note at the top](#whats-free-and-where-the-limits-actually-are) says: removal takes a
+photo off the site, but it stays in git history. That cannot be undone from the panel.
+
 Three things about this panel are worth knowing, because they look like bugs and aren't:
 
 - **The token is never saved to the device** — not to localStorage, not to a cookie. Reloading
@@ -324,6 +343,12 @@ Three things about this panel are worth knowing, because they look like bugs and
    EXIF including GPS**, updates the JSON, empties `_inbox/`, and deploys.
 
 4. Edit the alt text and caption in `data/categories/<slug>.json`, then push again.
+
+**To remove a photo this way:** delete its object from the `photos` array in
+`data/categories/<slug>.json`, then run `node tools/prune.mjs`. That deletes the image files
+nothing references any more and regenerates `data/index.json`. Don't delete the image files
+by hand and leave the JSON alone — the page would then reference files that aren't there,
+which is what broken images on the home page look like.
 
 **Alt text is not optional.** A gallery with no alt text is meaningless to a screen reader and
 invisible to image search. Write what's actually in the frame: *"Child model in a navy
