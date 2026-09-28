@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Publish — Satvik</title>
+
+    <!-- KEEP THIS PANEL OUT OF SEARCH RESULTS.
+         It is a public URL on a public Pages site — there is no server to put
+         it behind. It holds no secrets (the token lives only in the visitor's
+         own memory and every write needs it), but an indexed admin page invites
+         people to poke at it, and a "Publish" result alongside the portfolio
+         looks unprofessional. robots.txt disallows it too; this is the copy
+         that survives someone linking to it directly. -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="admin.css" />
+
+    <!-- Theme before first paint, matching the public pages, so opening the
+         panel from the site does not flash white. -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("pf-theme");
+          var prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+          document.documentElement.dataset.theme =
+            saved || (prefersLight ? "light" : "dark");
+        } catch (e) {
+          /* storage blocked — the dark default in the markup stands */
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <h1 class="top__title">
+          Publish
+          <span>Satvik · portfolio</span>
+        </h1>
+        <div class="top__right">
+          <button class="btn btn--ghost btn--sm" id="theme" type="button">
+            Theme
+          </button>
+          <a class="btn btn--ghost btn--sm" href="../" target="_blank" rel="noopener">
+            View site
+          </a>
+          <button class="btn btn--sm" id="signout" type="button" hidden>
+            Sign out
+          </button>
+        </div>
+      </header>
+
+      <!-- Both screens ship in the markup and are toggled with [hidden].
+           There is no page navigation anywhere in this panel: a reload would
+           discard the in-memory token, so every screen change is client-side.
+           See the note at the top of auth.js. -->
+
+      <section id="gate" class="gate">
+        <h2 class="card__title">Sign in</h2>
+        <p class="gate__lede">
+          Paste your GitHub access token. It is kept in this tab's memory only —
+          never saved to the device — so you will need it again after a reload.
+        </p>
+
+        <div id="gate-msg" role="alert" aria-live="polite"></div>
+
+        <form id="signin-form" novalidate>
+          <label class="field">
+            <span class="field__label">Access token</span>
+            <!-- type=password so it is not shoulder-surfed or screenshotted.
+                 autocomplete=off because a saved token in the browser's
+                 password manager would defeat the whole not-persisted design. -->
+            <input
+              type="password"
+              id="token"
+              name="token"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="github_pat_…"
+              required
+            />
+            <p class="field__hint">
+              Needs <strong>Contents: Read and write</strong> on this repository.
+            </p>
+          </label>
+          <button class="btn btn--primary" type="submit" id="signin-btn">
+            Sign in
+          </button>
+        </form>
+
+        <details>
+          <summary>How do I get a token?</summary>
+          <ol>
+            <li>
+              Open <code>github.com/settings/personal-access-tokens</code> and
+              choose <strong>Generate new token</strong>.
+            </li>
+            <li>
+              Under <strong>Repository access</strong> pick
+              <code>mode-on-satvik/portfolio</code> only.
+            </li>
+            <li>
+              Under <strong>Permissions → Repository</strong> set
+              <strong>Contents</strong> to <strong>Read and write</strong>.
+            </li>
+            <li>
+              Set an expiry you are comfortable with, generate it, and copy the
+              value — GitHub shows it once.
+            </li>
+          </ol>
+        </details>
+      </section>
+
+      <main id="panel" hidden>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" id="tab-upload" aria-selected="true" aria-controls="view-upload">
+            Add photos
+          </button>
+          <button class="tab" role="tab" id="tab-cats" aria-selected="false" aria-controls="view-cats">
+            Categories
+          </button>
+          <button class="tab" role="tab" id="tab-runs" aria-selected="false" aria-controls="view-runs">
+            Activity
+          </button>
+        </div>
+
+        <div id="view-upload" role="tabpanel" aria-labelledby="tab-upload"></div>
+        <div id="view-cats" role="tabpanel" aria-labelledby="tab-cats" hidden></div>
+        <div id="view-runs" role="tabpanel" aria-labelledby="tab-runs" hidden></div>
+      </main>
+    </div>
+
+    <script type="module" src="js/ui.js"></script>
+
+    <noscript>
+      <p style="padding: 2rem; text-align: center">
+        This panel needs JavaScript — it talks to the GitHub API directly from
+        your browser. To add photos without it, see DEPLOY.md, Route B.
+      </p>
+    </noscript>
+  </body>
+</html>

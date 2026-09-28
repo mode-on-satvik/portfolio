@@ -262,14 +262,40 @@ contains a non-sample photo. So it's safe to run at any point.
 
 There are two routes. Both end up in the same place.
 
-### Route A — the admin panel (what it's for)
+### Route A — the admin panel (no terminal, works from a phone)
 
-Open `/admin/` on the live site, paste your token, drag photos in. The panel strips GPS data in
-the browser, commits the files, and the workflow does the rest. No terminal involved.
+Open <https://mode-on-satvik.github.io/portfolio/admin/>, paste a token, drag photos in.
 
-> Status: the admin panel is the next thing being built. Until then, use Route B.
+**Getting a token** (once, then reuse it until it expires):
 
-### Route B — the inbox folder (works today)
+1. Go to <https://github.com/settings/personal-access-tokens> → **Generate new token**
+2. **Repository access** → **Only select repositories** → `mode-on-satvik/portfolio`
+3. **Permissions → Repository → Contents** → **Read and write**
+4. Set an expiry you're comfortable with, generate, and copy the value — GitHub shows it once
+
+**Publishing:**
+
+1. Pick the set from the dropdown
+2. Drag photos in, or tap to choose them
+3. Write alt text for each one — the panel will not publish without it
+4. Optionally tick one photo as the set cover
+5. **Publish**, then watch the **Activity** tab until it says Published (about two minutes)
+
+The **Categories** tab hides, shows and reorders sets without touching photos.
+
+Three things about this panel are worth knowing, because they look like bugs and aren't:
+
+- **The token is never saved to the device** — not to localStorage, not to a cookie. Reloading
+  the page signs you out and you'll need to paste it again. That's the point: nothing can be
+  recovered from the phone afterwards.
+- **GPS is stripped in the browser, before anything is uploaded.** Not on the server — the panel
+  commits the original file, and a deleted file stays in git history forever on a public repo,
+  so stripping it later would be too late. Orientation is deliberately preserved, or portrait
+  photos would publish sideways.
+- **HEIC from an iPhone is usually rejected.** Set **Settings → Camera → Formats** to
+  **Most Compatible** so the phone saves JPEG, then re-pick the photos.
+
+### Route B — the inbox folder (from a laptop, with git)
 
 1. Put your original, full-size photos in `_inbox/<category-slug>/`:
 

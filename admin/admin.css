@@ -1,0 +1,678 @@
+/* ==========================================================================
+   admin.css — the panel
+
+   Deliberately plainer than the public site. This is a tool used on a phone,
+   probably one-handed, probably in a hurry: large touch targets, high
+   contrast, no entrance animations, nothing that moves while you are reading
+   it. It reuses tokens.css so it cannot drift from the site's palette, but it
+   does not reuse the site's typographic drama.
+   ========================================================================== */
+
+@import url("../assets/css/tokens.css");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  /* iOS Safari puts its toolbar over the bottom of the viewport. */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Screen-reader-only, but still focusable. */
+.vh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* --- Shell -------------------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: var(--s-5) var(--s-4) var(--s-9);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  padding-block: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s-6);
+}
+
+.top__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d3);
+  font-weight: 600;
+  letter-spacing: var(--tr-display);
+}
+
+.top__title span {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.top__right {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+/* --- Buttons ------------------------------------------------------------ */
+
+/* Any author `display` beats the UA sheet's `[hidden] { display: none }`, so
+   a class carrying one silently re-shows the element. This panel toggles every
+   screen with [hidden] and nothing else, so the attribute has to win — the
+   signed-out gate was rendering a live "Sign out" button without it. */
+[hidden] {
+  display: none !important;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  /* 44px minimum, because this is used on a touchscreen. */
+  min-height: 44px;
+  padding: var(--s-3) var(--s-5);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--fs-small);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  /* Fixed near-black rather than var(--bg): the accent is a light tan in both
+     themes, so themed text on it would be unreadable in dark mode. */
+  color: #1a1714;
+  font-weight: 600;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--accent);
+  filter: brightness(1.08);
+}
+
+.btn--ghost {
+  border-color: transparent;
+  color: var(--muted);
+  padding-inline: var(--s-3);
+}
+
+.btn--danger:hover:not(:disabled) {
+  border-color: #e06666;
+  background: rgba(224, 102, 102, 0.12);
+  color: #e06666;
+}
+
+.btn--sm {
+  min-height: 34px;
+  padding: var(--s-1) var(--s-3);
+  font-size: var(--fs-meta);
+}
+
+/* --- Cards and fields --------------------------------------------------- */
+
+.card {
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin-bottom: var(--s-5);
+}
+
+.card__title {
+  margin: 0 0 var(--s-2);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: var(--tr-meta);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field {
+  display: block;
+  margin-bottom: var(--s-4);
+}
+
+.field__label {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.field__hint {
+  margin: var(--s-2) 0 0;
+  font-size: var(--fs-meta);
+  color: var(--muted);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  /* 16px minimum, or iOS Safari zooms the whole page on focus. */
+  font-size: max(1rem, var(--fs-body));
+}
+
+textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+  line-height: var(--lh-snug);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: #e06666;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.check input {
+  width: 20px;
+  height: 20px;
+  min-height: 0;
+  accent-color: var(--accent);
+  flex: none;
+}
+
+/* --- Messages ----------------------------------------------------------- */
+
+.msg {
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--radius);
+  border-inline-start: 3px solid;
+  font-size: var(--fs-small);
+  margin-bottom: var(--s-4);
+}
+
+.msg--err {
+  border-color: #e06666;
+  background: rgba(224, 102, 102, 0.1);
+  color: #f0b3b3;
+}
+
+.msg--ok {
+  border-color: #6bbf7b;
+  background: rgba(107, 191, 123, 0.1);
+  color: #b6e0c0;
+}
+
+.msg--info {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-dim);
+}
+
+:root[data-theme="light"] .msg--err {
+  color: #8f2f2f;
+}
+
+:root[data-theme="light"] .msg--ok {
+  color: #2b6b3a;
+}
+
+/* --- Sign-in ------------------------------------------------------------ */
+
+.gate {
+  max-width: 26rem;
+  margin: clamp(2rem, 10vh, 6rem) auto 0;
+}
+
+.gate__lede {
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  margin-bottom: var(--s-5);
+}
+
+.gate details {
+  margin-top: var(--s-5);
+  font-size: var(--fs-meta);
+  color: var(--muted);
+}
+
+.gate summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--text-dim);
+}
+
+.gate ol {
+  padding-inline-start: var(--s-5);
+  line-height: var(--lh-body);
+}
+
+.gate code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  font-size: 0.95em;
+}
+
+/* --- Tabs --------------------------------------------------------------- */
+
+.tabs {
+  display: flex;
+  gap: var(--s-1);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s-6);
+  /* Scrolls rather than wrapping on a narrow phone. */
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  flex: none;
+  min-height: 44px;
+  padding: var(--s-3) var(--s-4);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: var(--fs-small);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tab[aria-selected="true"] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+
+/* --- Drop zone ---------------------------------------------------------- */
+
+.drop {
+  display: grid;
+  place-items: center;
+  gap: var(--s-2);
+  padding: var(--s-8) var(--s-4);
+  border: 2px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.drop:hover,
+.drop.is-over {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.drop__big {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" var(--soft);
+  font-size: var(--fs-d3);
+}
+
+.drop__hint {
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  max-width: 34ch;
+}
+
+/* --- Queued photos ----------------------------------------------------- */
+
+.queue {
+  list-style: none;
+  margin: var(--s-5) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-4);
+}
+
+.item {
+  display: grid;
+  /* Thumb column is fixed; the rest is fluid. minmax(0,1fr) not 1fr, or a
+     long filename in the text column forces the whole row wider than the
+     card and the page scrolls sideways. */
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: var(--s-4);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.item__thumb {
+  width: 96px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.item__name {
+  font-size: var(--fs-meta);
+  color: var(--muted);
+  /* A long filename must ellipsize, not stretch the grid. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: var(--s-3);
+}
+
+.item__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  margin-top: var(--s-3);
+}
+
+.item__tag {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.item--bad {
+  border-color: #e06666;
+}
+
+@media (max-width: 480px) {
+  .item {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: var(--s-3);
+  }
+  .item__thumb {
+    width: 64px;
+  }
+}
+
+/* --- Category list ----------------------------------------------------- */
+
+.cats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-3);
+}
+
+.cat {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.cat__thumb {
+  width: 54px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.cat__name {
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+
+.cat__meta {
+  font-size: var(--fs-meta);
+  color: var(--muted);
+}
+
+.cat__actions {
+  display: flex;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.15em 0.6em;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tr-micro);
+  text-transform: uppercase;
+}
+
+.pill--on {
+  background: rgba(107, 191, 123, 0.16);
+  color: #8fd49d;
+}
+
+.pill--off {
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+:root[data-theme="light"] .pill--on {
+  color: #2b6b3a;
+}
+
+/* --- Progress ---------------------------------------------------------- */
+
+.bar {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  overflow: hidden;
+  margin-block: var(--s-3);
+}
+
+.bar__fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width var(--dur-fast) var(--ease-out);
+}
+
+.runs {
+  list-style: none;
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-2);
+  font-size: var(--fs-meta);
+}
+
+.run {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-3);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.run__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--muted);
+}
+
+.run__dot--ok {
+  background: #6bbf7b;
+}
+.run__dot--bad {
+  background: #e06666;
+}
+.run__dot--busy {
+  background: var(--accent);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.run a {
+  color: var(--text-dim);
+  margin-inline-start: auto;
+}
+
+/* The one place motion is used at all, and it must still be suppressible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Sortable photo rows ---------------------------------------------- */
+
+.sort {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-2);
+}
+
+.sort__row {
+  display: grid;
+  grid-template-columns: 44px 54px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.sort__grip {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--muted);
+  cursor: grab;
+}
+
+.sort__row[aria-grabbed="true"] {
+  border-color: var(--accent);
+  opacity: 0.6;
+}
+
+.sort__thumb {
+  width: 54px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.sort__alt {
+  font-size: var(--fs-meta);
+  color: var(--text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.empty {
+  padding: var(--s-7) var(--s-4);
+  text-align: center;
+  color: var(--muted);
+  font-size: var(--fs-small);
+}
